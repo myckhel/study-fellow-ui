@@ -4,11 +4,14 @@ Mobile-first React frontend for the StudyFellow hackathon proof of concept.
 
 ## Git repository
 
-This directory is an independent Git repository on branch `main`, nested inside
-the hackathon workspace. The parent repository ignores this directory; run Git
-commands here (or use `git -C system/study-fellow-ui` from the workspace root).
-No remote is configured yet. This is not a Git submodule; converting it to one
-requires a separate repository URL.
+This directory is a Git submodule of the hackathon workspace, with its own
+history on branch `main`. Its remote is
+`https://github.com/myckhel/study-fellow-ui.git`. Run Git commands here (or use
+`git -C system/study-fellow-ui` from the workspace root).
+
+After the remote repository is created and the UI commits are pushed, clone
+the parent with `git clone --recurse-submodules <parent-repository-url>` or run
+`git submodule update --init --recursive` in an existing parent checkout.
 
 ## Run locally
 
