@@ -5,8 +5,13 @@ Deliver a clear, accessible learning experience within the project scope.
 
 ## Context and scope
 - Read `../../PROJECT_MEMORY.md` and relevant project specs before decisions.
-- Prioritize the photosynthesis journey: start → learn → answer → receive
-  adaptive feedback → transfer check → save and resume.
+- StudyFellow is intended for professionals and secondary-school, college, and
+  university learners who struggle with a specific concept or topic.
+- Prioritize a reusable topic-learning journey: start → learn → answer → receive
+  responsive feedback → transfer check → clear next step.
+- Use the configured secondary-school photosynthesis lesson as the current
+  hackathon demo fixture; do not treat it as the product's only audience or
+  subject. Keep broader content configuration clearly marked as future work.
 - Keep the demo coherent. Add features only for clear learner or judging value.
 - Distinguish working features, simulated behavior, and future plans.
 - Update project memory when durable decisions or status change.
@@ -17,7 +22,8 @@ Deliver a clear, accessible learning experience within the project scope.
 - Use short explanations, progressive disclosure, and supportive feedback.
 - Show meaningful progress and a clear resume point.
 - Provide loading, empty, error, retry, success, and offline states as relevant.
-- Preserve answers during interruptions; explain save and connection status.
+- Preserve answers during interruptions when local save/resume is implemented;
+  until then, do not imply that progress survives leaving or reload.
 - Use plain language. Avoid shame, distracting gamification, and unsupported
   claims about learning or AI capabilities.
 

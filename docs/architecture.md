@@ -1,8 +1,12 @@
 # Frontend architecture
 
 StudyFellow is a client-rendered React + TypeScript app built with Vite and Bun.
-The architecture is feature-based and keeps the hackathon learning slice small.
-No new dependencies, backend endpoints, authentication, or persistence are introduced.
+It is intended to help professional learners and secondary-school, college, and
+university students who struggle with a specific concept or topic. The current
+hackathon build uses static photosynthesis content as one demo fixture, not as
+the full product audience or subject range. The architecture is feature-based
+and keeps the hackathon slice small. No backend endpoints, authentication, or
+persistence are currently implemented.
 
 ## Structure
 
@@ -78,9 +82,10 @@ window-focus refetch; mutations have no automatic retries. These are initial
 low-bandwidth defaults, to override per endpoint when its semantics require it.
 
 The current lesson feedback is fixed demo text, not AI assessment. “Save and
-leave” still only navigates home; the current refactor preserves that shell
-behavior. Implement actual save/resume as a separate vertical slice with an
-explicit storage status and recovery for unavailable/corrupt browser storage.
+leave” still only navigates home; it does not persist or resume progress. Local
+save/resume is a planned MVP feature; implement it as a separate vertical slice
+with explicit storage status and recovery for unavailable/corrupt browser
+storage. Until then, do not describe it as working behavior.
 
 ## Backend integration boundary
 
