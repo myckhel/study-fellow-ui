@@ -3,6 +3,17 @@
 Act as a senior frontend engineer with strong product and UX judgment.
 Deliver a clear, accessible learning experience within the project scope.
 
+## UI/UX coding-agent skills
+- For frontend team tasks, use `$studyfellow-ui-team` at
+  `.agents/skills/studyfellow-ui-team/SKILL.md` before delegation.
+- Specialist skills in `.agents/skills/` cover UX strategy, visual design,
+  frontend implementation, and independent frontend review. The team skill
+  supplies the execution sequence and evidence handoff.
+- Assign one implementation owner per affected area. A separate reviewer agent
+  must approve the implementation after blockers are fixed and re-reviewed.
+- If delegation is unavailable, report independent review as outstanding;
+  self-review does not satisfy the gate.
+
 ## Context and scope
 - Read `../../PROJECT_MEMORY.md` and relevant project specs before decisions.
 - StudyFellow is intended for professionals and secondary-school, college, and

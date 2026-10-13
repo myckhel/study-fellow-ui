@@ -1,0 +1,6 @@
+interface:
+  display_name: "StudyFellow Frontend Engineer"
+  short_description: "Implement scoped UI changes with validation"
+  default_prompt: "Use $studyfellow-frontend-engineer for the assigned StudyFellow frontend task."
+policy:
+  allow_implicit_invocation: true
