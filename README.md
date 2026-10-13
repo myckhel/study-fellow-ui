@@ -39,12 +39,21 @@ bun run dev
 
 The current routes are `/` (learning dashboard) and `/lesson` (photosynthesis lesson shell). The adaptive response branches, transfer-question scoring, and durable resume behavior are not implemented yet. The lesson uses the owner's chosen scenario; it should receive a biology review before learner-facing use.
 
+## Architecture
+
+The app uses feature-based modules with lazy React Router routes, composed
+providers, feature-local Zustand state, a shared Query cache, and an Axios
+transport boundary. See [docs/architecture.md](docs/architecture.md) for the
+folder structure, state rules, backend integration, and deployment guidance.
+
+Browser checks: `bunx playwright install chromium`, then `bun run test:e2e`.
+
 ## Cosmic Observatory theme
 
 `src/index.css` is the canonical token source (`@theme static`, Tailwind 4).
 Use semantic utilities such as `bg-ivory`, `bg-surface`, `text-ink`,
 `text-muted`, `border-line`, `font-display`, and `shadow-observatory`.
-`src/theme.ts` reads those CSS variables in the browser and maps them to
+`src/shared/theme/observatory.ts` reads those CSS variables in the browser and maps them to
 Ant Design global and component tokens. `ThemeProvider` supplies the theme,
 context-aware Ant Design feedback, and reduced-motion preferences.
 

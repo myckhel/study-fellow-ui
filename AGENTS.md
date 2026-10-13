@@ -31,6 +31,10 @@ Deliver a clear, accessible learning experience within the project scope.
 
 ## Implementation
 - Use React, TypeScript, Vite, Bun, Tailwind, and existing Ant Design controls.
+- Follow `docs/architecture.md`: app composition → feature modules → shared
+  infrastructure. Use `@/` across layers, relative imports within a feature.
+- Keep routes lazy, feature state local to its domain, and backend query keys
+  and endpoint functions with the consuming feature.
 - Keep components focused; extract reusable patterns when repetition warrants.
 - Use local state for transient UI, Zustand for shared client state, and
   TanStack Query for server state.

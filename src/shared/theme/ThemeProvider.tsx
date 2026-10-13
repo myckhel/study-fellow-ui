@@ -1,7 +1,7 @@
 import type { ReactNode } from 'react'
 import { App as AntdApp, ConfigProvider } from 'antd'
 import { MotionConfig, useReducedMotion } from 'motion/react'
-import { createObservatoryTheme } from './theme'
+import { createObservatoryTheme } from './observatory'
 
 export function ThemeProvider({ children }: { children: ReactNode }) {
   const reducedMotion = useReducedMotion()
