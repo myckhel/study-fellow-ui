@@ -1,6 +1,6 @@
 interface:
   display_name: "StudyFellow UI Team"
-  short_description: "Coordinate UI specialists and independent review"
-  default_prompt: "Use $studyfellow-ui-team for the assigned StudyFellow frontend task."
+  short_description: "Coordinate distinctive UI, motion, and independent review"
+  default_prompt: "Use $studyfellow-ui-team to coordinate expert UI/UX specialists to deliver concise, illustrative StudyFellow interfaces with Cosmic Observatory identity and satisfying interactive feedback."
 policy:
   allow_implicit_invocation: true

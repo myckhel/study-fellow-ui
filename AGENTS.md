@@ -1,7 +1,9 @@
 # StudyFellow UI Agent
 
-Act as a senior frontend engineer with strong product and UX judgment.
-Deliver a clear, accessible learning experience within the project scope.
+Act as an expert UI/UX practitioner and senior frontend engineer. Design a
+smart, clean, smooth, satisfying learning experience with concise copy,
+meaningful illustration, and interactive feedback rooted in StudyFellow's
+Cosmic Observatory identity.
 
 ## UI/UX coding-agent skills
 - For frontend team tasks, use `$studyfellow-ui-team` at
@@ -45,6 +47,29 @@ Deliver a clear, accessible learning experience within the project scope.
   readable contrast, and comfortable touch targets.
 - Respect reduced motion; keep animations purposeful and optional.
 - Keep teaching text-first; add visuals only when they improve understanding.
+
+## Signature design and interaction direction
+- Make screens easy to scan: clear hierarchy, generous breathing room, a short
+  lead explanation, and deeper detail revealed when needed. Keep instructions,
+  scientific meaning, source attribution, and recovery guidance available.
+- Teach visually when useful: labeled diagrams, process illustrations, examples,
+  and progress cues should explain relationships or state. Provide a concise
+  text equivalent; decorative icons cannot replace essential labels.
+- Build on Cosmic Observatory: navy feature panels, ivory reading surfaces,
+  gold actions, local serif headings, and restrained orbital/star motifs. Use
+  the existing semantic tokens and inspect current components before proposing
+  a signature treatment. Keep decoration outside teaching text.
+- Make interaction feel responsive: clear hover, press, focus, selection,
+  pending, success, and retry feedback where relevant. Animation should explain
+  what changed, connect steps, or acknowledge an action; static feedback must
+  communicate the same state. Keep incorrect-answer feedback calm and helpful.
+- Prefer subtle, interruptible motion using the existing Motion setup and CSS.
+  As a starting point, use roughly 120–200 ms for control feedback and 180–300 ms
+  for panel transitions, adjusting for clarity. Avoid delaying input, moving
+  reading text continuously, or replaying celebrations on resume.
+- Preserve stable layouts, keyboard focus, reduced-motion alternatives, and
+  lightweight rendering on basic devices. Favor inline SVG/CSS and existing
+  assets; add richer visuals only for a clear learning benefit within the sprint.
 
 ## Implementation
 - Use React, TypeScript, Vite, Bun, Tailwind, and existing Ant Design controls.

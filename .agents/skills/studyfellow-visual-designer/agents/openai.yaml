@@ -1,6 +1,6 @@
 interface:
   display_name: "StudyFellow Visual Designer"
-  short_description: "Create bold, polished token-based interfaces"
-  default_prompt: "Use $studyfellow-visual-designer for the assigned StudyFellow frontend task."
+  short_description: "Design Cosmic Observatory visuals and smooth interactions"
+  default_prompt: "Use $studyfellow-visual-designer to design clean, illustrative StudyFellow screens with Cosmic Observatory signature details and smooth, purposeful animated feedback."
 policy:
   allow_implicit_invocation: true

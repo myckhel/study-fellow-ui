@@ -1,6 +1,6 @@
 interface:
   display_name: "StudyFellow UX Strategist"
-  short_description: "Simplify learner flows, copy, and recovery states"
-  default_prompt: "Use $studyfellow-ux-strategist for the assigned StudyFellow frontend task."
+  short_description: "Design concise visual journeys and contextual feedback"
+  default_prompt: "Use $studyfellow-ux-strategist to design a clear, concise, illustrative StudyFellow learner journey with purposeful interaction feedback and accessible recovery."
 policy:
   allow_implicit_invocation: true

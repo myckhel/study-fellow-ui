@@ -5,7 +5,14 @@ description: "Coordinate delegated UI/UX design, frontend implementation, and in
 
 # StudyFellow UI Team
 
-Locate the frontend root containing package.json and src/; read its AGENTS.md and docs/architecture.md. In the parent hackathon workspace, read PROJECT_MEMORY.md and the relevant outputs/studyfellow-ux-blueprint.md or outputs/photosynthesis-demo-spec.md. If those parent specs are unavailable, use the task brief and report the missing context. Keep photosynthesis as a demo fixture, not the whole audience. Preserve Cosmic Observatory tokens: navy panels, ivory reading surfaces, gold controls, local typography. Favor concise copy, one primary action, mobile-first layouts, keyboard access, visible focus, readable contrast, comfortable touch targets, and reduced motion. Never claim fixed demo feedback is adaptive AI or in-memory progress is durable resume. Stay within the assigned task and existing architecture/dependencies.
+Locate the frontend root containing package.json and src/; read its AGENTS.md and docs/architecture.md. In the parent hackathon workspace, read PROJECT_MEMORY.md and the relevant outputs/studyfellow-project-spec.md, outputs/studyfellow-ux-blueprint.md, or outputs/photosynthesis-demo-spec.md; use the latest project spec when older UX framing conflicts. If those parent specs are unavailable, use the task brief and report the missing context. Keep photosynthesis as a demo fixture, not the whole audience. Preserve Cosmic Observatory tokens: navy panels, ivory reading surfaces, gold controls, local typography. Favor concise copy, one primary action, mobile-first layouts, keyboard access, visible focus, readable contrast, comfortable touch targets, and reduced motion. Never claim fixed demo feedback is adaptive AI or in-memory progress is durable resume. Stay within the assigned task and existing architecture/dependencies.
+
+
+## Design direction in the team brief
+
+Apply the frontend AGENTS.md signature design and interaction direction to every assignment. Ask the UX and visual specialists to work as expert UI/UX practitioners: smart, concise, clean, smooth, satisfying, illustrative, and recognizably StudyFellow. Merge their proposals into implementable decisions, rather than leaving these as mood adjectives.
+
+Include a screen hierarchy, what stays visible versus disclosed, the learning purpose and text equivalent of each illustration, and a small interaction specification: trigger → visible state → feedback/motion → reduced-motion behavior. Prioritize polish on the core learning flow within the hackathon scope. Require evidence of the implemented interaction and identity as well as functional correctness.
 
 ## Execute the team
 

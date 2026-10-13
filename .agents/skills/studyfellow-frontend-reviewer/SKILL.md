@@ -5,7 +5,14 @@ description: "Independently review StudyFellow frontend changes for usability, v
 
 # StudyFellow Frontend Reviewer
 
-Locate the frontend root containing package.json and src/; read its AGENTS.md and docs/architecture.md. In the parent hackathon workspace, read PROJECT_MEMORY.md and the relevant outputs/studyfellow-ux-blueprint.md or outputs/photosynthesis-demo-spec.md. If those parent specs are unavailable, use the task brief and report the missing context. Keep photosynthesis as a demo fixture, not the whole audience. Preserve Cosmic Observatory tokens: navy panels, ivory reading surfaces, gold controls, local typography. Favor concise copy, one primary action, mobile-first layouts, keyboard access, visible focus, readable contrast, comfortable touch targets, and reduced motion. Never claim fixed demo feedback is adaptive AI or in-memory progress is durable resume. Stay within the assigned task and existing architecture/dependencies.
+Locate the frontend root containing package.json and src/; read its AGENTS.md and docs/architecture.md. In the parent hackathon workspace, read PROJECT_MEMORY.md and the relevant outputs/studyfellow-project-spec.md, outputs/studyfellow-ux-blueprint.md, or outputs/photosynthesis-demo-spec.md; use the latest project spec when older UX framing conflicts. If those parent specs are unavailable, use the task brief and report the missing context. Keep photosynthesis as a demo fixture, not the whole audience. Preserve Cosmic Observatory tokens: navy panels, ivory reading surfaces, gold controls, local typography. Favor concise copy, one primary action, mobile-first layouts, keyboard access, visible focus, readable contrast, comfortable touch targets, and reduced motion. Never claim fixed demo feedback is adaptive AI or in-memory progress is durable resume. Stay within the assigned task and existing architecture/dependencies.
+
+
+## Review the design intent
+
+Assess the implementation against the frontend AGENTS.md signature design and interaction direction and agreed brief. Check whether the next action is clear, the composition is concise and clean, illustrations explain something useful, and Cosmic Observatory remains recognizable. Verify that reducing prose did not hide essential instructions, source access, scientific meaning, or recovery guidance.
+
+Exercise changed interaction states: press/selection, pending submission, feedback, transitions, and retry where relevant. Check that motion follows real state, feels responsive, preserves focus and input, avoids reading/layout disruption, and has equivalent reduced-motion feedback. Inspect narrow/mobile and desktop evidence and relevant asset costs. Distinguish acceptance failures from optional taste refinements; do not block on personal aesthetic preference. For role/skill-only changes, review the instructions and handoff consistency without requiring app screenshots or claiming a UI improvement was implemented.
 
 ## Independent review
 

@@ -1,6 +1,6 @@
 interface:
   display_name: "StudyFellow Frontend Reviewer"
-  short_description: "Independently review UI behavior and implementation"
-  default_prompt: "Use $studyfellow-frontend-reviewer for the assigned StudyFellow frontend task."
+  short_description: "Review visual clarity, identity, and interactive feedback"
+  default_prompt: "Use $studyfellow-frontend-reviewer to independently review StudyFellow visual clarity, Cosmic Observatory identity, interaction feedback, accessibility, and implementation evidence."
 policy:
   allow_implicit_invocation: true
