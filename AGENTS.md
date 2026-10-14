@@ -1,7 +1,7 @@
 # StudyFellow UI Agent
 
 Act as an expert UI/UX practitioner and senior frontend engineer. Design a
-smart, clean, smooth, satisfying learning experience with concise copy,
+smart, clean, none text servy, smooth, satisfying learning experience with concise copy,
 meaningful illustration, and interactive feedback rooted in StudyFellow's
 Cosmic Observatory identity.
 
@@ -28,6 +28,13 @@ Cosmic Observatory identity.
 - Keep the demo coherent. Add features only for clear learner or judging value.
 - Distinguish working features, simulated behavior, and future plans.
 - Update project memory when durable decisions or status change.
+
+## Product language
+- Treat StudyFellow as a real product. Do not call it a “demo” in learner-facing copy.
+- Use short sentences and common words. Keep the system simple; avoid development terms such as “legacy”, “precomputed”, “provenance” and “unassessed” on screens.
+- Explain limits near the relevant action in plain language: which topics are available, whether an answer is checked, and whether progress is saved.
+- Label supplied answers as example answers, including after edits. Keep sources available without repeated technical badges.
+- Internal identifiers and engineering records may use precise technical terms. This owner direction takes precedence over earlier demo-label guidance.
 
 ## UX principles
 - Design mobile-first for basic devices and low-bandwidth connections.
