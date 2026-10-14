@@ -59,7 +59,7 @@ export function Component() {
           {showNote && (
             <p className="mt-5 rounded-2xl border border-line bg-orbit-soft p-4 text-sm leading-6">
               Read a short lesson, see an example and keep your questions here.
-              StudyFellow can’t reply to questions or check answers in this session yet.
+              Ask about light, energy and materials. Check your explanation and get a useful next step. The final new-situation answer is not checked yet.
               It is lost if you reload or close this tab. Saved lessons with answer checks are separate.
             </p>
           )}

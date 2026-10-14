@@ -221,3 +221,41 @@ PWA precache contains 17 entries totaling 829.47 KiB. No dependencies or externa
 assets were added; the main large-chunk warning remains. See
 [Phase 1 implementation evidence](../plans/phase-1/evidence.md) for final
 production checks, legacy regressions, actual captures and development-run caveat.
+
+## Phase 2 clarification and adaptation
+
+The new session now keeps independent answer/conversation drafts, immutable guided
+and follow-up attempts, origin/path/seed identity (including edits), original
+route IDs, stable route entries with completed/skipped status, and a route-change
+history linked to triggering attempts. Send is conversational and never scores
+or advances; a check-mode Send retains the answer draft. Need help switches the
+same composer to conversation and Return to answer restores the draft. Completed
+check destinations use conversation drafts, including when revisited.
+
+Explicit Check answer uses the existing conservative guided assessor. A distinct
+follow-up additionally requires the water/carbon-dioxide matter distinction;
+clearly attributed quoted statements can be excluded from assessment, while the
+original immutable text remains evidence. Unfamiliar or contradictory wording
+retains its draft and asks for clarification. Only explicit Continue with help
+commits uncertain evidence. Recognized feedback enters the ordered conversation;
+route reasons appear beside it before Continue. Sound guided answers skip the
+example; energy gaps add energy-bridge/follow-up; material or unresolved gaps add
+matter-energy/follow-up. Stable IDs prevent duplicate additions and attempts.
+
+The generated projection retains canonical clarification/fallback text, guided
+branch data, and just the editable learner inputs for three example paths. It
+excludes scripted transfer assessment, retry and recap results. Inputs are
+inserted one action at a time; Send/Check and ordinary navigation drive the flow.
+Example identity survives edits, so supplied words never become typed evidence.
+The transfer and summary remain unchecked previews; there is no v2 persistence,
+backend, general model generation, mastery or assessed completion claim.
+
+Final Phase 2 measurement: main JS 624.51 kB, total app JS 839.72 kB
+(+14.84 kB / 1.80% against recorded Phase 1), PWA precache 18 entries,
+844.18 KiB. No dependencies/external assets were added. Short viewports bound
+textarea growth and compact the expanded passive route scroll region; the New
+reply control sits in the reading area so added clarification controls do not
+push the dock out of view. Compound 320×500/375×480 cases include long edited
+example drafts, uncertainty actions, an expanded route and reply cue. See
+[Phase 2 evidence](../plans/phase-2/evidence.md) for actual final validation,
+independent review and the FE-13 completion boundary.

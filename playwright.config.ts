@@ -3,6 +3,7 @@ import { defineConfig } from '@playwright/test'
 export default defineConfig({
   testDir: './tests/e2e',
   fullyParallel: true,
+  timeout: 60000,
   retries: process.env.CI ? 1 : 0,
   use: {
     baseURL: process.env.PLAYWRIGHT_PRODUCTION

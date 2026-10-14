@@ -315,5 +315,246 @@
     "reviewer": null,
     "reviewDate": null,
     "basis": "Existing owner-approved photosynthesis demo spec and local content; no independent scientific review recorded."
-  }
+  },
+  "clarifications": [
+    {
+      "id": "light-to-sugar",
+      "question": "Does light turn into sugar?",
+      "answer": "Light supplies energy, not the matter that becomes sugar. Carbon dioxide and water are matter inputs. Captured light becomes chemical energy used in sugar building.",
+      "sourceRefs": [
+        "openstax-8-1",
+        "openstax-8-2"
+      ],
+      "advance": false,
+      "resumeAction": "Continue this step",
+      "preserves": [
+        "stepId",
+        "route",
+        "answerDraft",
+        "progress"
+      ],
+      "acceptedFeedback": [
+        "Does light turn into sugar?",
+        "Light sounds like food",
+        "I still don’t understand"
+      ]
+    }
+  ],
+  "fallbackExamples": [
+    {
+      "id": "partial-guided",
+      "input": "Light provides energy.",
+      "category": "partially-demonstrated",
+      "legacyCategory": "energy",
+      "response": "You named energy. Add how captured light energy supports sugar building.",
+      "nextStep": "energy-bridge",
+      "addedStepIds": [
+        "energy-bridge",
+        "follow-up"
+      ]
+    },
+    {
+      "id": "unknown-guided",
+      "input": "It follows the rhythm of the sky.",
+      "category": "unclear",
+      "legacyCategory": "unsure",
+      "response": "These local demo rules cannot confidently interpret this. Can you name what light provides and how it supports sugar building?",
+      "advance": false
+    },
+    {
+      "id": "unknown-question",
+      "input": "Can this plant photosynthesize on Mars?",
+      "response": "This prepared demo covers the role of light energy under suitable water, carbon dioxide, and temperature. Try “Does light turn into sugar?” or continue with your answer.",
+      "preserve": [
+        "step",
+        "route",
+        "answerDraft"
+      ],
+      "advance": false
+    },
+    {
+      "id": "unsupported-topic",
+      "input": "Teach me derivatives",
+      "response": "This demo has one prepared photosynthesis scenario. Your input is retained; try the sample to see the tutoring flow.",
+      "advance": false
+    },
+    {
+      "id": "teaching-still-unclear",
+      "input": "I still don’t understand",
+      "context": "teaching",
+      "dispatch": "contextual-feedback",
+      "response": "Let’s separate what supplies energy from what supplies materials. Light supplies energy; water and carbon dioxide are matter inputs. Captured light energy helps the plant build sugar.",
+      "sourceRefs": [
+        "openstax-8-1",
+        "openstax-8-2"
+      ],
+      "advance": false
+    },
+    {
+      "id": "teaching-light-food",
+      "input": "Light sounds like food",
+      "context": "teaching",
+      "dispatch": "contextual-feedback",
+      "response": "Light supplies energy, not the matter that becomes sugar. Let’s look again at energy and materials in the diagram.",
+      "sourceRefs": [
+        "openstax-8-1",
+        "openstax-8-2"
+      ],
+      "advance": false,
+      "assessmentCommitted": false
+    },
+    {
+      "id": "teaching-another-example",
+      "input": "show another example",
+      "context": "teaching",
+      "dispatch": "another-example",
+      "responseStepId": "example",
+      "advance": false,
+      "routePolicy": "Add or reuse the one prepared example; preserve current teaching step; no duplicate IDs."
+    },
+    {
+      "id": "unknown-session-feedback",
+      "input": "It reminds me of a spinning wheel",
+      "context": "teaching",
+      "dispatch": "contextual-feedback",
+      "response": "I can’t reliably connect that to this prepared example. Try telling me what remains confusing about energy or materials, or continue when ready.",
+      "advance": false,
+      "assessmentCommitted": false
+    },
+    {
+      "id": "uncertain-check-feedback",
+      "input": "I’m not sure",
+      "context": "check",
+      "dispatch": "contextual-feedback",
+      "response": "Let’s take one part at a time: what does light provide? Your answer is kept; you can ask for another example or explicitly continue with unresolved evidence.",
+      "advance": false,
+      "assessmentCommitted": false
+    }
+  ],
+  "examplePaths": [
+    {
+      "pathId": "ready",
+      "inputs": [
+        {
+          "id": "ready-turn-09",
+          "stepId": "guided",
+          "text": "Light provides energy that helps the plant build sugar.",
+          "event": "submit-answer",
+          "kind": "answer"
+        },
+        {
+          "id": "ready-turn-13",
+          "stepId": "transfer",
+          "text": "Plant A makes sugar faster because it has more light energy available to build sugar. Plant B has less captured light energy to support sugar building.",
+          "event": "submit-answer",
+          "kind": "answer"
+        }
+      ]
+    },
+    {
+      "pathId": "misconception",
+      "inputs": [
+        {
+          "id": "misconception-turn-09",
+          "stepId": "guided",
+          "text": "Sunlight becomes food",
+          "event": "submit-answer",
+          "kind": "answer"
+        },
+        {
+          "id": "misconception-turn-15",
+          "stepId": "follow-up",
+          "text": "Light provides energy to help build sugar. Water and carbon dioxide are materials.",
+          "event": "submit-answer",
+          "kind": "answer"
+        },
+        {
+          "id": "misconception-turn-21",
+          "stepId": "transfer",
+          "text": "Plant A makes sugar faster.",
+          "event": "submit-answer",
+          "kind": "answer"
+        }
+      ]
+    },
+    {
+      "pathId": "clarification",
+      "inputs": [
+        {
+          "id": "clarification-turn-07",
+          "stepId": "core",
+          "text": "Light sounds like food",
+          "event": "ask-clarification",
+          "kind": "conversation"
+        },
+        {
+          "id": "clarification-turn-11",
+          "stepId": "guided",
+          "text": "Light gives the plant energy",
+          "event": "save-answer-draft",
+          "kind": "answer"
+        },
+        {
+          "id": "clarification-turn-12",
+          "stepId": "guided",
+          "text": "Does light turn into sugar?",
+          "event": "ask-clarification",
+          "kind": "conversation"
+        },
+        {
+          "id": "clarification-turn-15",
+          "stepId": "guided",
+          "text": "Light provides energy that helps the plant build sugar.",
+          "event": "submit-answer",
+          "kind": "answer"
+        },
+        {
+          "id": "clarification-turn-19",
+          "stepId": "transfer",
+          "text": "Plant A makes sugar faster because it has more light energy available to build sugar. Plant B has less captured light energy to support sugar building.",
+          "event": "submit-answer",
+          "kind": "answer"
+        }
+      ]
+    }
+  ],
+  "branches": [
+    {
+      "category": "sound",
+      "feedback": "You connected light energy to sugar building. We can skip the repeated building example and apply your reasoning.",
+      "change": {
+        "id": "ready-skip-example",
+        "kind": "skip",
+        "stepIds": [
+          "example"
+        ],
+        "reason": "Guided answer demonstrated the energy-to-sugar connection.",
+        "triggerAttemptId": "ready-guided-first",
+        "addedStepIds": [],
+        "skippedStepIds": [
+          "example"
+        ]
+      }
+    },
+    {
+      "category": "material",
+      "feedback": "You described light as food. Let’s separate the energy source from matter inputs before another check.",
+      "change": {
+        "id": "misconception-add-matter",
+        "kind": "insert",
+        "afterStepId": "guided",
+        "stepIds": [
+          "matter-energy",
+          "follow-up"
+        ],
+        "reason": "Light was described as food/material.",
+        "triggerAttemptId": "misconception-guided-first",
+        "addedStepIds": [
+          "matter-energy",
+          "follow-up"
+        ],
+        "skippedStepIds": []
+      }
+    }
+  ]
 }

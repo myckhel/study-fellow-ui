@@ -97,10 +97,10 @@ summary { min-height: 44px; display: list-item; padding-block: 8px; }
 @media (max-height: 550px) {
   .session-header { padding-block: 8px; }
   .session-dock { padding-block: 8px; }
-  .session-dock textarea { max-height: 76px !important; }
-  .session-route-mobile[open] > div { max-height: min(22dvh, 60px); }
+  .session-dock textarea { max-height: 52px !important; }
+  .session-route-mobile[open] > div { max-height: min(22dvh, 40px); padding: 8px; }
   .session-action-hint { display: none; }
-  .session-actions { gap: 8px; }
+  .session-actions { gap: 8px; margin-bottom: 8px; }
   .session-actions .ant-btn { font-size: 13px; padding-inline: 8px; }
 }
 @media (max-width: 380px) {
@@ -111,3 +111,6 @@ summary { min-height: 44px; display: list-item; padding-block: 8px; }
 }
 
 .session-dock textarea.session-message-empty { height: 44px !important; min-height: 44px !important; }
+
+.session-reading-area { position: relative; display: flex; flex: 1; min-height: 0; }
+.session-reply-cue { position: absolute; right: 16px; bottom: 8px; min-height: 44px; z-index: 1; box-shadow: 0 2px 8px #10283b22; }
