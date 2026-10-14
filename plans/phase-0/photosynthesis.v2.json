@@ -1,0 +1,1906 @@
+{
+  "id": "photosynthesis",
+  "version": 2,
+  "packageStatus": "prepared-draft-revised-from-FE-02-owner-feedback",
+  "title": "How does light help a plant make sugar?",
+  "learnerType": "secondary-school biology learner",
+  "educationOrWorkContext": "Owner-selected hackathon demo fixture; product audience remains broader.",
+  "language": "en",
+  "topic": "Photosynthesis: light energy and sugar production",
+  "sourceMaterials": [
+    {
+      "id": "openstax-8-1",
+      "title": "OpenStax Biology 2e · 8.1",
+      "url": "https://openstax.org/books/biology-2e/pages/8-1-overview-of-photosynthesis",
+      "locator": "The Two Parts of Photosynthesis · Figure 8.7",
+      "supports": [
+        "matter inputs",
+        "carbohydrate production",
+        "oxygen release",
+        "G3P teaching note"
+      ]
+    },
+    {
+      "id": "openstax-8-2",
+      "title": "OpenStax Biology 2e · 8.2",
+      "url": "https://openstax.org/books/biology-2e/pages/8-2-the-light-dependent-reactions-of-photosynthesis",
+      "locator": "How Light-Dependent Reactions Work",
+      "supports": [
+        "capture of light energy",
+        "chemical energy carriers"
+      ]
+    }
+  ],
+  "initialLearnerInput": "I know plants need sunlight, but how does light help them make sugar?",
+  "diagnosis": {
+    "question": "Which are matter inputs the plant uses: water, carbon dioxide, or light energy?",
+    "likelyGap": "Distinguishing energy from matter and connecting light energy to sugar building",
+    "confidence": "tentative",
+    "evidence": "Initial confusion and optional recall; not a mastery assessment.",
+    "choices": [
+      {
+        "id": "matter",
+        "text": "Water and carbon dioxide",
+        "interpretation": "Distinction recognized; check connection to sugar."
+      },
+      {
+        "id": "light",
+        "text": "Water, carbon dioxide and light energy",
+        "interpretation": "Possible energy-as-matter confusion."
+      },
+      {
+        "id": "unsure",
+        "text": "I’m not sure",
+        "interpretation": "Start core explanation without assumptions."
+      },
+      {
+        "id": "skipped",
+        "text": "Skip recall",
+        "interpretation": "Start core explanation without assumptions."
+      }
+    ],
+    "maxFollowUps": 1,
+    "alternatives": [
+      "Recognizes energy but lacks connection to sugar building",
+      "Recall skipped or unclear"
+    ]
+  },
+  "inferredOutcome": "Explain how light helps plants make sugar",
+  "sessionTypeRecommendation": "one-off",
+  "plan": {
+    "stepIds": [
+      "core",
+      "guided",
+      "example",
+      "transfer",
+      "recap"
+    ],
+    "preview": "Understand the idea → explain it → apply it → recap",
+    "acceptAction": "Begin session",
+    "supportedCorrection": {
+      "id": "focus-energy-versus-matter",
+      "input": "I’m confused about energy versus materials.",
+      "outcome": "Explain how light energy differs from matter inputs and supports sugar building",
+      "route": [
+        "matter-energy",
+        "core",
+        "guided",
+        "example",
+        "transfer",
+        "recap"
+      ],
+      "rationale": "Emphasize the existing energy/matter distinction; no new biology scope."
+    },
+    "unsupportedCorrection": "Keep learner input; explain that only the prepared photosynthesis interpretations are available; offer original route or supported correction."
+  },
+  "steps": [
+    {
+      "id": "core",
+      "kind": "explanation",
+      "objective": "Distinguish energy from matter and connect captured energy to sugar building.",
+      "sourceRefs": [
+        "openstax-8-1",
+        "openstax-8-2"
+      ],
+      "contentBlocks": [
+        {
+          "id": "core-text",
+          "kind": "explanation",
+          "text": "Chlorophyll captures light. Light-dependent reactions store that energy in chemical carriers, which support building carbohydrates from carbon dioxide. Light is energy; water and carbon dioxide are matter inputs.",
+          "sourceRefs": [
+            "openstax-8-1",
+            "openstax-8-2"
+          ],
+          "provenance": "authored-source-summary"
+        },
+        {
+          "id": "energy-diagram",
+          "kind": "diagram",
+          "text": "Light captured by chlorophyll → chemical energy carriers → energy supports building sugar from carbon dioxide. Water participates; oxygen is released.",
+          "sourceRefs": [
+            "openstax-8-1",
+            "openstax-8-2"
+          ],
+          "provenance": "authored-source-summary",
+          "assetId": "energy-flow"
+        }
+      ],
+      "advanceCriteria": "Explicit continue; clarification does not advance."
+    },
+    {
+      "id": "guided",
+      "kind": "learner-prompt",
+      "objective": "Explain light’s role.",
+      "sourceRefs": [
+        "openstax-8-2"
+      ],
+      "contentBlocks": [
+        {
+          "id": "guided-prompt",
+          "kind": "learner-prompt",
+          "text": "A plant has enough water and carbon dioxide. Its leaves absorb light. What role does light play in helping the plant build sugar?",
+          "sourceRefs": [],
+          "provenance": "authored-demo"
+        }
+      ],
+      "advanceCriteria": "Submit answer; demonstrated skips example, misconception inserts matter-energy and follow-up; partial adds example; unclear requests clarification.",
+      "branches": [
+        "ready",
+        "misconception",
+        "partial",
+        "unclear"
+      ]
+    },
+    {
+      "id": "example",
+      "kind": "worked-example",
+      "objective": "Connect energy to sugar building.",
+      "sourceRefs": [
+        "openstax-8-1",
+        "openstax-8-2"
+      ],
+      "contentBlocks": [
+        {
+          "id": "example-text",
+          "kind": "worked-example",
+          "text": "Think of building something: you need materials and energy to do the work. Water and carbon dioxide are materials. Captured light provides energy that helps the plant build sugar. This comparison is a teaching example, not the full chemistry.",
+          "sourceRefs": [],
+          "provenance": "authored-demo"
+        }
+      ],
+      "advanceCriteria": "Explicit continue; may be skipped after demonstrated guided evidence."
+    },
+    {
+      "id": "matter-energy",
+      "kind": "mini-lesson",
+      "objective": "Correct light-as-matter misconception.",
+      "sourceRefs": [
+        "openstax-8-1",
+        "openstax-8-2"
+      ],
+      "contentBlocks": [
+        {
+          "id": "matter-energy-text",
+          "kind": "mini-lesson",
+          "text": "Light supplies energy, not the matter that becomes sugar. Carbon dioxide and water are matter inputs. Captured light is converted into chemical energy that supports sugar building.",
+          "sourceRefs": [
+            "openstax-8-1",
+            "openstax-8-2"
+          ],
+          "provenance": "authored-source-summary"
+        }
+      ],
+      "advanceCriteria": "Explicit continue to a different check; added only when requested or misconception recognized."
+    },
+    {
+      "id": "energy-bridge",
+      "kind": "worked-example",
+      "objective": "Connect named energy to sugar building.",
+      "sourceRefs": [
+        "openstax-8-1",
+        "openstax-8-2"
+      ],
+      "contentBlocks": [
+        {
+          "id": "energy-bridge-text",
+          "kind": "worked-example",
+          "text": "You identified light as energy. Add the next connection: captured light becomes chemical energy that helps build sugar from carbon dioxide.",
+          "sourceRefs": [
+            "openstax-8-1",
+            "openstax-8-2"
+          ],
+          "provenance": "authored-source-summary"
+        }
+      ],
+      "advanceCriteria": "Explicit continue to distinct follow-up; inserted after partial evidence."
+    },
+    {
+      "id": "follow-up",
+      "kind": "learner-prompt",
+      "objective": "Check the corrected energy/matter distinction.",
+      "sourceRefs": [
+        "openstax-8-1",
+        "openstax-8-2"
+      ],
+      "contentBlocks": [
+        {
+          "id": "follow-up-prompt",
+          "kind": "learner-prompt",
+          "text": "A learner says, “Sunlight is a material the plant turns into food.” How would you explain the difference between energy and matter?",
+          "sourceRefs": [],
+          "provenance": "authored-demo"
+        }
+      ],
+      "advanceCriteria": "Submit separate immutable attempt; unclear requests clarification, unresolved may continue honestly to transfer."
+    },
+    {
+      "id": "transfer",
+      "kind": "learner-prompt",
+      "objective": "Apply the role of light energy in a new situation.",
+      "sourceRefs": [
+        "openstax-8-1",
+        "openstax-8-2"
+      ],
+      "contentBlocks": [
+        {
+          "id": "transfer-prompt",
+          "kind": "learner-prompt",
+          "text": "Two similar plants have the same suitable water, carbon dioxide, and temperature. Plant B is moved to much dimmer light; light is now limiting. Which plant makes sugar faster? Explain why using light energy.",
+          "sourceRefs": [],
+          "provenance": "authored-demo"
+        }
+      ],
+      "advanceCriteria": "First immutable transfer result; 2/2 moves to recap, incomplete adds targeted retry; unclear asks for clarification before explicit unresolved submission."
+    },
+    {
+      "id": "retry",
+      "kind": "learner-prompt",
+      "objective": "Recheck transfer with a different situation.",
+      "sourceRefs": [
+        "openstax-8-1",
+        "openstax-8-2"
+      ],
+      "contentBlocks": [
+        {
+          "id": "retry-prompt",
+          "kind": "learner-prompt",
+          "text": "Two similar seedlings have suitable water, carbon dioxide, and temperature. Seedling C is under a brighter lamp; seedling D is shaded. Light is limiting for D. Which seedling makes sugar faster, and how does captured light energy explain the difference?",
+          "sourceRefs": [],
+          "provenance": "authored-demo"
+        }
+      ],
+      "advanceCriteria": "Keep first attempt; store separate retry result; recap even if unresolved."
+    },
+    {
+      "id": "recap",
+      "kind": "recap",
+      "objective": "Separate completion from demonstrated understanding.",
+      "sourceRefs": [
+        "openstax-8-1",
+        "openstax-8-2"
+      ],
+      "contentBlocks": [
+        {
+          "id": "recap-text",
+          "kind": "recap",
+          "text": "Review prediction and energy reasoning separately, keep first and retry results distinct, and name any unresolved connection. Simulation results demonstrate the interface, not learner validation.",
+          "sourceRefs": [],
+          "provenance": "authored-demo"
+        }
+      ],
+      "advanceCriteria": "Explicit finish/save; saved status comes from actual storage."
+    }
+  ],
+  "assets": [
+    {
+      "id": "energy-flow",
+      "path": "src/features/learning/components/LearningIllustration.tsx#EnergyFlow",
+      "type": "inline-svg-component",
+      "altText": "Light captured by chlorophyll becomes chemical energy carriers used to help build sugar from carbon dioxide; water participates and oxygen is released.",
+      "caption": "Energy and matter play different roles in photosynthesis.",
+      "textEquivalent": "Light captured by chlorophyll → chemical energy carriers → energy supports building sugar from carbon dioxide. Water participates; oxygen is released.",
+      "provenance": "Existing StudyFellow authored SVG; source-supported process summary, not an OpenStax image.",
+      "sourceRefs": [
+        "openstax-8-1",
+        "openstax-8-2"
+      ],
+      "missingAssetFallback": "Render text equivalent and caption; continue without the visual."
+    }
+  ],
+  "teachingNotes": {
+    "simplifiedEquation": "carbon dioxide + water + light energy → sugar (often represented as glucose) + oxygen",
+    "g3p": "The Calvin cycle’s direct carbohydrate product is G3P, which can be used to make glucose and other carbohydrates. Glucose in the familiar simplified equation does not mean it is made directly in one step.",
+    "conditions": "If light is limiting and water, carbon dioxide, temperature, and other conditions stay suitable, less available light energy generally means a lower rate of sugar production. Do not infer total stored glucose from light alone.",
+    "sourceRefs": [
+      "openstax-8-1",
+      "openstax-8-2"
+    ]
+  },
+  "transferCheck": {
+    "stepId": "transfer",
+    "retryStepId": "retry",
+    "rubric": [
+      {
+        "id": "prediction",
+        "points": 1,
+        "expectedEvidence": "Plant A has a higher sugar-production rate under the stated conditions; on retry, Seedling C."
+      },
+      {
+        "id": "energy-reasoning",
+        "points": 1,
+        "expectedEvidence": "Dimmer light means less captured light energy and less energy available to support sugar building."
+      }
+    ],
+    "successScore": 2,
+    "firstAndRetrySeparate": true,
+    "assessmentBoundary": "Preserve existing assessGuided/assessTransfer conservative rules; scenario expectations do not override actual typed assessment.",
+    "feedbackBranches": {
+      "demonstrated": "Acknowledge both criteria and show recap.",
+      "partial": "Name demonstrated criterion and unresolved criterion; offer targeted explanation plus different retry.",
+      "unclear": "Ask for clarification; retain draft. Explicit unresolved submission is available; no optimistic success."
+    }
+  },
+  "fallbackExamples": [
+    {
+      "id": "partial-guided",
+      "input": "Light provides energy.",
+      "category": "partially-demonstrated",
+      "legacyCategory": "energy",
+      "response": "You named energy. Add how captured light energy supports sugar building.",
+      "nextStep": "energy-bridge",
+      "addedStepIds": [
+        "energy-bridge",
+        "follow-up"
+      ]
+    },
+    {
+      "id": "unknown-guided",
+      "input": "It follows the rhythm of the sky.",
+      "category": "unclear",
+      "legacyCategory": "unsure",
+      "response": "These local demo rules cannot confidently interpret this. Can you name what light provides and how it supports sugar building?",
+      "advance": false
+    },
+    {
+      "id": "unknown-question",
+      "input": "Can this plant photosynthesize on Mars?",
+      "response": "This prepared demo covers the role of light energy under suitable water, carbon dioxide, and temperature. Try “Does light turn into sugar?” or continue with your answer.",
+      "preserve": [
+        "step",
+        "route",
+        "answerDraft"
+      ],
+      "advance": false
+    },
+    {
+      "id": "unsupported-topic",
+      "input": "Teach me derivatives",
+      "response": "This demo has one prepared photosynthesis scenario. Your input is retained; try the sample to see the tutoring flow.",
+      "advance": false
+    },
+    {
+      "id": "teaching-still-unclear",
+      "input": "I still don’t understand",
+      "context": "teaching",
+      "dispatch": "contextual-feedback",
+      "response": "Let’s separate what supplies energy from what supplies materials. Light supplies energy; water and carbon dioxide are matter inputs. Captured light energy helps the plant build sugar.",
+      "sourceRefs": [
+        "openstax-8-1",
+        "openstax-8-2"
+      ],
+      "advance": false
+    },
+    {
+      "id": "teaching-light-food",
+      "input": "Light sounds like food",
+      "context": "teaching",
+      "dispatch": "contextual-feedback",
+      "response": "Light supplies energy, not the matter that becomes sugar. Let’s look again at energy and materials in the diagram.",
+      "sourceRefs": [
+        "openstax-8-1",
+        "openstax-8-2"
+      ],
+      "advance": false,
+      "assessmentCommitted": false
+    },
+    {
+      "id": "teaching-another-example",
+      "input": "show another example",
+      "context": "teaching",
+      "dispatch": "another-example",
+      "responseStepId": "example",
+      "advance": false,
+      "routePolicy": "Add or reuse the one prepared example; preserve current teaching step; no duplicate IDs."
+    },
+    {
+      "id": "unknown-session-feedback",
+      "input": "It reminds me of a spinning wheel",
+      "context": "teaching",
+      "dispatch": "contextual-feedback",
+      "response": "I can’t reliably connect that to this prepared example. Try telling me what remains confusing about energy or materials, or continue when ready.",
+      "advance": false,
+      "assessmentCommitted": false
+    },
+    {
+      "id": "uncertain-check-feedback",
+      "input": "I’m not sure",
+      "context": "check",
+      "dispatch": "contextual-feedback",
+      "response": "Let’s take one part at a time: what does light provide? Your answer is kept; you can ask for another example or explicitly continue with unresolved evidence.",
+      "advance": false,
+      "assessmentCommitted": false
+    }
+  ],
+  "clarifications": [
+    {
+      "id": "light-to-sugar",
+      "question": "Does light turn into sugar?",
+      "answer": "Light supplies energy, not the matter that becomes sugar. Carbon dioxide and water are matter inputs. Captured light becomes chemical energy used in sugar building.",
+      "sourceRefs": [
+        "openstax-8-1",
+        "openstax-8-2"
+      ],
+      "advance": false,
+      "resumeAction": "Continue this step",
+      "preserves": [
+        "stepId",
+        "route",
+        "answerDraft",
+        "progress"
+      ],
+      "acceptedFeedback": [
+        "Does light turn into sugar?",
+        "Light sounds like food",
+        "I still don’t understand"
+      ]
+    }
+  ],
+  "simulationPaths": [
+    {
+      "pathId": "ready",
+      "learnerProfile": {
+        "context": "Secondary-school biology",
+        "initialReadiness": "ready"
+      },
+      "immutable": true,
+      "initialRoute": [
+        "core",
+        "guided",
+        "example",
+        "transfer",
+        "recap"
+      ],
+      "turnSequence": [
+        {
+          "id": "ready-turn-01",
+          "speaker": "learner",
+          "content": "I know plants need sunlight, but how does light help them make sugar?",
+          "event": "enter-topic",
+          "stepId": null,
+          "sourceRefs": [],
+          "provenance": {
+            "origin": "seeded",
+            "pathId": "ready",
+            "seedTurnId": "ready-turn-01",
+            "edited": false,
+            "label": "Simulated learner turn"
+          },
+          "sequence": 1
+        },
+        {
+          "id": "ready-turn-02",
+          "speaker": "tutor",
+          "content": "Which are matter inputs the plant uses: water, carbon dioxide, or light energy?",
+          "event": "ask-diagnosis",
+          "stepId": null,
+          "sourceRefs": [],
+          "provenance": {
+            "origin": "authored",
+            "pathId": "ready",
+            "seedTurnId": null,
+            "edited": false,
+            "label": "Prepared tutor response"
+          },
+          "sequence": 2
+        },
+        {
+          "id": "ready-turn-03",
+          "speaker": "learner",
+          "content": "Water and carbon dioxide",
+          "event": "submit-diagnosis",
+          "stepId": null,
+          "sourceRefs": [],
+          "provenance": {
+            "origin": "seeded",
+            "pathId": "ready",
+            "seedTurnId": "ready-turn-03",
+            "edited": false,
+            "label": "Simulated learner turn"
+          },
+          "diagnosisChoice": "matter",
+          "sequence": 3
+        },
+        {
+          "id": "ready-turn-04",
+          "speaker": "tutor",
+          "content": "Let’s explain how light helps plants make sugar. We’ll distinguish energy from materials, try an explanation, then apply it to a new situation.",
+          "event": "propose-plan",
+          "stepId": null,
+          "sourceRefs": [],
+          "provenance": {
+            "origin": "authored",
+            "pathId": "ready",
+            "seedTurnId": null,
+            "edited": false,
+            "label": "Prepared tutor response"
+          },
+          "route": [
+            "core",
+            "guided",
+            "example",
+            "transfer",
+            "recap"
+          ],
+          "inferredOutcome": "Explain how light helps plants make sugar",
+          "rationale": "Recall suggests emphasis; it is not proof of understanding.",
+          "sequence": 4
+        },
+        {
+          "id": "ready-turn-05",
+          "speaker": "learner",
+          "content": "Begin the session",
+          "event": "accept-plan",
+          "stepId": null,
+          "sourceRefs": [],
+          "provenance": {
+            "origin": "seeded",
+            "pathId": "ready",
+            "seedTurnId": "ready-turn-05",
+            "edited": false,
+            "label": "Simulated learner turn"
+          },
+          "sequence": 5
+        },
+        {
+          "id": "ready-turn-06",
+          "speaker": "tutor",
+          "content": "Chlorophyll captures light. Light-dependent reactions store that energy in chemical carriers, which support building carbohydrates from carbon dioxide. Light is energy; water and carbon dioxide are matter inputs.",
+          "event": "show-step",
+          "stepId": "core",
+          "sourceRefs": [
+            "openstax-8-1",
+            "openstax-8-2"
+          ],
+          "provenance": {
+            "origin": "authored",
+            "pathId": "ready",
+            "seedTurnId": null,
+            "edited": false,
+            "label": "Prepared tutor response"
+          },
+          "assetIds": [
+            "energy-flow"
+          ],
+          "sequence": 6
+        },
+        {
+          "id": "ready-turn-07",
+          "speaker": "learner",
+          "content": "Continue",
+          "event": "continue",
+          "stepId": "core",
+          "sourceRefs": [],
+          "provenance": {
+            "origin": "seeded",
+            "pathId": "ready",
+            "seedTurnId": "ready-turn-07",
+            "edited": false,
+            "label": "Simulated learner turn"
+          },
+          "sequence": 7
+        },
+        {
+          "id": "ready-turn-08",
+          "speaker": "tutor",
+          "content": "A plant has enough water and carbon dioxide. Its leaves absorb light. What role does light play in helping the plant build sugar?",
+          "event": "show-step",
+          "stepId": "guided",
+          "sourceRefs": [],
+          "provenance": {
+            "origin": "authored",
+            "pathId": "ready",
+            "seedTurnId": null,
+            "edited": false,
+            "label": "Prepared tutor response"
+          },
+          "sequence": 8
+        },
+        {
+          "id": "ready-turn-09",
+          "speaker": "learner",
+          "content": "Light provides energy that helps the plant build sugar.",
+          "event": "submit-answer",
+          "stepId": "guided",
+          "sourceRefs": [],
+          "provenance": {
+            "origin": "seeded",
+            "pathId": "ready",
+            "seedTurnId": "ready-turn-09",
+            "edited": false,
+            "label": "Simulated learner turn"
+          },
+          "attemptId": "ready-guided-first",
+          "sequence": 9,
+          "attemptKind": "guided"
+        },
+        {
+          "id": "ready-turn-10",
+          "speaker": "tutor",
+          "content": "You connected light energy to sugar building. We can skip the repeated building example and apply your reasoning.",
+          "event": "assess-answer",
+          "stepId": "guided",
+          "sourceRefs": [],
+          "provenance": {
+            "origin": "authored",
+            "pathId": "ready",
+            "seedTurnId": null,
+            "edited": false,
+            "label": "Prepared tutor response"
+          },
+          "assessment": {
+            "category": "demonstrated",
+            "legacyCategory": "sound",
+            "uncertain": false
+          },
+          "routeChange": {
+            "id": "ready-skip-example",
+            "kind": "skip",
+            "stepIds": [
+              "example"
+            ],
+            "reason": "Guided answer demonstrated the energy-to-sugar connection.",
+            "triggerAttemptId": "ready-guided-first",
+            "addedStepIds": [],
+            "skippedStepIds": [
+              "example"
+            ]
+          },
+          "sequence": 10
+        },
+        {
+          "id": "ready-turn-11",
+          "speaker": "learner",
+          "content": "Continue to the fresh check",
+          "event": "continue",
+          "stepId": "guided",
+          "sourceRefs": [],
+          "provenance": {
+            "origin": "seeded",
+            "pathId": "ready",
+            "seedTurnId": "ready-turn-11",
+            "edited": false,
+            "label": "Simulated learner turn"
+          },
+          "sequence": 11
+        },
+        {
+          "id": "ready-turn-12",
+          "speaker": "tutor",
+          "content": "Two similar plants have the same suitable water, carbon dioxide, and temperature. Plant B is moved to much dimmer light; light is now limiting. Which plant makes sugar faster? Explain why using light energy.",
+          "event": "show-step",
+          "stepId": "transfer",
+          "sourceRefs": [],
+          "provenance": {
+            "origin": "authored",
+            "pathId": "ready",
+            "seedTurnId": null,
+            "edited": false,
+            "label": "Prepared tutor response"
+          },
+          "sequence": 12
+        },
+        {
+          "id": "ready-turn-13",
+          "speaker": "learner",
+          "content": "Plant A makes sugar faster because it has more light energy available to build sugar. Plant B has less captured light energy to support sugar building.",
+          "event": "submit-answer",
+          "stepId": "transfer",
+          "sourceRefs": [],
+          "provenance": {
+            "origin": "seeded",
+            "pathId": "ready",
+            "seedTurnId": "ready-turn-13",
+            "edited": false,
+            "label": "Simulated learner turn"
+          },
+          "attemptId": "ready-transfer-first",
+          "sequence": 13,
+          "attemptKind": "transfer"
+        },
+        {
+          "id": "ready-turn-14",
+          "speaker": "tutor",
+          "content": "First transfer attempt: 2/2. You identified Plant A and connected less captured light energy to less energy for sugar building.",
+          "event": "assess-answer",
+          "stepId": "transfer",
+          "sourceRefs": [],
+          "provenance": {
+            "origin": "authored",
+            "pathId": "ready",
+            "seedTurnId": null,
+            "edited": false,
+            "label": "Prepared tutor response"
+          },
+          "assessment": {
+            "score": 2,
+            "prediction": true,
+            "reasoning": true,
+            "uncertain": false
+          },
+          "sequence": 14
+        },
+        {
+          "id": "ready-turn-15",
+          "speaker": "learner",
+          "content": "View recap",
+          "event": "continue",
+          "stepId": "transfer",
+          "sourceRefs": [],
+          "provenance": {
+            "origin": "seeded",
+            "pathId": "ready",
+            "seedTurnId": "ready-turn-15",
+            "edited": false,
+            "label": "Simulated learner turn"
+          },
+          "sequence": 15
+        },
+        {
+          "id": "ready-turn-16",
+          "speaker": "tutor",
+          "content": "Light provides energy; water and carbon dioxide are matter inputs. First transfer: 2/2; prediction and energy reasoning were demonstrated. These are simulated results, not evidence from a real learner. No criterion remains unresolved in this prepared path. Next: review how chlorophyll captures light. Save status depends on browser storage.",
+          "event": "show-recap",
+          "stepId": "recap",
+          "sourceRefs": [
+            "openstax-8-1",
+            "openstax-8-2"
+          ],
+          "provenance": {
+            "origin": "authored",
+            "pathId": "ready",
+            "seedTurnId": null,
+            "edited": false,
+            "label": "Prepared tutor response"
+          },
+          "recap": {
+            "completed": true,
+            "firstScore": 2,
+            "retryScore": null,
+            "unresolved": [],
+            "evidenceOrigin": "simulated",
+            "nextAction": "Review the role of chlorophyll."
+          },
+          "sequence": 16
+        },
+        {
+          "id": "ready-turn-17",
+          "speaker": "learner",
+          "content": "Finish this session",
+          "event": "finish",
+          "stepId": "recap",
+          "sourceRefs": [],
+          "provenance": {
+            "origin": "seeded",
+            "pathId": "ready",
+            "seedTurnId": "ready-turn-17",
+            "edited": false,
+            "label": "Simulated learner turn"
+          },
+          "sequence": 17
+        }
+      ]
+    },
+    {
+      "pathId": "misconception",
+      "learnerProfile": {
+        "context": "Secondary-school biology",
+        "initialReadiness": "misconception"
+      },
+      "immutable": true,
+      "initialRoute": [
+        "core",
+        "guided",
+        "example",
+        "transfer",
+        "recap"
+      ],
+      "turnSequence": [
+        {
+          "id": "misconception-turn-01",
+          "speaker": "learner",
+          "content": "I know plants need sunlight, but how does light help them make sugar?",
+          "event": "enter-topic",
+          "stepId": null,
+          "sourceRefs": [],
+          "provenance": {
+            "origin": "seeded",
+            "pathId": "misconception",
+            "seedTurnId": "misconception-turn-01",
+            "edited": false,
+            "label": "Simulated learner turn"
+          },
+          "sequence": 1
+        },
+        {
+          "id": "misconception-turn-02",
+          "speaker": "tutor",
+          "content": "Which are matter inputs the plant uses: water, carbon dioxide, or light energy?",
+          "event": "ask-diagnosis",
+          "stepId": null,
+          "sourceRefs": [],
+          "provenance": {
+            "origin": "authored",
+            "pathId": "misconception",
+            "seedTurnId": null,
+            "edited": false,
+            "label": "Prepared tutor response"
+          },
+          "sequence": 2
+        },
+        {
+          "id": "misconception-turn-03",
+          "speaker": "learner",
+          "content": "Water, carbon dioxide and light energy",
+          "event": "submit-diagnosis",
+          "stepId": null,
+          "sourceRefs": [],
+          "provenance": {
+            "origin": "seeded",
+            "pathId": "misconception",
+            "seedTurnId": "misconception-turn-03",
+            "edited": false,
+            "label": "Simulated learner turn"
+          },
+          "diagnosisChoice": "light",
+          "sequence": 3
+        },
+        {
+          "id": "misconception-turn-04",
+          "speaker": "tutor",
+          "content": "Let’s explain how light helps plants make sugar. We’ll distinguish energy from materials, try an explanation, then apply it to a new situation.",
+          "event": "propose-plan",
+          "stepId": null,
+          "sourceRefs": [],
+          "provenance": {
+            "origin": "authored",
+            "pathId": "misconception",
+            "seedTurnId": null,
+            "edited": false,
+            "label": "Prepared tutor response"
+          },
+          "route": [
+            "core",
+            "guided",
+            "example",
+            "transfer",
+            "recap"
+          ],
+          "inferredOutcome": "Explain how light helps plants make sugar",
+          "rationale": "Recall suggests emphasis; it is not proof of understanding.",
+          "sequence": 4
+        },
+        {
+          "id": "misconception-turn-05",
+          "speaker": "learner",
+          "content": "Begin the session",
+          "event": "accept-plan",
+          "stepId": null,
+          "sourceRefs": [],
+          "provenance": {
+            "origin": "seeded",
+            "pathId": "misconception",
+            "seedTurnId": "misconception-turn-05",
+            "edited": false,
+            "label": "Simulated learner turn"
+          },
+          "sequence": 5
+        },
+        {
+          "id": "misconception-turn-06",
+          "speaker": "tutor",
+          "content": "Chlorophyll captures light. Light-dependent reactions store that energy in chemical carriers, which support building carbohydrates from carbon dioxide. Light is energy; water and carbon dioxide are matter inputs.",
+          "event": "show-step",
+          "stepId": "core",
+          "sourceRefs": [
+            "openstax-8-1",
+            "openstax-8-2"
+          ],
+          "provenance": {
+            "origin": "authored",
+            "pathId": "misconception",
+            "seedTurnId": null,
+            "edited": false,
+            "label": "Prepared tutor response"
+          },
+          "assetIds": [
+            "energy-flow"
+          ],
+          "sequence": 6
+        },
+        {
+          "id": "misconception-turn-07",
+          "speaker": "learner",
+          "content": "Continue",
+          "event": "continue",
+          "stepId": "core",
+          "sourceRefs": [],
+          "provenance": {
+            "origin": "seeded",
+            "pathId": "misconception",
+            "seedTurnId": "misconception-turn-07",
+            "edited": false,
+            "label": "Simulated learner turn"
+          },
+          "sequence": 7
+        },
+        {
+          "id": "misconception-turn-08",
+          "speaker": "tutor",
+          "content": "A plant has enough water and carbon dioxide. Its leaves absorb light. What role does light play in helping the plant build sugar?",
+          "event": "show-step",
+          "stepId": "guided",
+          "sourceRefs": [],
+          "provenance": {
+            "origin": "authored",
+            "pathId": "misconception",
+            "seedTurnId": null,
+            "edited": false,
+            "label": "Prepared tutor response"
+          },
+          "sequence": 8
+        },
+        {
+          "id": "misconception-turn-09",
+          "speaker": "learner",
+          "content": "Sunlight becomes food",
+          "event": "submit-answer",
+          "stepId": "guided",
+          "sourceRefs": [],
+          "provenance": {
+            "origin": "seeded",
+            "pathId": "misconception",
+            "seedTurnId": "misconception-turn-09",
+            "edited": false,
+            "label": "Simulated learner turn"
+          },
+          "attemptId": "misconception-guided-first",
+          "sequence": 9,
+          "attemptKind": "guided"
+        },
+        {
+          "id": "misconception-turn-10",
+          "speaker": "tutor",
+          "content": "You described light as food. Let’s separate the energy source from matter inputs before another check.",
+          "event": "assess-answer",
+          "stepId": "guided",
+          "sourceRefs": [],
+          "provenance": {
+            "origin": "authored",
+            "pathId": "misconception",
+            "seedTurnId": null,
+            "edited": false,
+            "label": "Prepared tutor response"
+          },
+          "assessment": {
+            "category": "misconception",
+            "legacyCategory": "material",
+            "uncertain": false
+          },
+          "routeChange": {
+            "id": "misconception-add-matter",
+            "kind": "insert",
+            "afterStepId": "guided",
+            "stepIds": [
+              "matter-energy",
+              "follow-up"
+            ],
+            "reason": "Light was described as food/material.",
+            "triggerAttemptId": "misconception-guided-first",
+            "addedStepIds": [
+              "matter-energy",
+              "follow-up"
+            ],
+            "skippedStepIds": []
+          },
+          "sequence": 10
+        },
+        {
+          "id": "misconception-turn-11",
+          "sequence": 11,
+          "speaker": "learner",
+          "content": "Continue to the added mini-lesson",
+          "event": "continue",
+          "stepId": "guided",
+          "sourceRefs": [],
+          "provenance": {
+            "origin": "seeded",
+            "pathId": "misconception",
+            "seedTurnId": "misconception-turn-11",
+            "edited": false,
+            "label": "Simulated learner turn"
+          }
+        },
+        {
+          "id": "misconception-turn-12",
+          "speaker": "tutor",
+          "content": "Light supplies energy, not the matter that becomes sugar. Carbon dioxide and water are matter inputs. Captured light is converted into chemical energy that supports sugar building.",
+          "event": "show-step",
+          "stepId": "matter-energy",
+          "sourceRefs": [
+            "openstax-8-1",
+            "openstax-8-2"
+          ],
+          "provenance": {
+            "origin": "authored",
+            "pathId": "misconception",
+            "seedTurnId": null,
+            "edited": false,
+            "label": "Prepared tutor response"
+          },
+          "sequence": 12
+        },
+        {
+          "id": "misconception-turn-13",
+          "speaker": "learner",
+          "content": "Continue",
+          "event": "continue",
+          "stepId": "matter-energy",
+          "sourceRefs": [],
+          "provenance": {
+            "origin": "seeded",
+            "pathId": "misconception",
+            "seedTurnId": "misconception-turn-13",
+            "edited": false,
+            "label": "Simulated learner turn"
+          },
+          "sequence": 13
+        },
+        {
+          "id": "misconception-turn-14",
+          "speaker": "tutor",
+          "content": "A learner says, “Sunlight is a material the plant turns into food.” How would you explain the difference between energy and matter?",
+          "event": "show-step",
+          "stepId": "follow-up",
+          "sourceRefs": [],
+          "provenance": {
+            "origin": "authored",
+            "pathId": "misconception",
+            "seedTurnId": null,
+            "edited": false,
+            "label": "Prepared tutor response"
+          },
+          "sequence": 14
+        },
+        {
+          "id": "misconception-turn-15",
+          "speaker": "learner",
+          "content": "Light provides energy to help build sugar. Water and carbon dioxide are materials.",
+          "event": "submit-answer",
+          "stepId": "follow-up",
+          "sourceRefs": [],
+          "provenance": {
+            "origin": "seeded",
+            "pathId": "misconception",
+            "seedTurnId": "misconception-turn-15",
+            "edited": false,
+            "label": "Simulated learner turn"
+          },
+          "attemptId": "misconception-follow-up-first",
+          "sequence": 15,
+          "attemptKind": "follow-up"
+        },
+        {
+          "id": "misconception-turn-16",
+          "speaker": "tutor",
+          "content": "You now connected energy to sugar building and distinguished it from materials.",
+          "event": "assess-answer",
+          "stepId": "follow-up",
+          "sourceRefs": [],
+          "provenance": {
+            "origin": "authored",
+            "pathId": "misconception",
+            "seedTurnId": null,
+            "edited": false,
+            "label": "Prepared tutor response"
+          },
+          "assessment": {
+            "category": "demonstrated",
+            "legacyCategory": "sound",
+            "uncertain": false
+          },
+          "sequence": 16
+        },
+        {
+          "speaker": "learner",
+          "content": "Continue to the example",
+          "event": "continue",
+          "stepId": "follow-up",
+          "sourceRefs": [],
+          "id": "misconception-turn-17",
+          "sequence": 17,
+          "provenance": {
+            "origin": "seeded",
+            "pathId": "misconception",
+            "seedTurnId": "misconception-turn-17",
+            "edited": false,
+            "label": "Simulated learner turn"
+          }
+        },
+        {
+          "id": "misconception-turn-18",
+          "speaker": "tutor",
+          "content": "Think of building something: you need materials and energy to do the work. Water and carbon dioxide are materials. Captured light provides energy that helps the plant build sugar. This comparison is a teaching example, not the full chemistry.",
+          "event": "show-step",
+          "stepId": "example",
+          "sourceRefs": [],
+          "provenance": {
+            "origin": "authored",
+            "pathId": "misconception",
+            "seedTurnId": null,
+            "edited": false,
+            "label": "Prepared tutor response"
+          },
+          "sequence": 18
+        },
+        {
+          "id": "misconception-turn-19",
+          "speaker": "learner",
+          "content": "Continue",
+          "event": "continue",
+          "stepId": "example",
+          "sourceRefs": [],
+          "provenance": {
+            "origin": "seeded",
+            "pathId": "misconception",
+            "seedTurnId": "misconception-turn-19",
+            "edited": false,
+            "label": "Simulated learner turn"
+          },
+          "sequence": 19
+        },
+        {
+          "id": "misconception-turn-20",
+          "speaker": "tutor",
+          "content": "Two similar plants have the same suitable water, carbon dioxide, and temperature. Plant B is moved to much dimmer light; light is now limiting. Which plant makes sugar faster? Explain why using light energy.",
+          "event": "show-step",
+          "stepId": "transfer",
+          "sourceRefs": [],
+          "provenance": {
+            "origin": "authored",
+            "pathId": "misconception",
+            "seedTurnId": null,
+            "edited": false,
+            "label": "Prepared tutor response"
+          },
+          "sequence": 20
+        },
+        {
+          "id": "misconception-turn-21",
+          "speaker": "learner",
+          "content": "Plant A makes sugar faster.",
+          "event": "submit-answer",
+          "stepId": "transfer",
+          "sourceRefs": [],
+          "provenance": {
+            "origin": "seeded",
+            "pathId": "misconception",
+            "seedTurnId": "misconception-turn-21",
+            "edited": false,
+            "label": "Simulated learner turn"
+          },
+          "attemptId": "misconception-transfer-first",
+          "sequence": 21,
+          "attemptKind": "transfer"
+        },
+        {
+          "id": "misconception-turn-22",
+          "speaker": "tutor",
+          "content": "First attempt: 1/2. You identified Plant A; still connect dimmer light to less captured energy for sugar building. Completion is not yet demonstrated understanding.",
+          "event": "assess-answer",
+          "stepId": "transfer",
+          "sourceRefs": [],
+          "provenance": {
+            "origin": "authored",
+            "pathId": "misconception",
+            "seedTurnId": null,
+            "edited": false,
+            "label": "Prepared tutor response"
+          },
+          "assessment": {
+            "score": 1,
+            "prediction": true,
+            "reasoning": false,
+            "uncertain": false
+          },
+          "routeChange": {
+            "id": "misconception-add-retry",
+            "kind": "insert",
+            "afterStepId": "transfer",
+            "stepIds": [
+              "retry"
+            ],
+            "reason": "Energy reasoning remains unresolved.",
+            "triggerAttemptId": "misconception-transfer-first",
+            "addedStepIds": [
+              "retry"
+            ],
+            "skippedStepIds": []
+          },
+          "sequence": 22
+        },
+        {
+          "id": "misconception-turn-23",
+          "speaker": "tutor",
+          "content": "Captured light becomes chemical energy that supports sugar building. With less light available when light is limiting, less energy is available for that work.",
+          "event": "targeted-reexplanation",
+          "stepId": "transfer",
+          "sourceRefs": [
+            "openstax-8-1",
+            "openstax-8-2"
+          ],
+          "provenance": {
+            "origin": "authored",
+            "pathId": "misconception",
+            "seedTurnId": null,
+            "edited": false,
+            "label": "Prepared tutor response"
+          },
+          "sequence": 23
+        },
+        {
+          "id": "misconception-turn-24",
+          "speaker": "learner",
+          "content": "Try a different situation",
+          "event": "continue",
+          "stepId": "transfer",
+          "sourceRefs": [],
+          "provenance": {
+            "origin": "seeded",
+            "pathId": "misconception",
+            "seedTurnId": "misconception-turn-24",
+            "edited": false,
+            "label": "Simulated learner turn"
+          },
+          "sequence": 24
+        },
+        {
+          "id": "misconception-turn-25",
+          "speaker": "tutor",
+          "content": "Two similar seedlings have suitable water, carbon dioxide, and temperature. Seedling C is under a brighter lamp; seedling D is shaded. Light is limiting for D. Which seedling makes sugar faster, and how does captured light energy explain the difference?",
+          "event": "show-step",
+          "stepId": "retry",
+          "sourceRefs": [],
+          "provenance": {
+            "origin": "authored",
+            "pathId": "misconception",
+            "seedTurnId": null,
+            "edited": false,
+            "label": "Prepared tutor response"
+          },
+          "sequence": 25
+        },
+        {
+          "id": "misconception-turn-26",
+          "speaker": "learner",
+          "content": "Seedling C makes sugar faster because it has more captured light energy available to build sugar. Seedling D has less captured light energy to support sugar building.",
+          "event": "submit-answer",
+          "stepId": "retry",
+          "sourceRefs": [],
+          "provenance": {
+            "origin": "seeded",
+            "pathId": "misconception",
+            "seedTurnId": "misconception-turn-26",
+            "edited": false,
+            "label": "Simulated learner turn"
+          },
+          "attemptId": "misconception-transfer-retry",
+          "sequence": 26,
+          "attemptKind": "retry",
+          "firstAttemptId": "misconception-transfer-first"
+        },
+        {
+          "id": "misconception-turn-27",
+          "speaker": "tutor",
+          "content": "Retry: 2/2. You identified Seedling C and connected available light energy to sugar building. Your first attempt remains 1/2.",
+          "event": "assess-answer",
+          "stepId": "retry",
+          "sourceRefs": [],
+          "provenance": {
+            "origin": "authored",
+            "pathId": "misconception",
+            "seedTurnId": null,
+            "edited": false,
+            "label": "Prepared tutor response"
+          },
+          "assessment": {
+            "score": 2,
+            "prediction": true,
+            "reasoning": true,
+            "uncertain": false
+          },
+          "sequence": 27
+        },
+        {
+          "id": "misconception-turn-28",
+          "speaker": "learner",
+          "content": "View recap",
+          "event": "continue",
+          "stepId": "retry",
+          "sourceRefs": [],
+          "provenance": {
+            "origin": "seeded",
+            "pathId": "misconception",
+            "seedTurnId": "misconception-turn-28",
+            "edited": false,
+            "label": "Simulated learner turn"
+          },
+          "sequence": 28
+        },
+        {
+          "id": "misconception-turn-29",
+          "speaker": "tutor",
+          "content": "Light provides energy; water and carbon dioxide are matter inputs. First transfer: 1/2; retry: 2/2. Energy reasoning was unresolved initially and demonstrated on retry. These are simulated results, not evidence from a real learner. No criterion remains unresolved in this prepared path. Next: review how chlorophyll captures light. Save status depends on browser storage.",
+          "event": "show-recap",
+          "stepId": "recap",
+          "sourceRefs": [
+            "openstax-8-1",
+            "openstax-8-2"
+          ],
+          "provenance": {
+            "origin": "authored",
+            "pathId": "misconception",
+            "seedTurnId": null,
+            "edited": false,
+            "label": "Prepared tutor response"
+          },
+          "recap": {
+            "completed": true,
+            "firstScore": 1,
+            "retryScore": 2,
+            "unresolved": [],
+            "evidenceOrigin": "simulated",
+            "nextAction": "Review the role of chlorophyll."
+          },
+          "sequence": 29
+        },
+        {
+          "id": "misconception-turn-30",
+          "speaker": "learner",
+          "content": "Finish this session",
+          "event": "finish",
+          "stepId": "recap",
+          "sourceRefs": [],
+          "provenance": {
+            "origin": "seeded",
+            "pathId": "misconception",
+            "seedTurnId": "misconception-turn-30",
+            "edited": false,
+            "label": "Simulated learner turn"
+          },
+          "sequence": 30
+        }
+      ]
+    },
+    {
+      "pathId": "clarification",
+      "learnerProfile": {
+        "context": "Secondary-school biology",
+        "initialReadiness": "uncertain with clarification"
+      },
+      "immutable": true,
+      "initialRoute": [
+        "core",
+        "guided",
+        "example",
+        "transfer",
+        "recap"
+      ],
+      "turnSequence": [
+        {
+          "id": "clarification-turn-01",
+          "speaker": "learner",
+          "content": "I know plants need sunlight, but how does light help them make sugar?",
+          "event": "enter-topic",
+          "stepId": null,
+          "sourceRefs": [],
+          "provenance": {
+            "origin": "seeded",
+            "pathId": "clarification",
+            "seedTurnId": "clarification-turn-01",
+            "edited": false,
+            "label": "Simulated learner turn"
+          },
+          "sequence": 1
+        },
+        {
+          "id": "clarification-turn-02",
+          "speaker": "tutor",
+          "content": "Which are matter inputs the plant uses: water, carbon dioxide, or light energy?",
+          "event": "ask-diagnosis",
+          "stepId": null,
+          "sourceRefs": [],
+          "provenance": {
+            "origin": "authored",
+            "pathId": "clarification",
+            "seedTurnId": null,
+            "edited": false,
+            "label": "Prepared tutor response"
+          },
+          "sequence": 2
+        },
+        {
+          "id": "clarification-turn-03",
+          "speaker": "learner",
+          "content": "I’m not sure",
+          "event": "submit-diagnosis",
+          "stepId": null,
+          "sourceRefs": [],
+          "provenance": {
+            "origin": "seeded",
+            "pathId": "clarification",
+            "seedTurnId": "clarification-turn-03",
+            "edited": false,
+            "label": "Simulated learner turn"
+          },
+          "diagnosisChoice": "unsure",
+          "sequence": 3
+        },
+        {
+          "id": "clarification-turn-04",
+          "speaker": "tutor",
+          "content": "Let’s explain how light helps plants make sugar. We’ll distinguish energy from materials, try an explanation, then apply it to a new situation.",
+          "event": "propose-plan",
+          "stepId": null,
+          "sourceRefs": [],
+          "provenance": {
+            "origin": "authored",
+            "pathId": "clarification",
+            "seedTurnId": null,
+            "edited": false,
+            "label": "Prepared tutor response"
+          },
+          "route": [
+            "core",
+            "guided",
+            "example",
+            "transfer",
+            "recap"
+          ],
+          "inferredOutcome": "Explain how light helps plants make sugar",
+          "rationale": "Recall suggests emphasis; it is not proof of understanding.",
+          "sequence": 4
+        },
+        {
+          "id": "clarification-turn-05",
+          "speaker": "learner",
+          "content": "Begin the session",
+          "event": "accept-plan",
+          "stepId": null,
+          "sourceRefs": [],
+          "provenance": {
+            "origin": "seeded",
+            "pathId": "clarification",
+            "seedTurnId": "clarification-turn-05",
+            "edited": false,
+            "label": "Simulated learner turn"
+          },
+          "sequence": 5
+        },
+        {
+          "id": "clarification-turn-06",
+          "speaker": "tutor",
+          "content": "Chlorophyll captures light. Light-dependent reactions store that energy in chemical carriers, which support building carbohydrates from carbon dioxide. Light is energy; water and carbon dioxide are matter inputs.",
+          "event": "show-step",
+          "stepId": "core",
+          "sourceRefs": [
+            "openstax-8-1",
+            "openstax-8-2"
+          ],
+          "provenance": {
+            "origin": "authored",
+            "pathId": "clarification",
+            "seedTurnId": null,
+            "edited": false,
+            "label": "Prepared tutor response"
+          },
+          "assetIds": [
+            "energy-flow"
+          ],
+          "sequence": 6
+        },
+        {
+          "speaker": "learner",
+          "content": "Light sounds like food",
+          "event": "ask-clarification",
+          "stepId": "core",
+          "contextStepId": "core",
+          "sourceRefs": [],
+          "draftKind": "conversation",
+          "dispatchNote": "Contextual session feedback, no question intent required.",
+          "id": "clarification-turn-07",
+          "sequence": 7,
+          "provenance": {
+            "origin": "seeded",
+            "pathId": "clarification",
+            "seedTurnId": "clarification-turn-07",
+            "edited": false,
+            "label": "Simulated learner turn"
+          }
+        },
+        {
+          "speaker": "tutor",
+          "content": "Light supplies energy, not the matter that becomes sugar. Carbon dioxide and water are matter inputs. Captured light becomes chemical energy used in sugar building.",
+          "event": "answer-clarification",
+          "stepId": "core",
+          "sourceRefs": [
+            "openstax-8-1",
+            "openstax-8-2"
+          ],
+          "preserves": [
+            "currentStepId",
+            "route",
+            "progress"
+          ],
+          "advance": false,
+          "id": "clarification-turn-08",
+          "sequence": 8,
+          "provenance": {
+            "origin": "authored",
+            "pathId": "clarification",
+            "seedTurnId": null,
+            "edited": false,
+            "label": "Prepared tutor response"
+          }
+        },
+        {
+          "id": "clarification-turn-09",
+          "speaker": "learner",
+          "content": "Continue",
+          "event": "continue",
+          "stepId": "core",
+          "sourceRefs": [],
+          "provenance": {
+            "origin": "seeded",
+            "pathId": "clarification",
+            "seedTurnId": "clarification-turn-09",
+            "edited": false,
+            "label": "Simulated learner turn"
+          },
+          "sequence": 9
+        },
+        {
+          "id": "clarification-turn-10",
+          "speaker": "tutor",
+          "content": "A plant has enough water and carbon dioxide. Its leaves absorb light. What role does light play in helping the plant build sugar?",
+          "event": "show-step",
+          "stepId": "guided",
+          "sourceRefs": [],
+          "provenance": {
+            "origin": "authored",
+            "pathId": "clarification",
+            "seedTurnId": null,
+            "edited": false,
+            "label": "Prepared tutor response"
+          },
+          "sequence": 10
+        },
+        {
+          "id": "clarification-turn-11",
+          "speaker": "learner",
+          "content": "Light gives the plant energy",
+          "event": "save-answer-draft",
+          "stepId": "guided",
+          "sourceRefs": [],
+          "provenance": {
+            "origin": "seeded",
+            "pathId": "clarification",
+            "seedTurnId": "clarification-turn-11",
+            "edited": false,
+            "label": "Simulated learner turn"
+          },
+          "draftKind": "answer",
+          "submission": false,
+          "sequence": 11,
+          "draft": {
+            "text": "Light gives the plant energy",
+            "provenance": {
+              "origin": "seeded",
+              "pathId": "clarification",
+              "seedTurnId": "clarification-turn-11",
+              "edited": false,
+              "label": "Simulated learner turn"
+            }
+          }
+        },
+        {
+          "id": "clarification-turn-12",
+          "speaker": "learner",
+          "content": "Does light turn into sugar?",
+          "event": "ask-clarification",
+          "stepId": "guided",
+          "sourceRefs": [],
+          "provenance": {
+            "origin": "seeded",
+            "pathId": "clarification",
+            "seedTurnId": "clarification-turn-12",
+            "edited": false,
+            "label": "Simulated learner turn"
+          },
+          "draftKind": "conversation",
+          "contextStepId": "guided",
+          "sequence": 12
+        },
+        {
+          "id": "clarification-turn-13",
+          "speaker": "tutor",
+          "content": "Light supplies energy, not the matter that becomes sugar. Carbon dioxide and water are matter inputs. Captured light becomes chemical energy used in sugar building. Your answer draft and current step are still here.",
+          "event": "answer-clarification",
+          "stepId": "guided",
+          "sourceRefs": [
+            "openstax-8-1",
+            "openstax-8-2"
+          ],
+          "provenance": {
+            "origin": "authored",
+            "pathId": "clarification",
+            "seedTurnId": null,
+            "edited": false,
+            "label": "Prepared tutor response"
+          },
+          "preserves": [
+            "answerDraft",
+            "currentStepId",
+            "route",
+            "progress"
+          ],
+          "advance": false,
+          "sequence": 13
+        },
+        {
+          "id": "clarification-turn-14",
+          "speaker": "learner",
+          "content": "Continue this step",
+          "event": "continue-after-clarification",
+          "stepId": "guided",
+          "sourceRefs": [],
+          "provenance": {
+            "origin": "seeded",
+            "pathId": "clarification",
+            "seedTurnId": "clarification-turn-14",
+            "edited": false,
+            "label": "Simulated learner turn"
+          },
+          "advance": false,
+          "sequence": 14
+        },
+        {
+          "id": "clarification-turn-15",
+          "speaker": "learner",
+          "content": "Light provides energy that helps the plant build sugar.",
+          "event": "submit-answer",
+          "stepId": "guided",
+          "sourceRefs": [],
+          "provenance": {
+            "origin": "seeded",
+            "pathId": "clarification",
+            "seedTurnId": "clarification-turn-15",
+            "edited": false,
+            "label": "Simulated learner turn"
+          },
+          "attemptId": "clarification-guided-first",
+          "sequence": 15,
+          "attemptKind": "guided"
+        },
+        {
+          "id": "clarification-turn-16",
+          "speaker": "tutor",
+          "content": "You connected light energy to sugar building. We can skip the repeated building example and apply your reasoning.",
+          "event": "assess-answer",
+          "stepId": "guided",
+          "sourceRefs": [],
+          "provenance": {
+            "origin": "authored",
+            "pathId": "clarification",
+            "seedTurnId": null,
+            "edited": false,
+            "label": "Prepared tutor response"
+          },
+          "assessment": {
+            "category": "demonstrated",
+            "legacyCategory": "sound",
+            "uncertain": false
+          },
+          "routeChange": {
+            "id": "clarification-skip-example",
+            "kind": "skip",
+            "stepIds": [
+              "example"
+            ],
+            "reason": "Guided answer demonstrated the energy-to-sugar connection.",
+            "triggerAttemptId": "clarification-guided-first",
+            "addedStepIds": [],
+            "skippedStepIds": [
+              "example"
+            ]
+          },
+          "sequence": 16
+        },
+        {
+          "id": "clarification-turn-17",
+          "speaker": "learner",
+          "content": "Continue to the fresh check",
+          "event": "continue",
+          "stepId": "guided",
+          "sourceRefs": [],
+          "provenance": {
+            "origin": "seeded",
+            "pathId": "clarification",
+            "seedTurnId": "clarification-turn-17",
+            "edited": false,
+            "label": "Simulated learner turn"
+          },
+          "sequence": 17
+        },
+        {
+          "id": "clarification-turn-18",
+          "speaker": "tutor",
+          "content": "Two similar plants have the same suitable water, carbon dioxide, and temperature. Plant B is moved to much dimmer light; light is now limiting. Which plant makes sugar faster? Explain why using light energy.",
+          "event": "show-step",
+          "stepId": "transfer",
+          "sourceRefs": [],
+          "provenance": {
+            "origin": "authored",
+            "pathId": "clarification",
+            "seedTurnId": null,
+            "edited": false,
+            "label": "Prepared tutor response"
+          },
+          "sequence": 18
+        },
+        {
+          "id": "clarification-turn-19",
+          "speaker": "learner",
+          "content": "Plant A makes sugar faster because it has more light energy available to build sugar. Plant B has less captured light energy to support sugar building.",
+          "event": "submit-answer",
+          "stepId": "transfer",
+          "sourceRefs": [],
+          "provenance": {
+            "origin": "seeded",
+            "pathId": "clarification",
+            "seedTurnId": "clarification-turn-19",
+            "edited": false,
+            "label": "Simulated learner turn"
+          },
+          "attemptId": "clarification-transfer-first",
+          "sequence": 19,
+          "attemptKind": "transfer"
+        },
+        {
+          "id": "clarification-turn-20",
+          "speaker": "tutor",
+          "content": "First transfer attempt: 2/2. You identified Plant A and connected less captured light energy to less energy for sugar building.",
+          "event": "assess-answer",
+          "stepId": "transfer",
+          "sourceRefs": [],
+          "provenance": {
+            "origin": "authored",
+            "pathId": "clarification",
+            "seedTurnId": null,
+            "edited": false,
+            "label": "Prepared tutor response"
+          },
+          "assessment": {
+            "score": 2,
+            "prediction": true,
+            "reasoning": true,
+            "uncertain": false
+          },
+          "sequence": 20
+        },
+        {
+          "id": "clarification-turn-21",
+          "speaker": "learner",
+          "content": "View recap",
+          "event": "continue",
+          "stepId": "transfer",
+          "sourceRefs": [],
+          "provenance": {
+            "origin": "seeded",
+            "pathId": "clarification",
+            "seedTurnId": "clarification-turn-21",
+            "edited": false,
+            "label": "Simulated learner turn"
+          },
+          "sequence": 21
+        },
+        {
+          "id": "clarification-turn-22",
+          "speaker": "tutor",
+          "content": "Light provides energy; water and carbon dioxide are matter inputs. First transfer: 2/2; prediction and energy reasoning were demonstrated. These are simulated results, not evidence from a real learner. No criterion remains unresolved in this prepared path. Next: review how chlorophyll captures light. Save status depends on browser storage.",
+          "event": "show-recap",
+          "stepId": "recap",
+          "sourceRefs": [
+            "openstax-8-1",
+            "openstax-8-2"
+          ],
+          "provenance": {
+            "origin": "authored",
+            "pathId": "clarification",
+            "seedTurnId": null,
+            "edited": false,
+            "label": "Prepared tutor response"
+          },
+          "recap": {
+            "completed": true,
+            "firstScore": 2,
+            "retryScore": null,
+            "unresolved": [],
+            "evidenceOrigin": "simulated",
+            "nextAction": "Review the role of chlorophyll."
+          },
+          "sequence": 22
+        },
+        {
+          "id": "clarification-turn-23",
+          "speaker": "learner",
+          "content": "Finish this session",
+          "event": "finish",
+          "stepId": "recap",
+          "sourceRefs": [],
+          "provenance": {
+            "origin": "seeded",
+            "pathId": "clarification",
+            "seedTurnId": "clarification-turn-23",
+            "edited": false,
+            "label": "Simulated learner turn"
+          },
+          "sequence": 23
+        }
+      ]
+    }
+  ],
+  "demoProvenance": {
+    "mode": "prepared-local-simulation",
+    "immutableCanonicalData": true,
+    "learnerLabel": "Simulated learner turn",
+    "tutorLabel": "Prepared tutor response",
+    "runtimeRule": "Copy canonical path events into mutable session records; never mutate this package. Keep canonicalTurnId/origin/pathId when seeded input is edited. Typed input is a separate record, never a silent scripted success.",
+    "notClaims": [
+      "live AI",
+      "qualified biology review",
+      "learner validation",
+      "general topic coverage"
+    ]
+  },
+  "review": {
+    "status": "pending-qualified-biology-review",
+    "reviewer": null,
+    "reviewDate": null,
+    "basis": "Existing owner-approved photosynthesis demo spec and local content; no independent scientific review recorded."
+  },
+  "sessionCopyContract": {
+    "stepIdentity": "Stable IDs; statuses pending/current/completed/skipped. Added steps tracked by route-change records.",
+    "clarification": "One visible session composer; feedback interrupts at the current step with progress unchanged. Internal conversation/check drafts remain separate by context, preserving any check answer while teaching or conversing.",
+    "attempts": "Checks are a separate flow entered by explicit Continue; only supported submitted answer commits an immutable attempt. Unknown/unsure feedback stays conversational until explicitly submitted as unresolved evidence.",
+    "persistence": "Mutable session copies carry scenario/version, route changes, current step, separate drafts, turns, attempts and provenance. Storage status is determined by runtime adapter."
+  },
+  "interactionContract": {
+    "visibleComposerCount": 1,
+    "teaching": "One generic session chat composer. Any learner feedback becomes contextual conversation; no separate Ask form, question-intent selector, or requirement for question punctuation. Teaching does not show a simultaneous answer task.",
+    "check": "Only explicit Continue enters a separate Your turn check flow. The same composer then takes a response to the current prompt or contextual feedback. Uncertainty, clarification and unknown wording remain conversational; no implicit successful assessment.",
+    "readingOrder": "Current teaching canvas then ordered learner/tutor session messages then generic composer. The route is compact or collapsed, not all lesson content shown together.",
+    "draftOwnership": "Internal teaching conversation draft and per-step answer draft remain separate by context; only one active draft/composer is visible. Returning from a check preserves its draft. Sending teaching feedback never commits an assessment or advances.",
+    "continuation": "Teaching Continue closes its conversational detour and enters the next step or separate check. In a check, Continue this step closes a clarification interruption without completing the check; submit separately. No timer or conversational send advances.",
+    "ownerFeedback": "Teaching should feel like bidirectional tutor chat; any feedback can clarify, and Your turn belongs in a separate flow."
+  }
+}

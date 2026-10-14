@@ -5,8 +5,9 @@ It is intended to help professional learners and secondary-school, college, and
 university students who struggle with a specific concept or topic. The current
 hackathon build uses static photosynthesis content as one demo fixture, not as
 the full product audience or subject range. The architecture is feature-based
-and keeps the hackathon slice small. No backend endpoints, authentication, or
-persistence are currently implemented.
+and keeps the hackathon slice small. No backend endpoints or authentication are implemented. One versioned local
+session is persisted through an explicit storage adapter inside the learning
+store.
 
 ## Structure
 
@@ -21,10 +22,10 @@ src/
     route-feedback.tsx           # initial loading, route error, not-found recovery
   features/
     learning/
-      routes/                    # dashboard and lesson route modules
+      routes/                    # home, setup and lesson route modules
       components/                # lesson preview and answer form
-      content/photosynthesis.ts  # static, attributed demo content
-      model/study-store.ts       # shared learning client state
+      content/photosynthesis.ts  # typed, attributed lesson configuration
+      model/study-store.ts       # session, transitions, storage validation and persistence
   shared/
     ui/Brand.tsx                 # domain-independent brand link
     theme/                       # Ant Design token bridge and theme provider
@@ -46,46 +47,81 @@ feature folders. Extract shared abstractions after a real second use appears.
 
 React Router Data Mode owns navigation, lazy route modules, pending feedback,
 scroll restoration and route error recovery. The route table knows the URL
-shape before importing page code. `/` and `/lesson` are separate dynamic imports;
+shape before importing page code. `/`, `/start` and `/lesson` are separate dynamic imports;
 unknown URLs show a recoverable not-found page. Failed imports/rendering errors
 reach the root route error boundary; a full reload can recover stale assets.
-A reload also discards current in-memory answers/progress.
+Lesson access without a session redirects to setup. Resume restores the current
+stage and draft when browser storage is available. Navigation, pagehide,
+beforeunload and hidden-document events flush pending drafts.
 
 Keep the initial shell lightweight. Lazy route files create page boundaries,
 but shared Ant Design/Motion dependencies can still be large. Measure emitted
 chunks and actual requests before claiming a bandwidth improvement. Do not
 silence bundle warnings or force vendor chunking without evidence.
 
-Measured after this refactor: main JS ~611 kB, home ~156 kB, shared learning
-chunk ~149 kB, and lesson ~26 kB (minified). The earlier single JS chunk was
-~878 kB; total JS is now ~941 kB because Data Mode adds routing capabilities.
-The ~611 kB main chunk still triggers Vite’s warning. PWA precaching includes
-all these assets, so route splitting does not reduce its total cache/download.
+Measured after the foundational learning slice (13 October 2026): main JS
+624.36 kB, home 4.33 kB, setup 16.38 kB, lesson 12.01 kB, and shared chunks
+139.96 kB (minified). Total app JS is approximately 797.04 kB, compared with the
+prior architecture baseline of 941.21 kB; removing unused route Motion imports
+reduces the shared route payload. No dependencies or external assets were added.
+The main chunk still triggers Vite's large-chunk warning. PWA precaching includes
+11 entries totaling 797.84 KiB, so lazy routes do not reduce total precache cost.
 
 Deployment must serve `index.html` for client routes such as `/lesson`, while
-serving actual asset files normally. The PWA caches built app assets; it does
-not provide answer persistence, offline API mutations, or synchronized progress.
+serving actual asset files normally. The PWA caches built app assets. Cached revisits work offline after online
+service-worker activation; first visits require a connection. LocalStorage owns
+answer persistence independently. No offline API mutations or synchronized
+progress exist, and external source pages require network access.
 
 ## State ownership
 
 | State | Owner | Examples |
 | --- | --- | --- |
-| Transient UI | React component state | expanded note, current answer, submitted flag |
-| Shared client/domain state | Feature-local Zustand store | session-only completed lesson count |
+| Transient UI | React component state | expanded explanation, source notes, clarification prompt |
+| Shared client/domain state | Feature-local Zustand store | one session, drafts, diagnostic and immutable attempts |
 | Server data | TanStack Query | future lessons and assessments from a real API |
 | Navigable state | React Router URL | page, future shareable lesson/filter parameters |
-| Durable local state | Future explicit persistence adapter | resume snapshot with version/migration/reset |
+| Durable local state | Explicit localStorage adapter | validated resume snapshot, storage status and confirmed reset |
 
-Do not copy query responses into Zustand. Do not put every form keystroke into
-a global store. Queries use a 60-second stale window, one retry, and no automatic
-window-focus refetch; mutations have no automatic retries. These are initial
-low-bandwidth defaults, to override per endpoint when its semantics require it.
+Do not copy query responses into Zustand. Session answer drafts intentionally live
+in feature state so interruption can be recovered. Draft writes are debounced
+250ms; committed transitions flush immediately. Queries use a 60-second stale
+window, one retry and no automatic focus refetch; mutations do not retry.
 
-The current lesson feedback is fixed demo text, not AI assessment. “Save and
-leave” still only navigates home; it does not persist or resume progress. Local
-save/resume is a planned MVP feature; implement it as a separate vertical slice
-with explicit storage status and recovery for unavailable/corrupt browser
-storage. Until then, do not describe it as working behavior.
+### Session and assessment boundary
+
+`Session` includes schema/content versions, setup, goal, diagnostic, stage,
+drafts, immutable attempts, completion and next action. Supported lesson stages
+are diagnostic → explanation → guided → feedback → optional practice → transfer
+→ optional targeted retry → recap, plus setup. The retry belongs to the same
+transfer milestone so progress denominators remain stable. Completion records
+finishing the flow; success requires a recognized 2/2 transfer result. There is
+no cumulative counter and no finish bypass.
+
+The `studyfellow.session.v1` snapshot is validated before use. Its versions,
+primitive fields, drafts, prerequisites, canonical attempt order and reachable
+stage/history combinations must match the current content. Scores are recomputed
+from stored text rather than trusted. Unsupported snapshots are not silently
+replaced: learners confirm reset. Storage exceptions preserve the in-memory
+session and show that reload recovery is unavailable. Browser-cleared storage
+and a closed tab with failed storage cannot be recovered. One browser session,
+not cross-device synchronization, is the MVP boundary.
+
+Local pure `assessGuided` and `assessTransfer` functions return categories or
+criterion evidence plus uncertainty. Conservative phrase/negation/contradiction
+and energy-attribution rules recognize supported wording; unfamiliar wording
+asks for clarification before explicit unresolved submission. These are demo
+heuristics, not general natural-language assessment. Later model integration
+should adapt to this typed boundary once a real contract exists. Transfer has
+prediction and energy-reasoning criteria, and one distinct retry scenario.
+Returning to a submitted step shows its immutable answer and existing result.
+Seeded-demo provenance remains attached even if the inserted draft is edited.
+
+The typed photosynthesis configuration owns explanations, prompts, feedback,
+source summaries and section locators. Factual teaching is labeled source-supported;
+analogies and local feedback are labeled authored/supplemental. Lightweight inline
+SVG illustrates energy carriers separately from matter inputs; illustrations
+have visible text labels. No upload processing or content generation is claimed.
 
 ## Backend integration boundary
 
@@ -118,8 +154,10 @@ Keep date-fns and lodash-es available but import narrow utilities only when used
 - `bun run lint`: TypeScript/React rules and layer import restrictions.
 - `bun run build`: type-checking, production assets and PWA generation.
 - `bunx playwright install chromium`: install the browser once.
-- `bun run test:e2e`: desktop/mobile routing, lesson behavior, direct links,
-  not-found recovery and failed lazy import recovery.
+- `bun run test:e2e`: desktop/mobile flows, scoring, drafts/reload,
+  storage failure, confirmed recovery, keyboard use, reduced motion and routes.
+- `PLAYWRIGHT_PRODUCTION=1 bun run test:e2e --grep "production cached"` after a
+  build: actual service-worker-controlled cached offline reload and resume.
 - `bun run test:e2e:ui`: interactive browser test runner.
 
 An installed Chrome executable can be supplied with
@@ -136,3 +174,50 @@ commit its changes inside this repository before updating the parent gitlink.
 - [React Router route objects and lazy modules](https://reactrouter.com/start/data/route-object)
 - [TanStack Query defaults](https://tanstack.com/query/latest/docs/framework/react/guides/important-defaults)
 - [Vite aliases](https://vite.dev/config/shared-options#resolve-alias)
+
+## Phase 1 tutor-planned walkthrough (14 October 2026)
+
+The primary home action now opens `/start`, a topic/question entry with optional
+confusion, one optional diagnostic, and a precomputed outcome/route. Only exact
+prepared topic/interpretation phrases are recognized; other input stays visible
+and requires an explicit sample or supported-focus choice. `/session` is a lazy
+route with a feature-local, in-memory `session-store.ts`. It never writes or
+replaces `studyfellow.session.v1`. Home distinguishes open-tab resume from the
+saved legacy lesson, which retains `/lesson`, original scoring and persistence.
+The original goal-first setup is available at `/legacy-start`; existing saved
+sessions keep their original versions, drafts, and assessment evidence.
+
+`phase1-scenario.json` is a generated projection of the immutable Phase 0 v2
+package. Run `bun scripts/derive-phase1-scenario.mjs` after changing the canonical
+package; `--check` (also exercised by Playwright) verifies exact freshness. The
+projection includes teaching, diagnosis, plan, sources, asset metadata and
+review status, but omits the 70 simulation turns and unused Phase 2/3 assessment
+contracts. Runtime data is recursively frozen; mutable sessions copy route IDs
+and learner state. Six content kinds render from the package through
+`SessionBlocks.tsx`, reusing the lightweight energy-flow illustration. Text,
+caption, author provenance and nearby section links survive visual fallback.
+Recap is a teaching summary preview derived from the package's core teaching;
+it is not an assessed completion or a saved recap.
+
+The session reserves a bottom dock under an independently scrollable, keyboard
+accessible canvas. Desktop has a 264px navy route; phones collapse it. Dynamic
+viewport height, min-height:0 flex children, safe-area padding, inline Send,
+bounded textarea growth and a new-reply cue preserve usable reading space.
+Step changes focus the heading; sending retains composer focus. Near-bottom
+readers follow appended turns, while earlier reading receives a reply cue.
+Reduced-motion media overrides preserve all static state feedback.
+
+Phase 1 sends append typed, unassessed learner text and an authored bounded
+acknowledgment; they do not interpret, score, adapt or advance. Explicit Continue
+opens the next step, including separate unassessed checks. Per-step drafts and
+messages survive navigation in the same tab; reload and tab closure intentionally
+lose new session state. Phase 2 owns contextual replies and adaptive checks;
+Phase 3 owns fresh transfer, evidence-based recap and durable v2 persistence. The existing legacy path
+continues to provide its previously implemented assessment/save behavior.
+
+Final Phase 1 production measurement (14 October): main JS 624.80 kB, total app
+JS assets 824.88 kB (+27.84 kB / 3.49% against the 797.04 kB baseline).
+PWA precache contains 17 entries totaling 829.47 KiB. No dependencies or external
+assets were added; the main large-chunk warning remains. See
+[Phase 1 implementation evidence](../plans/phase-1/evidence.md) for final
+production checks, legacy regressions, actual captures and development-run caveat.

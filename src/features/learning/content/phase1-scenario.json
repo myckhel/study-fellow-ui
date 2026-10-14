@@ -1,0 +1,319 @@
+{
+  "id": "photosynthesis",
+  "version": 2,
+  "title": "How does light help a plant make sugar?",
+  "sourceMaterials": [
+    {
+      "id": "openstax-8-1",
+      "title": "OpenStax Biology 2e · 8.1",
+      "url": "https://openstax.org/books/biology-2e/pages/8-1-overview-of-photosynthesis",
+      "locator": "The Two Parts of Photosynthesis · Figure 8.7",
+      "supports": [
+        "matter inputs",
+        "carbohydrate production",
+        "oxygen release",
+        "G3P teaching note"
+      ]
+    },
+    {
+      "id": "openstax-8-2",
+      "title": "OpenStax Biology 2e · 8.2",
+      "url": "https://openstax.org/books/biology-2e/pages/8-2-the-light-dependent-reactions-of-photosynthesis",
+      "locator": "How Light-Dependent Reactions Work",
+      "supports": [
+        "capture of light energy",
+        "chemical energy carriers"
+      ]
+    }
+  ],
+  "initialLearnerInput": "I know plants need sunlight, but how does light help them make sugar?",
+  "diagnosis": {
+    "question": "Which are matter inputs the plant uses: water, carbon dioxide, or light energy?",
+    "likelyGap": "Distinguishing energy from matter and connecting light energy to sugar building",
+    "confidence": "tentative",
+    "evidence": "Initial confusion and optional recall; not a mastery assessment.",
+    "choices": [
+      {
+        "id": "matter",
+        "text": "Water and carbon dioxide",
+        "interpretation": "Distinction recognized; check connection to sugar."
+      },
+      {
+        "id": "light",
+        "text": "Water, carbon dioxide and light energy",
+        "interpretation": "Possible energy-as-matter confusion."
+      },
+      {
+        "id": "unsure",
+        "text": "I’m not sure",
+        "interpretation": "Start core explanation without assumptions."
+      },
+      {
+        "id": "skipped",
+        "text": "Skip recall",
+        "interpretation": "Start core explanation without assumptions."
+      }
+    ],
+    "maxFollowUps": 1,
+    "alternatives": [
+      "Recognizes energy but lacks connection to sugar building",
+      "Recall skipped or unclear"
+    ]
+  },
+  "inferredOutcome": "Explain how light helps plants make sugar",
+  "plan": {
+    "stepIds": [
+      "core",
+      "guided",
+      "example",
+      "transfer",
+      "recap"
+    ],
+    "preview": "Understand the idea → explain it → apply it → recap",
+    "acceptAction": "Begin session",
+    "supportedCorrection": {
+      "id": "focus-energy-versus-matter",
+      "input": "I’m confused about energy versus materials.",
+      "outcome": "Explain how light energy differs from matter inputs and supports sugar building",
+      "route": [
+        "matter-energy",
+        "core",
+        "guided",
+        "example",
+        "transfer",
+        "recap"
+      ],
+      "rationale": "Emphasize the existing energy/matter distinction; no new biology scope."
+    },
+    "unsupportedCorrection": "Keep learner input; explain that only the prepared photosynthesis interpretations are available; offer original route or supported correction."
+  },
+  "steps": [
+    {
+      "id": "core",
+      "kind": "explanation",
+      "objective": "Distinguish energy from matter and connect captured energy to sugar building.",
+      "sourceRefs": [
+        "openstax-8-1",
+        "openstax-8-2"
+      ],
+      "contentBlocks": [
+        {
+          "id": "core-text",
+          "kind": "explanation",
+          "text": "Chlorophyll captures light. Light-dependent reactions store that energy in chemical carriers, which support building carbohydrates from carbon dioxide. Light is energy; water and carbon dioxide are matter inputs.",
+          "sourceRefs": [
+            "openstax-8-1",
+            "openstax-8-2"
+          ],
+          "provenance": "authored-source-summary"
+        },
+        {
+          "id": "energy-diagram",
+          "kind": "diagram",
+          "text": "Light captured by chlorophyll → chemical energy carriers → energy supports building sugar from carbon dioxide. Water participates; oxygen is released.",
+          "sourceRefs": [
+            "openstax-8-1",
+            "openstax-8-2"
+          ],
+          "provenance": "authored-source-summary",
+          "assetId": "energy-flow"
+        }
+      ],
+      "advanceCriteria": "Explicit continue; clarification does not advance."
+    },
+    {
+      "id": "guided",
+      "kind": "learner-prompt",
+      "objective": "Explain light’s role.",
+      "sourceRefs": [
+        "openstax-8-2"
+      ],
+      "contentBlocks": [
+        {
+          "id": "guided-prompt",
+          "kind": "learner-prompt",
+          "text": "A plant has enough water and carbon dioxide. Its leaves absorb light. What role does light play in helping the plant build sugar?",
+          "sourceRefs": [],
+          "provenance": "authored-demo"
+        }
+      ],
+      "advanceCriteria": "Submit answer; demonstrated skips example, misconception inserts matter-energy and follow-up; partial adds example; unclear requests clarification.",
+      "branches": [
+        "ready",
+        "misconception",
+        "partial",
+        "unclear"
+      ]
+    },
+    {
+      "id": "example",
+      "kind": "worked-example",
+      "objective": "Connect energy to sugar building.",
+      "sourceRefs": [
+        "openstax-8-1",
+        "openstax-8-2"
+      ],
+      "contentBlocks": [
+        {
+          "id": "example-text",
+          "kind": "worked-example",
+          "text": "Think of building something: you need materials and energy to do the work. Water and carbon dioxide are materials. Captured light provides energy that helps the plant build sugar. This comparison is a teaching example, not the full chemistry.",
+          "sourceRefs": [],
+          "provenance": "authored-demo"
+        }
+      ],
+      "advanceCriteria": "Explicit continue; may be skipped after demonstrated guided evidence."
+    },
+    {
+      "id": "matter-energy",
+      "kind": "mini-lesson",
+      "objective": "Correct light-as-matter misconception.",
+      "sourceRefs": [
+        "openstax-8-1",
+        "openstax-8-2"
+      ],
+      "contentBlocks": [
+        {
+          "id": "matter-energy-text",
+          "kind": "mini-lesson",
+          "text": "Light supplies energy, not the matter that becomes sugar. Carbon dioxide and water are matter inputs. Captured light is converted into chemical energy that supports sugar building.",
+          "sourceRefs": [
+            "openstax-8-1",
+            "openstax-8-2"
+          ],
+          "provenance": "authored-source-summary"
+        }
+      ],
+      "advanceCriteria": "Explicit continue to a different check; added only when requested or misconception recognized."
+    },
+    {
+      "id": "energy-bridge",
+      "kind": "worked-example",
+      "objective": "Connect named energy to sugar building.",
+      "sourceRefs": [
+        "openstax-8-1",
+        "openstax-8-2"
+      ],
+      "contentBlocks": [
+        {
+          "id": "energy-bridge-text",
+          "kind": "worked-example",
+          "text": "You identified light as energy. Add the next connection: captured light becomes chemical energy that helps build sugar from carbon dioxide.",
+          "sourceRefs": [
+            "openstax-8-1",
+            "openstax-8-2"
+          ],
+          "provenance": "authored-source-summary"
+        }
+      ],
+      "advanceCriteria": "Explicit continue to distinct follow-up; inserted after partial evidence."
+    },
+    {
+      "id": "follow-up",
+      "kind": "learner-prompt",
+      "objective": "Check the corrected energy/matter distinction.",
+      "sourceRefs": [
+        "openstax-8-1",
+        "openstax-8-2"
+      ],
+      "contentBlocks": [
+        {
+          "id": "follow-up-prompt",
+          "kind": "learner-prompt",
+          "text": "A learner says, “Sunlight is a material the plant turns into food.” How would you explain the difference between energy and matter?",
+          "sourceRefs": [],
+          "provenance": "authored-demo"
+        }
+      ],
+      "advanceCriteria": "Submit separate immutable attempt; unclear requests clarification, unresolved may continue honestly to transfer."
+    },
+    {
+      "id": "transfer",
+      "kind": "learner-prompt",
+      "objective": "Apply the role of light energy in a new situation.",
+      "sourceRefs": [
+        "openstax-8-1",
+        "openstax-8-2"
+      ],
+      "contentBlocks": [
+        {
+          "id": "transfer-prompt",
+          "kind": "learner-prompt",
+          "text": "Two similar plants have the same suitable water, carbon dioxide, and temperature. Plant B is moved to much dimmer light; light is now limiting. Which plant makes sugar faster? Explain why using light energy.",
+          "sourceRefs": [],
+          "provenance": "authored-demo"
+        }
+      ],
+      "advanceCriteria": "First immutable transfer result; 2/2 moves to recap, incomplete adds targeted retry; unclear asks for clarification before explicit unresolved submission."
+    },
+    {
+      "id": "retry",
+      "kind": "learner-prompt",
+      "objective": "Recheck transfer with a different situation.",
+      "sourceRefs": [
+        "openstax-8-1",
+        "openstax-8-2"
+      ],
+      "contentBlocks": [
+        {
+          "id": "retry-prompt",
+          "kind": "learner-prompt",
+          "text": "Two similar seedlings have suitable water, carbon dioxide, and temperature. Seedling C is under a brighter lamp; seedling D is shaded. Light is limiting for D. Which seedling makes sugar faster, and how does captured light energy explain the difference?",
+          "sourceRefs": [],
+          "provenance": "authored-demo"
+        }
+      ],
+      "advanceCriteria": "Keep first attempt; store separate retry result; recap even if unresolved."
+    },
+    {
+      "id": "recap",
+      "kind": "recap",
+      "objective": "Separate completion from demonstrated understanding.",
+      "sourceRefs": [
+        "openstax-8-1",
+        "openstax-8-2"
+      ],
+      "contentBlocks": [
+        {
+          "id": "recap-text",
+          "kind": "recap",
+          "text": "Review prediction and energy reasoning separately, keep first and retry results distinct, and name any unresolved connection. Simulation results demonstrate the interface, not learner validation.",
+          "sourceRefs": [],
+          "provenance": "authored-demo"
+        }
+      ],
+      "advanceCriteria": "Explicit finish/save; saved status comes from actual storage."
+    }
+  ],
+  "assets": [
+    {
+      "id": "energy-flow",
+      "path": "src/features/learning/components/LearningIllustration.tsx#EnergyFlow",
+      "type": "inline-svg-component",
+      "altText": "Light captured by chlorophyll becomes chemical energy carriers used to help build sugar from carbon dioxide; water participates and oxygen is released.",
+      "caption": "Energy and matter play different roles in photosynthesis.",
+      "textEquivalent": "Light captured by chlorophyll → chemical energy carriers → energy supports building sugar from carbon dioxide. Water participates; oxygen is released.",
+      "provenance": "Existing StudyFellow authored SVG; source-supported process summary, not an OpenStax image.",
+      "sourceRefs": [
+        "openstax-8-1",
+        "openstax-8-2"
+      ],
+      "missingAssetFallback": "Render text equivalent and caption; continue without the visual."
+    }
+  ],
+  "teachingNotes": {
+    "simplifiedEquation": "carbon dioxide + water + light energy → sugar (often represented as glucose) + oxygen",
+    "g3p": "The Calvin cycle’s direct carbohydrate product is G3P, which can be used to make glucose and other carbohydrates. Glucose in the familiar simplified equation does not mean it is made directly in one step.",
+    "conditions": "If light is limiting and water, carbon dioxide, temperature, and other conditions stay suitable, less available light energy generally means a lower rate of sugar production. Do not infer total stored glucose from light alone.",
+    "sourceRefs": [
+      "openstax-8-1",
+      "openstax-8-2"
+    ]
+  },
+  "review": {
+    "status": "pending-qualified-biology-review",
+    "reviewer": null,
+    "reviewDate": null,
+    "basis": "Existing owner-approved photosynthesis demo spec and local content; no independent scientific review recorded."
+  }
+}

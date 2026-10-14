@@ -1,0 +1,77 @@
+# Phase 1 implementation evidence
+
+14 October 2026 · Africa/Lagos · Implementation owner: Codex `/root/phase1_engineer`.
+Scope: FE-05–08. This is a prepared teaching walkthrough, with honest unassessed checks and open-tab state. It is not the Phase 2 adaptive/assessed conversation or Phase 3 durable v2 session.
+
+## Learner outcome and acceptance
+
+- **FE-05:** Home Learn now opens topic/question plus optional confusion. An explicit prepared sample immediately opens one optional focused recall; unsure and skip both lead to useful teaching. Unrecognized topics retain input and explicitly offer the sample. Exact bounded matches avoid treating arbitrary plant/energy requests or negations as supported generation.
+- **FE-06:** Tentative precomputed outcome and ordered route include rationale. Recall can select the prepared energy/material emphasis; a recognized correction or explicit focus button selects that existing alternative. Unknown corrections stay visible with a bounded notice. Choosing the alternative does not erase typed correction text. No required custom goal or schedule.
+- **FE-07:** Lazy `/session` uses independent in-memory Zustand state, a dominant current-step canvas, 264px desktop navy route, phone disclosure, 100dvh flex layout, independent keyboard-scrollable canvas and bottom flow dock. Actions precede one generic expanding composer with inline Send. Send preserves focus and appends typed text plus authored acknowledgment without scoring, changing the route or advancing. Continue alone opens separate unassessed checks; per-step drafts survive Back. Home distinguishes open-tab resume from saved legacy resume. Missing in-memory state redirects safely to `/start`; reset cancellation keeps drafts.
+- **FE-08:** Canonical v2 scenario data renders explanation, diagram, worked example, learner prompt, mini-lesson and recap preview with distinct composition. Text-equivalent diagram, caption and author provenance survive visual fallback. Source disclosure combines block and step references, including factual claims within the authored analogy. Summary preview derives teaching from canonical core content and does not assert learner mastery or completion.
+
+The existing goal-first setup lives at `/legacy-start`. `/lesson`, v1 storage, assessment rules, first/retry evidence and recovery remain available. Starting or sending in the new flow does not overwrite the old saved draft; corrupt old storage remains explicitly recoverable without blocking the new demo.
+
+## Validation
+
+The configured Playwright Chromium download was absent. All browser evidence below uses the installed Chrome through the existing `PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH` option; no package or browser dependency was installed.
+
+| Check | Result | Evidence |
+| --- | --- | --- |
+| `bun run lint` | Passed on final source | ESLint exit 0; final build followed it |
+| `bun run build` | Passed on final source | [Build output](build.log) |
+| Full desktop/mobile dev regressions, `bun run test:e2e -- --workers=3` with Chrome path | 46 passed, 2 production-only skipped | [Full output](full-regressions.log); preserved scoring, storage, drafts, corrupt recovery, keyboard and route tests |
+| Final affected dev session checks after UI fixes | 21 passed, 1 transient desktop 1280 failure | [Output](targeted-dev.log); combined 320/375 transfer+reply cue+expanded route+long draft passed |
+| Isolated failed desktop 1280 check on frozen source | 1 passed | [Rerun](isolated-dev-rerun.log) |
+| Final production session checks plus existing cached offline legacy test | 22 passed, 2 dev-only asset-fault-injection skips | [Production output](production-checks.log) |
+| Missing visual fault injection | Passed desktop/mobile in dev checks | Text equivalent, caption, source link and Continue remained available |
+| Projected immutable scenario freshness | Passed | `bun scripts/derive-phase1-scenario.mjs --check` in both suites; frozen canonical blocks/route remain unchanged after Send |
+
+Production command:
+
+```sh
+PLAYWRIGHT_PRODUCTION=1 \
+PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH='/Applications/Google Chrome.app/Contents/MacOS/Google Chrome' \
+bun run test:e2e -- tests/e2e/session.spec.ts tests/e2e/learning.spec.ts \
+  --grep 'production cached|canonical scenario|unsupported topic and correction|messages unscored|open-tab resume|corrupt legacy|layout and reduced|scroll follow|missing visual|new session does not' \
+  --workers=3
+```
+
+The isolated dev failure showed a full page reload back to `/start`, which cleared intentionally ephemeral state. Its exact development-server trigger is unconfirmed; it passed alone, and both 1280 production cases passed. Earlier first-run failures occurred during live source edits and are not counted as acceptance evidence. The final production check provides verification without HMR. Do not describe the unexplained development reload as an app fix or durable continuity.
+
+## Actual production captures
+
+These screenshots were generated by the final production tests, not the Phase 0 mockups. Width/height cases explicitly exercise reduced motion, route disclosure, bounded input growth/shrink, independent scroll geometry, and heading focus. In short-phone combined transfer states, the canvas is required to remain at least 90px tall; dock bottom stays inside the viewport. The phone route scrolls within a 60px cap on short screens to preserve reading space.
+
+| State | Desktop | Phone |
+| --- | --- | --- |
+| Unsupported entry, retained input | [1280px](screenshots/desktop-phase1-unsupported-entry.png) | [375px](screenshots/mobile-phase1-unsupported-entry.png) |
+| Corrected precomputed route | [1280px](screenshots/desktop-phase1-corrected-plan.png) | [375px](screenshots/mobile-phase1-corrected-plan.png) |
+| Source-supported mini-lesson | [1280px](screenshots/desktop-phase1-mini-lesson.png) | [375px](screenshots/mobile-phase1-mini-lesson.png) |
+| Teaching with bounded input | [1280×900](screenshots/phase1-1280-teaching.png) | [320×500](screenshots/phase1-320-teaching.png), [375×480](screenshots/phase1-375-teaching.png) |
+| Separate unassessed check | [1280×900](screenshots/phase1-1280-check.png) | [320×500](screenshots/phase1-320-check.png), [375×480](screenshots/phase1-375-check.png) |
+| Transfer + expanded route + long draft + reply cue | — | [320×500](screenshots/phase1-320-transfer-cue.png), [375×480](screenshots/phase1-375-transfer-cue.png) |
+| Typed conversation + authored boundary | [1280px](screenshots/desktop-phase1-messages.png) | [375px](screenshots/mobile-phase1-messages.png) |
+| Authored worked example + factual sources | [1280px](screenshots/desktop-phase1-example-sources.png) | [375px](screenshots/mobile-phase1-example-sources.png) |
+| Unassessed teaching summary preview | [1280px](screenshots/desktop-phase1-summary-preview.png) | [375px](screenshots/mobile-phase1-summary-preview.png) |
+
+## Performance and scope
+
+Final main JS: **624.80kB**. Total app JS assets: **824.88kB**, an increase of **27.84kB / 3.49%** over the recorded 797.04kB baseline. The new route is lazy; the generated runtime projection excludes all 70 simulation transcript turns. No dependencies, external fonts or bitmap assets were added. The existing main-chunk warning remains. PWA precache is 17 entries / 829.47KiB; lazy routes do not reduce total precache cost. Cached offline legacy replay passed after online activation; first visits and external source pages still require a connection.
+
+Biology review and actual learner observation remain outstanding. Desktop viewport emulation does not verify a real phone software keyboard or all dynamic browser chrome behavior. The new flow retains only open-tab drafts/messages; it does not assess, adapt based on feedback, replay three paths, save v2 snapshots, or migrate old saves. The smaller runtime projection is reproducible from canonical data; regenerate and check freshness whenever the v2 package changes. No commit, deployment or submission was performed.
+
+## Changed implementation files
+
+- `src/app/router.ts`
+- `src/features/learning/routes/{start-route,session-route,legacy-start-route,home-route,lesson-route}.tsx`
+- `src/features/learning/components/{SessionBlocks,SessionChrome,LessonPreview}.tsx`
+- `src/features/learning/content/{phase1-scenario.json,session-scenario.ts}`
+- `src/features/learning/model/session-store.ts`
+- `src/index.css`
+- `scripts/derive-phase1-scenario.mjs`
+- `tests/e2e/{session,learning}.spec.ts`
+- `docs/architecture.md`
+- This evidence, logs and `screenshots/`.
+
+Independent review is recorded separately in [review.md](review.md); the implementation owner does not self-approve.

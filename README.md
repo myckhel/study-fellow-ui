@@ -37,7 +37,26 @@ bun run dev
 - `vite-plugin-pwa` for a web app manifest and generated service worker
 - Playwright Test installed for browser-level checks
 
-The current routes are `/` (learning dashboard) and `/lesson` (photosynthesis lesson shell). The adaptive response branches, transfer-question scoring, and durable resume behavior are not implemented yet. The lesson uses the owner's chosen scenario; it should receive a biology review before learner-facing use.
+The routes are `/` (learning space and resume), `/start` (topic/resource,
+goal and time), and `/lesson` (one focused step at a time). The preloaded
+photosynthesis fixture supports optional recall, local response-specific feedback,
+optional extra practice, a fresh two-criterion transfer check, one targeted retry,
+and a recap that keeps first and retry results separate. This is deterministic
+frontend demo behavior, with no connected model or backend. Unknown or conflicting
+wording prompts clarification; rule scores are limited evidence, not AI grading.
+
+One validated session is saved in this browser's localStorage, including setup,
+answer drafts and immutable submitted attempts. Storage failure is visible and
+retains the in-tab session; damaged/incompatible snapshots require a confirmed
+reset. Restart and clear-progress also require confirmation. No account or
+cross-device sync exists. Selecting a file records only its filename: it is not
+uploaded, read or parsed. Explicitly choose the photosynthesis sample to proceed;
+a topic, resource or custom goal does not generate different lesson content.
+
+Cached production revisits work offline after the app and service worker have
+loaded online. A first visit needs network access, and external OpenStax links
+need a connection. The source-backed teaching should receive biology review and
+learner observation before claims of instructional effectiveness.
 
 ## Architecture
 
@@ -47,6 +66,11 @@ transport boundary. See [docs/architecture.md](docs/architecture.md) for the
 folder structure, state rules, backend integration, and deployment guidance.
 
 Browser checks: `bunx playwright install chromium`, then `bun run test:e2e`.
+An existing Chrome can be used through `PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH`.
+After `bun run build`, run `PLAYWRIGHT_PRODUCTION=1 bun run test:e2e --grep
+"production cached"` to verify cached reload, resume and assessment offline.
+The dev suite covers both desktop and mobile; screenshots/traces are local,
+ignored test artifacts.
 
 ## Cosmic Observatory theme
 
@@ -71,4 +95,4 @@ the provider. PWA/browser metadata and the standalone SVG favicon mirror the
 brand colors separately because they load before application CSS.
 
 This foundation is a light reading theme with navy feature panels, not a
-complete dark mode. Existing lesson behavior remains a prototype.
+complete dark mode. Teaching illustrations use lightweight inline SVG with text labels. Prototype limitations and source details are progressively disclosed.

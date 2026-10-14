@@ -51,8 +51,21 @@ export function createObservatoryTheme(reducedMotion: boolean): ThemeConfig {
         defaultActiveColor: token('color-midnight'),
         defaultActiveBorderColor: token('color-focus'),
       },
+      Tabs: {
+        itemSelectedColor: token('color-focus'),
+        itemHoverColor: token('color-focus'),
+        itemActiveColor: token('color-midnight'),
+        inkBarColor: token('color-focus'),
+      },
+      Radio: {
+        colorPrimary: token('color-focus'),
+        colorPrimaryHover: token('color-focus'),
+      },
       Typography: { titleMarginTop: 0, titleMarginBottom: 16 },
-      Card: { borderRadiusLG: 24, boxShadowTertiary: token('shadow-observatory') },
+      Card: {
+        borderRadiusLG: 24,
+        boxShadowTertiary: token('shadow-observatory'),
+      },
       Input: {
         activeBorderColor: token('color-focus'),
         hoverBorderColor: token('color-focus'),
@@ -65,7 +78,10 @@ export function createObservatoryTheme(reducedMotion: boolean): ThemeConfig {
         defaultColor: token('color-focus'),
         borderRadiusSM: 999,
       },
-      Progress: { defaultColor: token('color-focus'), remainingColor: token('color-line') },
+      Progress: {
+        defaultColor: token('color-focus'),
+        remainingColor: token('color-line'),
+      },
     },
   }
 }

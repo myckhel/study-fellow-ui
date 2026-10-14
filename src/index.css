@@ -60,3 +60,54 @@ button, a, input, textarea, select { touch-action: manipulation; }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { scroll-behavior: auto !important; animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
 }
+.observatory-panel :focus-visible { outline-color: var(--color-starlight); }
+h1[tabindex="-1"]:focus { outline: none; }
+summary { min-height: 44px; display: list-item; padding-block: 8px; }
+.ant-radio-wrapper { min-height: 44px; align-items: center; }
+.ant-card .ant-btn { max-width: 100%; min-height: 44px; height: auto; white-space: normal; padding-block: 9px; }
+.ant-card .ant-tabs-tab { padding-inline: 0; }
+@media (max-width: 380px) { .ant-card .ant-tabs-nav .ant-tabs-tab + .ant-tabs-tab { margin-left: 12px; } }
+
+/* Phase 1 teaching canvas and composer reserve their own space. */
+.session-shell { height: 100dvh; display: flex; flex-direction: column; overflow: hidden; }
+.session-header { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 16px 24px; border-bottom: 1px solid var(--color-line); flex-shrink: 0; }
+.session-body { display: flex; flex: 1; min-height: 0; }
+.session-route-desktop { width: 264px; flex: 0 0 264px; overflow: auto; padding: 24px 16px; background: var(--color-midnight); color: var(--color-ivory); }
+.session-workspace { flex: 1; min-width: 0; min-height: 0; display: flex; flex-direction: column; }
+.session-route-mobile { display: none; }
+.session-canvas { flex: 1; min-height: 0; overflow: auto; overscroll-behavior: contain; padding: 28px 32px; }
+.session-block { padding: 24px; border: 1px solid var(--color-line); border-radius: 24px; background: var(--color-surface); margin: 18px 0; }
+.session-block-worked-example { border-left: 5px solid var(--color-starlight); background: var(--color-accent-soft); }
+.session-block-mini-lesson { border-top: 4px solid var(--color-focus); }
+.session-block-learner-prompt { border: 2px solid var(--color-orbit); }
+.session-block-recap { border-top: 4px solid var(--color-starlight); }
+.session-dock { flex-shrink: 0; border-top: 1px solid var(--color-line); background: var(--color-surface); padding: 16px 32px calc(12px + env(safe-area-inset-bottom)); }
+.session-dock .ant-btn { min-height: 44px; }
+.session-dock textarea { max-height: 112px !important; }
+.session-route-desktop :focus-visible, .session-route-mobile :focus-visible { outline-color: var(--color-starlight); }
+@media (max-width: 767px) {
+  .session-header { padding: 12px 16px; }
+  .session-route-desktop { display: none; }
+  .session-route-mobile { display: block; flex-shrink: 0; background: var(--color-midnight); color: var(--color-ivory); }
+  .session-route-mobile > summary { padding: 10px 16px; font-size: 13px; }
+  .session-canvas { padding: 20px 16px; }
+  .session-block { padding: 18px; }
+  .session-dock { padding: 10px 16px calc(8px + env(safe-area-inset-bottom)); }
+}
+@media (max-height: 550px) {
+  .session-header { padding-block: 8px; }
+  .session-dock { padding-block: 8px; }
+  .session-dock textarea { max-height: 76px !important; }
+  .session-route-mobile[open] > div { max-height: min(22dvh, 60px); }
+  .session-action-hint { display: none; }
+  .session-actions { gap: 8px; }
+  .session-actions .ant-btn { font-size: 13px; padding-inline: 8px; }
+}
+@media (max-width: 380px) {
+  .session-header { gap: 8px; }
+  .session-header > a { gap: 8px; font-size: 14px; }
+  .session-header > a > span:first-child { width: 32px; height: 32px; }
+  .session-header .ant-btn { padding-inline: 12px; }
+}
+
+.session-dock textarea.session-message-empty { height: 44px !important; min-height: 44px !important; }
