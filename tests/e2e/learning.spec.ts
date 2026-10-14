@@ -1,438 +1,123 @@
 import { expect, test, type Page } from '@playwright/test'
-const key = 'studyfellow.session.v1'
-async function setup(page: Page, minutes = 3) {
-  await page.goto('/legacy-start')
-  await expect(
-    page.getByRole('button', { name: 'Begin lesson' }),
-  ).toBeDisabled()
-  await page
-    .getByRole('button', { name: 'Try photosynthesis' })
-    .click()
-  if (minutes === 5)
-    await page.getByRole('radio', { name: /5 minutes/ }).check()
-  await page.getByRole('button', { name: 'Begin lesson' }).click()
+// The old goal/file/time and optional-practice screens are retired. Carry their
+// interruption, evidence, recovery, keyboard and offline guarantees into v2.
+const key = 'studyfellow.session.v2'
+const good = 'Plant A makes sugar faster because Plant B has less captured light energy to help build sugar.'
+const retryGood = 'Seedling C makes sugar faster because Seedling D has less captured light energy to help build sugar.'
+const input = (page: Page) => page.getByRole('textbox', { name: 'Message StudyFellow' })
+const button = (page: Page, name: string) => page.getByRole('button', { name, exact: true })
+async function setup(page: Page) {
+  await page.goto('/start'); await button(page, 'Try photosynthesis').click(); await button(page, 'Skip question').click(); await button(page, 'Begin session').click()
 }
-async function explain(page: Page) {
-  await page.getByRole('button', { name: 'Skip question' }).click()
-  await page.getByRole('button', { name: 'Continue', exact: true }).click()
-  await page
-    .getByRole('textbox', { name: 'Your explanation' })
-    .fill('Light provides energy to build sugar.')
-  await page.getByRole('button', { name: 'Check my thinking' }).click()
-  await expect(page.getByRole('status')).toContainText('connected light energy')
-  await page.getByRole('button', { name: 'Continue', exact: true }).click()
+async function transfer(page: Page) {
+  await setup(page); await button(page, 'Continue').click(); await input(page).fill('Light provides energy to build sugar.'); await button(page, 'Check answer').click(); await button(page, 'Continue').click()
 }
-const good =
-  'Plant A makes sugar faster because Plant B has less captured light energy to help build sugar.'
+async function saved(page: Page) { return page.evaluate(k => JSON.parse(localStorage.getItem(k)!), key) }
+async function exactReload(page: Page) {
+  await expect(page.getByRole('status', { name: 'Save status' })).toContainText('Saved on this browser')
+  const before = await saved(page); await page.reload(); await expect(page.getByRole('heading', { level: 1 })).toBeVisible(); expect(await saved(page)).toEqual(before)
+}
 
-test('three-minute path, sources, preserved first score and honest completion', async ({
-  page,
-}, info) => {
-  const errors: string[] = []
-  page.on('pageerror', (e) => errors.push(e.message))
-  await setup(page)
-  await page.getByRole('button', { name: 'Skip question' }).click()
-  await expect(
-    page.getByRole('heading', { name: 'Understand the idea' }),
-  ).toBeFocused()
-  await page.screenshot({
-    path: info.outputPath('explanation.png'),
-    fullPage: true,
+test('first and retry evidence stays distinct through recap, revisit, reload and home', async ({ page }, info) => {
+  await transfer(page); await input(page).fill('Plant A makes sugar faster.'); await button(page, 'Check answer').click()
+  await exactReload(page); await button(page, 'Continue').click(); await expect(page.getByRole('heading', { name: 'A different situation' })).toBeFocused()
+  await input(page).fill(retryGood); await button(page, 'Check answer').click(); await button(page, 'View summary').click()
+  const result = page.getByRole('region', { name: 'Session results' }); await expect(result).toContainText('First situation'); await expect(result).toContainText('Different situation')
+  const before = await saved(page); expect(before.attempts.map((a: { assessment: { score?: number } }) => a.assessment.score)).toEqual([undefined, 1, 2])
+  await exactReload(page); await button(page, 'Back').click(); await input(page).fill('Another question'); await button(page, 'Send').click()
+  expect((await saved(page)).attempts).toEqual(before.attempts)
+  await button(page, 'View summary').click(); await page.screenshot({ path: info.outputPath('phase3-recap.png') })
+  await button(page, 'Return home').click(); await expect(button(page, 'View saved summary')).toBeVisible(); await button(page, 'View saved summary').click(); await expect(page.getByRole('heading', { name: 'What we covered' })).toBeFocused()
+})
+
+test('unknown and contradictory transfer drafts clarify; unresolved retry completes without success', async ({ page }, info) => {
+  await transfer(page)
+  for (const answer of ['banana', 'Plant A makes sugar faster because it has less light energy to build sugar.']) {
+    await input(page).fill(answer); await button(page, 'Check answer').click(); await expect(button(page, 'Continue with help')).toBeVisible(); expect((await saved(page)).attempts).toHaveLength(1)
+    await exactReload(page); await expect(input(page)).toHaveValue(answer); await button(page, 'Keep working').click()
+  }
+  await button(page, 'Check answer').click(); await button(page, 'Continue with help').click(); await button(page, 'Continue').click(); await input(page).fill('I am not sure'); await button(page, 'Check answer').click(); await button(page, 'Continue with help').click(); await button(page, 'View summary').click()
+  await expect(page.getByRole('region', { name: 'Session results' })).toContainText('Some wording remains unclear')
+  await page.screenshot({ path: info.outputPath('phase3-unresolved.png') })
+  const attempts = (await saved(page)).attempts; await button(page, 'Review how light helps').click(); await expect(page.getByRole('heading', { name: 'How light helps' })).toBeFocused(); await exactReload(page)
+  await button(page, 'Leave').click(); await button(page, 'View saved summary').click(); await expect(page.getByRole('heading', { name: 'What we covered' })).toBeFocused(); expect((await saved(page)).attempts).toEqual(attempts)
+})
+
+test('separate answer/help drafts and added route survive interruption and pending-draft Leave', async ({ page }) => {
+  await setup(page); await input(page).fill('Does light turn into sugar?'); await button(page, 'Send').click(); await exactReload(page)
+  await button(page, 'Continue').click(); await input(page).fill('Light is food'); await button(page, 'Need help?').click(); await input(page).fill('help draft'); await exactReload(page); await expect(input(page)).toHaveValue('help draft')
+  await button(page, 'Return to answer').click(); await expect(input(page)).toHaveValue('Light is food'); await button(page, 'Check answer').click(); await exactReload(page)
+  await button(page, 'Continue').click(); await exactReload(page); await button(page, 'Continue').click(); await input(page).fill('unfinished follow-up'); await button(page, 'Leave').click(); await expect(page).toHaveURL('/'); await page.reload()
+  await expect(page.getByText('Next: Apply the idea and check your answer')).toBeVisible(); await button(page, 'Continue session').click(); await expect(input(page)).toHaveValue('unfinished follow-up')
+})
+
+for (const [label, raw] of [['corrupt JSON', '{broken'], ['unknown schema', JSON.stringify({ schemaVersion: 999 })], ['unknown scenario', JSON.stringify({ schemaVersion: 2, scenarioVersion: 999 })]]) {
+  test(`saved ${label} needs confirmed recovery and preserves cancellation`, async ({ page }, info) => {
+    // Install before the app boots; a live app correctly flushes on pagehide.
+    await page.addInitScript(([k, value]) => localStorage.setItem(k, value), [key, raw])
+    await page.goto('/')
+    await expect(page.getByRole('status', { name: 'Save status' })).toContainText('saved session can’t be opened')
+    page.once('dialog', dialog => dialog.dismiss()); await button(page, 'Clear saved progress').click(); expect(await page.evaluate(k => localStorage.getItem(k), key)).toBe(raw)
+    await page.screenshot({ path: info.outputPath('phase3-recovery.png') })
+    page.once('dialog', dialog => dialog.accept()); await button(page, 'Clear saved progress').click(); expect(await page.evaluate(k => localStorage.getItem(k), key)).toBeNull()
   })
-  await page.getByText('Sources', { exact: true }).click()
-  await expect(
-    page.getByRole('link', { name: /OpenStax Biology 2e · 8.2/ }),
-  ).toHaveAttribute('href', /8-2-the-light/)
-  await page.getByRole('button', { name: 'Explain it more simply' }).click()
-  await expect(
-    page.getByText('Example', { exact: true }),
-  ).toBeVisible()
-  await page.getByRole('button', { name: 'Continue', exact: true }).click()
-  await page
-    .getByRole('textbox', { name: 'Your explanation' })
-    .fill('Light is food for the plant.')
-  await page.getByRole('button', { name: 'Check my thinking' }).click()
-  await expect(page.getByRole('status')).toContainText(
-    'Light supplies energy, not the matter',
-  )
-  await page.getByRole('button', { name: 'Continue', exact: true }).click()
-  await page
-    .getByRole('textbox', { name: 'Your explanation' })
-    .fill('Plant A makes sugar faster.')
-  await page.getByRole('button', { name: 'Check my thinking' }).click()
-  await expect(
-    page.getByRole('heading', { name: 'Try another situation' }),
-  ).toBeVisible()
-  await expect(
-    page.getByRole('heading', { name: 'First answer: 1/2' }),
-  ).toBeVisible()
-  await page
-    .getByRole('textbox', { name: 'Your explanation' })
-    .fill(
-      'Seedling C makes sugar faster because Seedling D has less captured light energy to help build sugar.',
-    )
-  await page.getByRole('button', { name: 'Check my thinking' }).click()
-  await expect(page.getByRole('heading', { name: 'Your summary' })).toBeVisible()
-  await expect(
-    page.getByRole('heading', { name: 'First answer: 1/2' }),
-  ).toBeVisible()
-  await expect(
-    page.getByRole('heading', { name: 'Second answer: 2/2' }),
-  ).toBeVisible()
-  await page.screenshot({ path: info.outputPath('recap.png'), fullPage: true })
-  await page.reload()
-  await expect(page.getByRole('heading', { name: 'Your summary' })).toBeVisible()
-  await page.getByRole('button', { name: '← Back' }).click()
-  await expect(
-    page.getByRole('textbox', { name: 'Your explanation' }),
-  ).toHaveAttribute('readonly', '')
-  await page.getByRole('button', { name: 'Continue', exact: true }).click()
-  expect(
-    await page.evaluate(
-      (k) => JSON.parse(localStorage.getItem(k)!).attempts.length,
-      key,
-    ),
-  ).toBe(3)
-  await page.getByRole('button', { name: 'Return home' }).click()
-  await expect(
-    page.getByRole('button', { name: 'View saved summary' }),
-  ).toBeVisible()
-  await page.screenshot({ path: info.outputPath('home.png'), fullPage: true })
-  expect(errors).toEqual([])
-  expect(
-    await page.evaluate(
-      () => document.documentElement.scrollWidth > innerWidth,
-    ),
-  ).toBe(false)
-})
+}
 
-test('five-minute path, recall unsure, optional practice and demo provenance', async ({
-  page,
-}) => {
-  await page.emulateMedia({ reducedMotion: 'reduce' })
-  await setup(page, 5)
-  await page.getByRole('button', { name: 'I’m not sure', exact: true }).click()
-  await expect(
-    page.getByText('Start with this distinction:', { exact: false }),
-  ).toBeVisible()
-  await page.getByRole('button', { name: 'Continue', exact: true }).click()
-  await page.getByText('Example answers', { exact: true }).click()
-  await page.getByRole('button', { name: 'Energy', exact: true }).click()
-  await page
-    .getByRole('textbox', { name: 'Your explanation' })
-    .fill('Light provides energy to build sugar.')
-  await page.getByRole('button', { name: 'Check my thinking' }).click()
-  await expect(page.getByText('Based on an example')).toBeVisible()
-  await page.screenshot({ path: test.info().outputPath('plain-example-answer.png'), fullPage: true })
-  await expect(page.locator('main')).not.toContainText(/\b(demo|seeded|legacy)\b/i)
-  await page.getByRole('button', { name: 'Continue', exact: true }).click()
-  await expect(
-    page.getByRole('heading', { name: 'Extra practice' }),
-  ).toBeVisible()
-  await page.getByRole('button', { name: 'Skip extra practice' }).click()
-  await page.getByRole('textbox', { name: 'Your explanation' }).fill(good)
-  await page.getByRole('button', { name: 'Check my thinking' }).click()
-  await expect(
-    page.getByRole('heading', { name: 'First answer: 2/2' }),
-  ).toBeVisible()
-  await expect(page.getByText('Step 7 of 7', { exact: false })).toBeVisible()
-  await expect(
-    page.getByText('Some answers came from examples', { exact: false }),
-  ).toBeVisible()
-  await page.getByRole('button', { name: '← Back' }).click()
-  await page.getByRole('button', { name: '← Back' }).click()
-  await expect(
-    page.getByRole('heading', { name: 'Extra practice' }),
-  ).toBeVisible()
-  await page
-    .getByRole('textbox', { name: 'Your explanation' })
-    .fill('Light provides energy to build sugar.')
-  await page.getByRole('button', { name: 'Check my thinking' }).click()
-  await page.reload()
-  await expect(
-    page.getByRole('heading', { name: 'Extra practice' }),
-  ).toBeVisible()
-  await expect(page.getByRole('status')).toContainText('connected light energy')
-})
-
-test('drafts and setup survive interruption, restart cancellation and unsupported input', async ({
-  page,
-}) => {
-  await page.goto('/lesson')
-  await expect(page).toHaveURL(/\/legacy-start$/)
-  await page
-    .getByRole('textbox', { name: 'What would you like to understand?' })
-    .fill('Accounting')
-  await page
-    .getByRole('textbox', { name: 'What you want to learn (optional)' })
-    .fill('Understand a concept')
-  await page.reload()
-  await expect(
-    page.getByRole('textbox', { name: 'What would you like to understand?' }),
-  ).toHaveValue('Accounting')
-  await expect(
-    page.getByRole('button', { name: 'Begin lesson' }),
-  ).toBeDisabled()
-  await page.getByRole('tab', { name: 'Resource' }).click()
-  await page
-    .getByLabel('Choose a local file')
-    .setInputFiles({
-      name: 'my-notes.txt',
-      mimeType: 'text/plain',
-      buffer: Buffer.from('private content'),
-    })
-  await expect(page.getByText('Selected locally: my-notes.txt')).toBeVisible()
-  await page
-    .getByRole('button', { name: 'Try photosynthesis' })
-    .click()
-  await page.getByRole('button', { name: 'Begin lesson' }).click()
-  await page.reload()
-  await expect(
-    page.getByRole('heading', { name: 'One quick question' }),
-  ).toBeVisible()
-  await page.getByRole('button', { name: 'Skip question' }).click()
-  await page.getByRole('button', { name: 'Continue', exact: true }).click()
-  await page
-    .getByRole('textbox', { name: 'Your explanation' })
-    .fill('unfinished reasoning')
-  await page.reload()
-  await expect(
-    page.getByRole('textbox', { name: 'Your explanation' }),
-  ).toHaveValue('unfinished reasoning')
-  await page.getByRole('button', { name: 'Save and leave' }).click()
-  await expect(page.getByText('Next: Explain the role of light')).toBeVisible()
-  page.once('dialog', (d) => d.dismiss())
-  await page.getByRole('button', { name: 'Restart saved lesson' }).click()
-  await page.getByRole('button', { name: 'Resume saved lesson' }).click()
-  await expect(
-    page.getByRole('textbox', { name: 'Your explanation' }),
-  ).toHaveValue('unfinished reasoning')
-  expect(
-    await page.evaluate((k) => localStorage.getItem(k), key),
-  ).not.toContain('private content')
-})
-
-test('uncertain answers clarify, zero-score retry finishes with unresolved evidence', async ({
-  page,
-}) => {
-  await setup(page)
-  await explain(page)
-  await page.getByRole('textbox', { name: 'Your explanation' }).fill('banana')
-  await page.getByRole('button', { name: 'Check my thinking' }).click()
-  await expect(page.getByRole('status')).toContainText('not sure what your answer means')
-  await page.screenshot({ path: test.info().outputPath('plain-unclear-answer.png'), fullPage: true })
-  await expect(
-    page.getByRole('heading', { name: 'Try a new situation' }),
-  ).toBeVisible()
-  await page.getByRole('button', { name: 'Send as it is' }).click()
-  await expect(
-    page.getByRole('heading', { name: 'First answer: 0/2' }),
-  ).toBeVisible()
-  await page.reload()
-  await expect(
-    page.getByRole('heading', { name: 'Try another situation' }),
-  ).toBeVisible()
-  await page.getByRole('button', { name: 'I’m not sure', exact: true }).click()
-  await page.getByRole('button', { name: 'Send as it is' }).click()
-  await expect(
-    page.getByRole('heading', { name: 'Second answer: 0/2' }),
-  ).toBeVisible()
-  await page.getByRole('button', { name: 'Revisit explanation' }).click()
-  await expect(
-    page.getByRole('heading', { name: 'Understand the idea' }),
-  ).toBeVisible()
-})
-
-test('corrupt storage is recoverable only through confirmed reset', async ({
-  page,
-}) => {
-  await page.addInitScript((k) => {
-    if (!sessionStorage.getItem('seeded')) {
-      localStorage.setItem(k, '{broken')
-      sessionStorage.setItem('seeded', 'yes')
-    }
-  }, key)
-  await page.goto('/legacy-start')
-  await expect(page.getByRole('status')).toContainText(
-    'We couldn’t open your saved lesson',
-  )
-  await page.screenshot({ path: test.info().outputPath('plain-saved-recovery.png'), fullPage: true })
-  page.once('dialog', (d) => d.dismiss())
-  await page.getByRole('button', { name: 'Reset saved session' }).click()
-  await expect(page.getByRole('status')).toBeVisible()
-  page.once('dialog', (d) => d.accept())
-  await page.getByRole('button', { name: 'Reset saved session' }).click()
-  await expect(
-    page.getByText('We couldn’t open your saved lesson.'),
-  ).not.toBeVisible()
-  await expect(
-    page.getByRole('button', { name: 'Try photosynthesis' }),
-  ).toBeVisible()
-})
-
-test('storage failure allows learning with an explicit recovery warning', async ({
-  page,
-}) => {
+test('clean read-success/write-denied storage still permits in-tab learning and retry', async ({ page }, info) => {
   await page.addInitScript(() => {
-    Storage.prototype.setItem = () => {
-      throw new DOMException('Unavailable')
-    }
-    Storage.prototype.getItem = () => {
-      throw new DOMException('Unavailable')
-    }
+    const write = Storage.prototype.setItem
+    Object.defineProperty(window, 'enableSaving', { value: () => { Storage.prototype.setItem = write } })
+    Storage.prototype.setItem = () => { throw new DOMException('Unavailable') }
+    Storage.prototype.removeItem = () => { throw new DOMException('Unavailable') }
   })
-  await setup(page)
-  await expect(page.getByRole('status')).toContainText(
-    'Your progress can’t be saved',
-  )
-  await page.getByRole('button', { name: 'Skip question' }).click()
-  await expect(
-    page.getByRole('heading', { name: 'Understand the idea' }),
-  ).toBeVisible()
+  await setup(page); await expect(page.getByRole('status', { name: 'Save status' })).toContainText('Progress isn’t saved'); await input(page).fill('draft despite failure'); await button(page, 'Leave').click(); await button(page, 'Continue session').click(); await expect(input(page)).toHaveValue('draft despite failure')
+  await page.screenshot({ path: info.outputPath('phase3-save-failure.png') })
+  await page.evaluate(() => (window as unknown as { enableSaving: () => void }).enableSaving()); await button(page, 'Retry saving').click(); await expect(page.getByRole('status', { name: 'Save status' })).toContainText('Saved on this browser'); expect((await saved(page)).drafts.core.text).toBe('draft despite failure')
 })
 
-test('unknown routes and failed lazy imports recover', async ({ page }) => {
-  await page.goto('/missing-page')
-  await expect(
-    page.getByRole('heading', { name: 'Page not found' }),
-  ).toBeVisible()
-  await page.getByRole('link', { name: 'Return home' }).click()
-  await expect(page.getByRole('button', { name: 'Learn now' })).toBeVisible()
+test('denied storage reads allow learning; failed removal retains session and saved bytes', async ({ page }) => {
+  await setup(page); const before = await saved(page)
+  await page.evaluate(() => { Storage.prototype.removeItem = () => { throw new DOMException('Unavailable') } })
+  page.once('dialog', dialog => dialog.accept()); await button(page, 'Reset').click(); await expect(page.getByRole('heading', { name: 'How light helps' })).toBeVisible(); expect(await saved(page)).toEqual(before); await expect(page.getByRole('status', { name: 'Save status' })).toContainText('Progress isn’t saved')
+  await page.addInitScript(() => { Storage.prototype.getItem = () => { throw new DOMException('Unavailable') }; Storage.prototype.setItem = () => { throw new DOMException('Unavailable') } })
+  await page.goto('/start'); await button(page, 'Try photosynthesis').click(); await button(page, 'Skip question').click(); await button(page, 'Begin session').click(); await expect(page.getByRole('heading', { name: 'How light helps' })).toBeVisible(); await expect(page.getByRole('status', { name: 'Save status' })).toContainText('Progress isn’t saved')
+})
+
+test('unknown routes and failed current lazy import recover', async ({ page }) => {
+  await page.goto('/missing-page'); await expect(page.getByRole('heading', { name: 'Page not found' })).toBeVisible(); await page.getByRole('link', { name: 'Return home' }).click(); await expect(page.getByRole('button', { name: 'Learn now' })).toBeVisible()
   test.skip(!!process.env.PLAYWRIGHT_PRODUCTION, 'Dev import interception only')
-  await page.route(
-    '**/src/features/learning/routes/lesson-route.tsx*',
-    (route) => route.abort(),
-  )
-  await page.goto('/lesson')
-  await expect(
-    page.getByRole('heading', { name: 'We couldn’t open this page' }),
-  ).toBeVisible()
-  await page.unroute('**/src/features/learning/routes/lesson-route.tsx*')
-  await page.getByRole('button', { name: 'Reload page' }).click()
-  await expect(page).toHaveURL(/\/legacy-start$/)
+  await page.route('**/src/features/learning/routes/start-route.tsx*', route => route.abort()); await page.goto('/start'); await expect(page.getByRole('heading', { name: 'We couldn’t open this page' })).toBeVisible(); await page.unroute('**/src/features/learning/routes/start-route.tsx*'); await button(page, 'Reload page').click(); await expect(page.getByRole('heading', { name: 'What feels confusing?' })).toBeVisible()
 })
 
-test('keyboard sample handoff and narrow layout retain focus access', async ({
-  page,
-}, info) => {
-  await page.setViewportSize({ width: 320, height: 812 })
-  await page.goto('/legacy-start')
-  await expect(
-    page.getByRole('heading', { name: 'Start a saved lesson' }),
-  ).toBeFocused()
-  await page.getByRole('tab', { name: 'Topic', exact: true }).focus()
-  await page.keyboard.press('ArrowRight')
-  await expect(page.getByRole('tab', { name: /Resource$/ })).toBeFocused()
-  await page.keyboard.press('Enter')
-  await page
-    .getByLabel('Choose a local file')
-    .setInputFiles({
-      name: 'very-long-filename-'.repeat(12) + '.txt',
-      mimeType: 'text/plain',
-      buffer: Buffer.from('ignored'),
-    })
-  await page
-    .getByRole('textbox', { name: 'What you want to learn (optional)' })
-    .fill('A'.repeat(500))
-  await page.screenshot({
-    path: info.outputPath('setup-320.png'),
-    fullPage: true,
-  })
-  expect(
-    await page.evaluate(
-      () => document.documentElement.scrollWidth > innerWidth,
-    ),
-  ).toBe(false)
-  await page
-    .getByRole('button', { name: 'Try photosynthesis' })
-    .click()
-  await page.getByRole('button', { name: 'Begin lesson' }).click()
-  await page.getByRole('button', { name: 'Skip question' }).click()
-  await page.screenshot({
-    path: info.outputPath('explanation-320.png'),
-    fullPage: true,
-  })
-  expect(
-    await page.evaluate(
-      () => document.documentElement.scrollWidth > innerWidth,
-    ),
-  ).toBe(false)
+test('keyboard handoff and short phone recap retain focus and reading space', async ({ page }, info) => {
+  await page.setViewportSize({ width: 320, height: 500 }); await page.emulateMedia({ reducedMotion: 'reduce' }); await setup(page); await button(page, 'Continue').focus(); await page.keyboard.press('Enter'); await expect(page.getByRole('heading', { name: 'Your turn' })).toBeFocused()
+  await input(page).fill('Light provides energy to build sugar.'); await button(page, 'Check answer').focus(); await page.keyboard.press('Enter'); await button(page, 'Continue').click(); await input(page).fill(good); await button(page, 'Check answer').click(); await button(page, 'View summary').click()
+  await expect(input(page)).not.toBeVisible(); const canvas = (await page.locator('.session-canvas').boundingBox())!; const dock = (await page.locator('.session-dock').boundingBox())!; expect(canvas.height).toBeGreaterThan(200); expect(canvas.y + canvas.height).toBeLessThanOrEqual(dock.y + 1); expect(dock.y + dock.height).toBeLessThanOrEqual(501)
+  expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(320); await page.screenshot({ path: info.outputPath('phase3-320-recap.png') })
 })
 
-test('production cached revisit works offline with saved drafts', async ({
-  page,
-  context,
-}) => {
-  test.skip(
-    !process.env.PLAYWRIGHT_PRODUCTION,
-    'Requires production service worker',
-  )
-  await setup(page)
-  await explain(page)
-  await page
-    .getByRole('textbox', { name: 'Your explanation' })
-    .fill('Plant A makes sugar faster.')
-  await page.getByRole('button', { name: 'Save and leave' }).click()
-  await page.evaluate(async () => {
-    await navigator.serviceWorker.ready
-  })
-  await page.reload()
-  await expect
-    .poll(() => page.evaluate(() => !!navigator.serviceWorker.controller))
-    .toBe(true)
-  await context.setOffline(true)
-  await page.reload()
-  await page.getByRole('button', { name: 'Resume saved lesson' }).click()
-  await expect(
-    page.getByRole('textbox', { name: 'Your explanation' }),
-  ).toHaveValue('Plant A makes sugar faster.')
-  await page.getByRole('textbox', { name: 'Your explanation' }).fill(good)
-  await page.getByRole('button', { name: 'Check my thinking' }).click()
-  await expect(
-    page.getByRole('heading', { name: 'First answer: 2/2' }),
-  ).toBeVisible()
+test('production cached revisit works offline with new saved transfer drafts', async ({ page, context }) => {
+  test.skip(!process.env.PLAYWRIGHT_PRODUCTION, 'Requires production service worker')
+  await transfer(page); await input(page).fill('Plant A makes sugar faster.'); await button(page, 'Leave').click(); await page.evaluate(async () => { await navigator.serviceWorker.ready }); await page.reload(); await expect.poll(() => page.evaluate(() => !!navigator.serviceWorker.controller)).toBe(true)
+  await context.setOffline(true); await page.reload(); await button(page, 'Continue session').click(); await expect(input(page)).toHaveValue('Plant A makes sugar faster.'); await input(page).fill(good); await button(page, 'Check answer').click(); await button(page, 'View summary').click(); await expect(page.getByRole('region', { name: 'Session results' })).toContainText('Energy reasoning · Shown')
 })
 
-test('five-minute submitted practice, feedback and transfer drafts resume with keyboard actions', async ({
-  page,
-}) => {
-  await setup(page, 5)
-  await page
-    .getByRole('button', { name: 'Water and carbon dioxide', exact: true })
-    .focus()
-  await page.keyboard.press('Enter')
-  await expect(
-    page.getByRole('heading', { name: 'Understand the idea' }),
-  ).toBeFocused()
-  await page.getByRole('button', { name: 'Continue', exact: true }).focus()
-  await page.keyboard.press('Enter')
-  await page
-    .getByRole('textbox', { name: 'Your explanation' })
-    .fill('Light provides energy.')
-  await page.getByRole('button', { name: 'Check my thinking' }).focus()
-  await page.keyboard.press('Enter')
-  await page.reload()
-  await expect(
-    page.getByRole('heading', { name: 'Let’s look at your answer' }),
-  ).toBeVisible()
-  await expect(page.getByRole('status')).toContainText(
-    'Add the next connection',
-  )
-  await page.getByRole('button', { name: 'Continue', exact: true }).click()
-  await page
-    .getByRole('textbox', { name: 'Your explanation' })
-    .fill('Light is not food. It provides energy to build sugar.')
-  await page.getByRole('button', { name: 'Check my thinking' }).click()
-  await expect(page.getByRole('status')).toContainText('connected light energy')
-  await page.getByRole('button', { name: 'Continue', exact: true }).click()
-  await page
-    .getByRole('textbox', { name: 'Your explanation' })
-    .fill('Plant A makes sugar faster.')
-  await page.reload()
-  await expect(
-    page.getByRole('heading', { name: 'Try a new situation' }),
-  ).toBeVisible()
-  await expect(
-    page.getByRole('textbox', { name: 'Your explanation' }),
-  ).toHaveValue('Plant A makes sugar faster.')
+test('unsaved completion offers an in-tab summary without claiming it is saved', async ({ page }) => {
+  await page.addInitScript(() => { Storage.prototype.setItem = () => { throw new DOMException('Unavailable') } })
+  await transfer(page); await input(page).fill(good); await button(page, 'Check answer').click(); await button(page, 'View summary').click(); await button(page, 'Return home').click()
+  await expect(page.getByRole('status', { name: 'Save status' })).toContainText('Progress isn’t saved')
+  await expect(button(page, 'View saved summary')).not.toBeVisible(); await button(page, 'View summary').click(); await expect(page.getByRole('heading', { name: 'What we covered' })).toBeVisible()
 })
+
+for (const resolved of [false, true]) {
+  test(`recap ${resolved ? 'clears corrected' : 'retains unresolved'} matter explanation independently of correct transfer`, async ({ page }, info) => {
+    await setup(page); await button(page, 'Continue').click(); await input(page).fill('Light is food'); await button(page, 'Check answer').click(); await button(page, 'Continue').click(); await button(page, 'Continue').click()
+    await input(page).fill(resolved ? 'Light provides energy to build sugar. Water and carbon dioxide are materials.' : 'I am not sure'); await button(page, 'Check answer').click()
+    if (!resolved) await button(page, 'Continue with help').click()
+    await button(page, 'Continue').click(); await button(page, 'Continue').click(); await input(page).fill(good); await button(page, 'Check answer').click(); await button(page, 'View summary').click(); await exactReload(page)
+    const uncertainty = page.getByRole('region', { name: 'Remaining uncertainty' })
+    if (resolved) { await expect(uncertainty).not.toBeVisible(); await expect(button(page, 'Review energy and materials')).not.toBeVisible() }
+    else { await expect(uncertainty).toContainText('difference between light energy and materials is still unclear'); await button(page, 'Review energy and materials').click(); await expect(page.getByRole('heading', { name: 'Energy and materials' })).toBeFocused(); await exactReload(page); await button(page, 'Leave').click(); await button(page, 'View saved summary').click(); await expect(uncertainty).toBeVisible() }
+    await page.screenshot({ path: info.outputPath(`phase3-matter-${resolved ? 'resolved' : 'unresolved'}.png`) })
+  })
+}

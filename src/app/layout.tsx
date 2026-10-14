@@ -1,5 +1,5 @@
 import { useEffect } from 'react'
-import { useStudyStore } from '@/features/learning/model/study-store'
+import { useSessionStore } from '@/features/learning/model/session-store'
 import {
   Outlet,
   ScrollRestoration,
@@ -11,7 +11,7 @@ export function AppLayout() {
   const navigation = useNavigation()
   const location = useLocation()
   useEffect(() => {
-    useStudyStore.getState().flush()
+    useSessionStore.getState().flush()
   }, [location.key])
   return (
     <>

@@ -259,3 +259,38 @@ push the dock out of view. Compound 320×500/375×480 cases include long edited
 example drafts, uncertainty actions, an expanded route and reply cue. See
 [Phase 2 evidence](../plans/phase-2/evidence.md) for actual final validation,
 independent review and the FE-13 completion boundary.
+
+## Phase 3 transfer and continuity (14 October 2026)
+
+The main `/session` journey now uses explicit guided, follow-up, transfer and
+retry checks. Send remains conversation only. Transfer keeps prediction and
+energy-reasoning criteria separate; a lower first result inserts one distinct
+retry. Unknown wording requests clarification before an explicit unresolved
+submission. Immutable attempts retain example/typed origin, first/retry identity
+and linked chronological turns. Recap is derived from these attempts and keeps
+completion separate from demonstrated evidence. Source links and one next action
+remain available; reviewing teaching does not modify results.
+
+`session-storage.ts` owns `studyfellow.session.v2`. It validates scenario/schema
+versions, outcome, known IDs, reachable route/history, drafts, origins, ordered
+attempt links and completion. Assessment is rebuilt from text through the same
+`session-assessment.ts` boundary used for submission. The new Zustand store
+persists committed changes immediately and debounces drafts by 250ms; router
+navigation, pagehide, beforeunload and hidden-document events flush drafts.
+Save notices reflect actual successful writes, pending writes or storage failure.
+Learning can continue in-tab when saving fails.
+
+Home offers one secondary resume action beside the primary Learn now action.
+Old `/lesson` and `/legacy-start` entry routes redirect to the current journey;
+legacy assessment/validation code remains for regression coverage but its flush
+cannot create a second save. A v1-only record is a recovery condition, not an
+automatically migrated session. Invalid or unsupported records remain untouched
+until confirmed replacement. Reset/replacement removes the single active saved
+record only on confirmation; failed removal does not claim success. No accounts,
+sync, server calls or additional topics are introduced. Cached app revisits can
+resume offline after service-worker activation; first visits and external source
+pages still require a connection.
+
+Validation results and measurements are recorded in `plans/phase-3/evidence.md`
+after the checks finish; independent review is recorded separately. Earlier
+Phase 1/2 open-tab and unchecked-preview descriptions above are historical.

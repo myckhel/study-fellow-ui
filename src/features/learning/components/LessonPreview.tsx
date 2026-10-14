@@ -38,7 +38,7 @@ export function LessonPreview({ session }: { session: Session | null }) {
           ) : (
             <p className="m-0 text-sm leading-6">
               Read a short explanation, see an example and try the idea.
-              Your answers won’t be checked in this session yet.
+              Check your answers and get feedback on each part.
             </p>
           )}
         </div>

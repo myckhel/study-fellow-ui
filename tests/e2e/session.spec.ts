@@ -54,7 +54,7 @@ test('unsupported topic and correction retain input; prepared alternative explic
   await page.screenshot({ path: info.outputPath('phase1-mini-lesson.png') })
 })
 
-test('conversation unscored, explicit checks adapt, drafts return, summary preview', async ({ page }, info) => {
+test('conversation unscored, explicit checks adapt, drafts return, evidence summary', async ({ page }, info) => {
   const errors: string[] = []
   page.on('pageerror', error => errors.push(error.message))
   await begin(page)
@@ -91,15 +91,17 @@ test('conversation unscored, explicit checks adapt, drafts return, summary previ
   await page.screenshot({ path: info.outputPath('phase1-example-sources.png') })
   await page.getByRole('button', { name: 'Continue', exact: true }).click()
   await expect(page.getByRole('heading', { name: 'Apply the idea' })).toBeFocused()
+  await page.getByRole('textbox', { name: 'Message StudyFellow' }).fill('Plant A makes sugar faster because Plant B has less captured light energy to help build sugar.')
+  await page.getByRole('button', { name: 'Check answer' }).click()
   await page.getByRole('button', { name: 'View summary' }).click()
   await expect(page.getByRole('heading', { name: 'What we covered' })).toBeFocused()
-  await expect(page.getByText('The new-situation answer has not been checked', { exact: false })).toBeVisible()
+  await expect(page.getByRole('region', { name: 'Session results' })).toContainText('Energy reasoning · Shown')
   await page.screenshot({ path: info.outputPath('phase1-summary-preview.png') })
   await expect(page.getByText(/2\/2|demonstrated understanding|session complete/i)).not.toBeVisible()
   expect(errors).toEqual([])
 })
 
-test('open-tab resume and reset cancel; reload safely loses only new state', async ({ page }) => {
+test('saved resume and reset cancellation preserve drafts through reload', async ({ page }) => {
   await begin(page)
   await page.getByRole('textbox', { name: 'Message StudyFellow' }).fill('draft in tab')
   await page.getByRole('button', { name: 'Leave', exact: true }).click()
@@ -110,20 +112,25 @@ test('open-tab resume and reset cancel; reload safely loses only new state', asy
   await page.getByRole('button', { name: 'Reset', exact: true }).click()
   await expect(page.getByRole('textbox', { name: 'Message StudyFellow' })).toHaveValue('draft in tab')
   await page.reload()
-  await expect(page).toHaveURL(/\/start$/)
-  await expect(page.getByRole('heading', { name: 'What feels confusing?' })).toBeVisible()
+  await expect(page).toHaveURL(/\/session$/)
+  await expect(page.getByRole('textbox', { name: 'Message StudyFellow' })).toHaveValue('draft in tab')
 })
 
-test('corrupt legacy saved data stays explicit and unchanged while new demo works', async ({ page }) => {
-  await page.addInitScript(() => localStorage.setItem('studyfellow.session.v1', '{broken'))
+test('old saved bytes survive cancelled replacement and retire only on confirmation', async ({ page }) => {
   await page.goto('/')
-  await expect(page.getByRole('status')).toContainText('We couldn’t open your saved lesson')
+  await page.evaluate(() => localStorage.setItem('studyfellow.session.v1', '{broken'))
+  await page.reload()
+  await expect(page.getByRole('status')).toContainText('earlier saved lesson')
   await page.getByRole('button', { name: 'Learn now' }).click()
   await page.getByRole('button', { name: 'Try photosynthesis' }).click()
   await page.getByRole('button', { name: 'Skip question' }).click()
+  page.once('dialog', dialog => dialog.dismiss())
+  await page.getByRole('button', { name: 'Begin session' }).click()
+  expect(await page.evaluate(() => localStorage.getItem('studyfellow.session.v1'))).toBe('{broken')
+  page.once('dialog', dialog => dialog.accept())
   await page.getByRole('button', { name: 'Begin session' }).click()
   await expect(page.getByRole('heading', { name: 'How light helps' })).toBeVisible()
-  expect(await page.evaluate(() => localStorage.getItem('studyfellow.session.v1'))).toBe('{broken')
+  expect(await page.evaluate(() => localStorage.getItem('studyfellow.session.v1'))).toBeNull()
 })
 
 for (const size of [{ width: 320, height: 500 }, { width: 375, height: 480 }, { width: 1280, height: 900 }]) {
@@ -214,24 +221,14 @@ test('missing visual keeps essential text caption and sources', async ({ page })
   await expect(page.getByRole('heading', { name: 'Your turn' })).toBeVisible()
 })
 
-test('new session does not overwrite saved legacy drafts', async ({ page }) => {
-  await page.goto('/legacy-start')
-  await page.getByRole('button', { name: 'Try photosynthesis' }).click()
-  await page.getByRole('button', { name: 'Begin lesson' }).click()
-  await page.getByRole('button', { name: 'Skip question' }).click()
-  await page.getByRole('button', { name: 'Continue', exact: true }).click()
-  await page.getByRole('textbox', { name: 'Your explanation' }).fill('Legacy draft to preserve')
-  await page.getByRole('button', { name: 'Save and leave' }).click()
-  const oldSaved = await page.evaluate(() => localStorage.getItem('studyfellow.session.v1'))
-  await page.getByRole('button', { name: 'Learn now' }).click()
-  await page.getByRole('button', { name: 'Try photosynthesis' }).click()
-  await page.getByRole('button', { name: 'Skip question' }).click()
-  await page.getByRole('button', { name: 'Begin session' }).click()
-  await page.getByRole('textbox', { name: 'Message StudyFellow' }).fill('new message')
-  await page.getByRole('button', { name: 'Send', exact: true }).click()
-  expect(await page.evaluate(() => localStorage.getItem('studyfellow.session.v1'))).toBe(oldSaved)
-  await page.getByRole('button', { name: 'Leave', exact: true }).click()
-  await expect(page.getByRole('button', { name: 'Continue session' })).toBeVisible()
-  await page.getByRole('button', { name: 'Resume saved lesson' }).click()
-  await expect(page.getByRole('textbox', { name: 'Your explanation' })).toHaveValue('Legacy draft to preserve')
+test('retired lesson URLs preserve old bytes and lead to recovery', async ({ page }) => {
+  await page.goto('/')
+  await page.evaluate(() => localStorage.setItem('studyfellow.session.v1', 'old answers'))
+  for (const path of ['/legacy-start', '/lesson']) {
+    await page.goto(path)
+    await expect(page).toHaveURL(/\/$/)
+    await expect(page.getByRole('status')).toContainText('earlier saved lesson')
+    expect(await page.evaluate(() => localStorage.getItem('studyfellow.session.v1'))).toBe('old answers')
+    expect(await page.evaluate(() => localStorage.getItem('studyfellow.session.v2'))).toBeNull()
+  }
 })

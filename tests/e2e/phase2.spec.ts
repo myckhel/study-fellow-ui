@@ -54,12 +54,12 @@ test('contradictory and insufficient follow-up never imply success', () => {
   }
   fresh(); store().move(1); store().setDraft('Light is food'); store().check(); store().move(1); store().move(1)
   store().setDraft('A learner says “Sunlight is a material the plant turns into food.” Light provides energy to help build sugar. Water and carbon dioxide are materials.')
-  store().check(); expect(session().attempts[1].assessment.category).toBe('sound')
+  store().check(); expect(session().attempts[1].assessment).toMatchObject({ category: 'sound' })
   store().reset()
 })
 
 for (const path of ['ready', 'misconception', 'clarification']) {
-  test(`example path ${path} reaches honest transfer and summary preview`, async ({ page }, info) => {
+  test(`example path ${path} reaches checked transfer and evidence recap`, async ({ page }, info) => {
     test.setTimeout(60000)
     await begin(page)
     const examples = page.locator('.session-canvas details').first()
@@ -97,11 +97,18 @@ for (const path of ['ready', 'misconception', 'clarification']) {
       await page.getByRole('button', { name: 'Continue', exact: true }).click()
     }
     await expect(page.getByRole('heading', { name: 'Apply the idea' })).toBeFocused()
-    await expect(page.getByRole('button', { name: 'Check answer' })).not.toBeVisible()
+    await expect(page.getByRole('button', { name: 'Check answer' })).toBeVisible()
     await examples.getByRole('button', { name: 'Use example answer' }).click()
     await page.getByRole('button', { name: 'Send', exact: true }).click()
+    await page.getByRole('button', { name: 'Check answer' }).click()
+    if (path === 'misconception') {
+      await page.getByRole('button', { name: 'Continue', exact: true }).click()
+      await expect(page.getByRole('heading', { name: 'A different situation' })).toBeFocused()
+      await examples.getByRole('button', { name: 'Use example answer' }).click()
+      await page.getByRole('button', { name: 'Check answer' }).click()
+    }
     await page.getByRole('button', { name: 'View summary' }).click()
-    await expect(page.getByText('The new-situation answer has not been checked.', { exact: true })).toBeVisible()
+    await expect(page.getByRole('region', { name: 'Session results' })).toContainText('First situation')
     await expect(page.locator('main')).not.toContainText(/2\/2|session complete|mastery/i)
     await page.screenshot({ path: info.outputPath(`phase2-${path}-summary.png`) })
   })

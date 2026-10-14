@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router'
 import { Brand } from '@/shared/ui/Brand'
 import { focusedOutcome } from '../content/learner-copy'
 import { scenario, stepTitle } from '../content/session-scenario'
+import { SessionSaveNotice } from '../components/SessionSaveNotice'
 import { useSessionStore } from '../model/session-store'
 
 export function Component() {
@@ -28,7 +29,8 @@ export function Component() {
     <header className="flex items-center justify-between gap-3"><Brand /><Button onClick={() => navigate('/')}>Home</Button></header>
     <p className="mb-3 mt-9 text-xs font-semibold tracking-widest text-focus">ONE SHORT SESSION</p>
     <h1 ref={heading} tabIndex={-1} className="mb-3 font-display text-4xl font-normal">{phase === 'input' ? 'What feels confusing?' : phase === 'diagnosis' ? 'One quick question' : 'What you’ll learn'}</h1>
-    <p className="mb-6 leading-7 text-muted">Photosynthesis is the only topic available right now. This session is lost if you reload or close this tab.</p>
+    <p className="mb-6 leading-7 text-muted">Photosynthesis is the only topic available right now. Your progress is saved on this browser when saving is available.</p>
+    <SessionSaveNotice />
     {phase === 'input' && <section className="rounded-card border border-line bg-surface p-5 sm:p-7">
       <form onSubmit={(event) => { event.preventDefault(); if (/^(photosynthesis|how does light help plants (make|build) sugar\??|i know plants need sunlight, but how does light help them make sugar\??)$/i.test(topic.trim())) sample(); else setUnsupported(true) }}>
         <label className="mb-2 block font-medium" htmlFor="topic">Topic or question</label>
@@ -57,10 +59,10 @@ export function Component() {
           <div className="mt-3 flex flex-wrap gap-3"><Button onClick={() => { if (/^(energy (versus|vs\.?|and) (matter|materials)|focus on energy and materials|i[’']m confused about energy versus materials\.?)$/i.test(correction.trim())) { setEnergy(true); setCorrectionNotice('We’ll focus on energy and materials. Your words are still here.') } else setCorrectionNotice('We can focus on light or energy and materials. Your words are still here.') }}>Update plan</Button><Button onClick={() => { setEnergy(true); setCorrectionNotice('We’ll focus on energy and materials.') }}>Focus on energy and materials</Button><Button onClick={() => { setEnergy(false); setCorrectionNotice('We’ll focus on light. Your words are still here.') }}>Focus on light</Button></div>
           {correctionNotice && <p role="status" className="leading-6">{correctionNotice}</p>}
         </details>
-        <p className="mt-6 text-sm leading-6 text-muted">You can read the lesson and keep your answers here. They won’t be checked yet.</p>
+        <p className="mt-6 text-sm leading-6 text-muted">You can read the lesson and keep your answers here. Check your answers for feedback, then apply the idea in a new situation.</p>
         <Button type="primary" size="large" onClick={() => {
-          if (useSessionStore.getState().session && !window.confirm('Start again? Your current messages and answers will be cleared. Your saved lesson will stay.')) return
-          useSessionStore.getState().begin({ topic, confusion, diagnostic, correction, energy }); navigate('/session')
+          const state = useSessionStore.getState(); if ((state.session || state.storage === 'old' || state.storage === 'invalid') && !window.confirm('Replace your saved progress? Your messages and answers will be cleared.')) return
+          if (useSessionStore.getState().begin({ topic, confusion, diagnostic, correction, energy })) navigate('/session')
         }}>Begin session</Button>
       </div>
       <aside className="rounded-card bg-midnight p-6 text-ivory"><p className="text-xs tracking-widest text-starlight">YOUR STEPS</p><ol className="space-y-5 pl-5">{route.map(id => <li key={id}>{stepTitle[id]}</li>)}</ol><p className="text-sm leading-6 text-orbit">One step at a time. You can change the focus before starting.</p></aside>

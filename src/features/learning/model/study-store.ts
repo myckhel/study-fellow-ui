@@ -281,15 +281,7 @@ let pending: ReturnType<typeof setTimeout> | undefined
 export const useStudyStore = create<StudyState>((set, get) => {
   const flush = () => {
     clearTimeout(pending)
-    if (get().storage === 'invalid') return
-    try {
-      if (get().session)
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(get().session))
-      else localStorage.removeItem(STORAGE_KEY)
-      if (get().storage !== 'ready') set({ storage: 'ready' })
-    } catch {
-      set({ storage: 'unavailable' })
-    }
+    // Retired browser flow: preserve v1 bytes until confirmed v2 recovery.
   }
   const update = (change: (session: Session) => Session, immediate = true) => {
     if (!get().session) return

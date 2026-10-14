@@ -431,6 +431,30 @@
       "assessmentCommitted": false
     }
   ],
+  "transferCheck": {
+    "stepId": "transfer",
+    "retryStepId": "retry",
+    "rubric": [
+      {
+        "id": "prediction",
+        "points": 1,
+        "expectedEvidence": "Plant A has a higher sugar-production rate under the stated conditions; on retry, Seedling C."
+      },
+      {
+        "id": "energy-reasoning",
+        "points": 1,
+        "expectedEvidence": "Dimmer light means less captured light energy and less energy available to support sugar building."
+      }
+    ],
+    "successScore": 2,
+    "firstAndRetrySeparate": true,
+    "assessmentBoundary": "Preserve existing assessGuided/assessTransfer conservative rules; scenario expectations do not override actual typed assessment.",
+    "feedbackBranches": {
+      "demonstrated": "Acknowledge both criteria and show recap.",
+      "partial": "Name demonstrated criterion and unresolved criterion; offer targeted explanation plus different retry.",
+      "unclear": "Ask for clarification; retain draft. Explicit unresolved submission is available; no optimistic success."
+    }
+  },
   "examplePaths": [
     {
       "pathId": "ready",
@@ -472,6 +496,13 @@
           "id": "misconception-turn-21",
           "stepId": "transfer",
           "text": "Plant A makes sugar faster.",
+          "event": "submit-answer",
+          "kind": "answer"
+        },
+        {
+          "id": "misconception-turn-26",
+          "stepId": "retry",
+          "text": "Seedling C makes sugar faster because it has more captured light energy available to build sugar. Seedling D has less captured light energy to support sugar building.",
           "event": "submit-answer",
           "kind": "answer"
         }
