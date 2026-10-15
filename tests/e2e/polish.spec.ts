@@ -18,7 +18,7 @@ test('home marketing stays general while available topic remains on setup', asyn
   await button(page, 'How it works').click()
   await expect(page.getByRole('main')).not.toContainText(/photosynthesis|light|materials|sugar/i)
   await page.getByRole('button', { name: 'Learn now' }).click()
-  await expect(page.getByRole('main')).toContainText('Photosynthesis is the only topic available right now.')
+  await expect(page.getByRole('button', { name: 'Try photosynthesis' })).toBeVisible()
 })
 
 test('positive guided and transfer feedback close a typed session without mastery claims', async ({ page }, info) => {

@@ -10,21 +10,28 @@ const blockLabels: Record<string, string> = {
   explanation: 'Explanation', diagram: 'Diagram', 'worked-example': 'Example',
   'learner-prompt': 'Your turn', 'mini-lesson': 'Short lesson', recap: 'Summary',
 }
+const blockIcons: Record<string, string> = {
+  explanation: '✦', diagram: '📊', 'worked-example': '💡',
+  'learner-prompt': '✍️', 'mini-lesson': '🔬', recap: '🌟',
+}
 export function SessionBlock({ block, stepSourceRefs = [] }: { block: ContentBlock; stepSourceRefs?: string[] }) {
   const asset = 'assetId' in block ? scenario.assets.find(asset => asset.id === block.assetId) : undefined
   return <section data-block-kind={block.kind} className={`session-block session-block-${block.kind}`}>
-    <p className="mb-3 mt-0 text-xs font-semibold uppercase tracking-widest text-focus">{blockLabels[block.kind]}</p>
+    <p className="mb-3 mt-0 text-xs font-semibold uppercase tracking-widest text-focus flex items-center gap-1.5">
+      <span aria-hidden="true">{blockIcons[block.kind]}</span>
+      <span>{blockLabels[block.kind]}</span>
+    </p>
     {block.kind === 'diagram' ? <>
       {asset?.id === 'energy-flow' ? <EnergyFlow /> : <p className="rounded-control bg-orbit-soft p-4">The picture isn’t available. You can read the explanation below.</p>}
       <p className="leading-7">{asset?.textEquivalent ?? block.text}</p>
-      {asset && <p className="font-medium">{asset.caption}</p>}
+      {asset && <p className="font-medium text-sm text-muted mt-2">{asset.caption}</p>}
     </> : block.kind === 'recap' ? <>
       <h2 className="font-display text-2xl font-normal">The main idea</h2>
       <p className="leading-7">{scenario.steps.find(step => step.id === 'core')?.contentBlocks.find(block => block.kind === 'explanation')?.text}</p>
       <p className="rounded-control bg-accent-soft p-4 leading-6">Apply the idea in a new situation to check your explanation.</p>
       <p className="text-sm leading-6">Next: review the idea and see what your answers showed.</p>
-    </> : <p className={block.kind === 'learner-prompt' ? 'font-display text-2xl leading-9' : 'text-lg leading-8'}>{block.text}</p>}
-    {block.kind === 'mini-lesson' && <div className="mt-5 grid grid-cols-2 gap-3"><div className="rounded-control bg-orbit-soft p-4"><strong>Energy</strong><p className="mb-0 leading-6">Captured light</p></div><div className="rounded-control bg-accent-soft p-4"><strong>Materials</strong><p className="mb-0 leading-6">Water + carbon dioxide</p></div></div>}
+    </> : <p className={block.kind === 'learner-prompt' ? 'font-display text-2xl leading-9 text-ink font-normal' : 'text-lg leading-8 text-ink'}>{block.text}</p>}
+    {block.kind === 'mini-lesson' && <div className="mt-5 grid grid-cols-2 gap-3 sm:gap-4"><div className="rounded-2xl border border-line/80 bg-orbit-soft/60 p-4 shadow-xs"><div className="flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wider text-focus mb-1"><span>⚡</span><strong>Energy</strong></div><p className="mb-0 text-sm leading-6 text-ink">Captured light</p></div><div className="rounded-2xl border border-line/80 bg-accent-soft/60 p-4 shadow-xs"><div className="flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wider text-accent-ink mb-1"><span>🌱</span><strong>Materials</strong></div><p className="mb-0 text-sm leading-6 text-ink">Water + carbon dioxide</p></div></div>}
     <BlockSources refs={block.kind === 'recap' ? scenario.teachingNotes.sourceRefs : [...new Set([...block.sourceRefs, ...stepSourceRefs])]} illustration={block.kind === 'diagram'} example={block.kind === 'worked-example'} />
   </section>
 }

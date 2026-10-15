@@ -69,19 +69,19 @@ summary { min-height: 44px; display: list-item; padding-block: 8px; }
 @media (max-width: 380px) { .ant-card .ant-tabs-nav .ant-tabs-tab + .ant-tabs-tab { margin-left: 12px; } }
 
 /* Phase 1 teaching canvas and composer reserve their own space. */
-.session-shell { height: 100dvh; display: flex; flex-direction: column; overflow: hidden; }
-.session-header { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 16px 24px; border-bottom: 1px solid var(--color-line); flex-shrink: 0; }
+.session-shell { height: 100dvh; display: flex; flex-direction: column; overflow: hidden; background: var(--color-ivory); }
+.session-header { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 16px 24px; border-bottom: 1px solid var(--color-line); flex-shrink: 0; background: var(--color-surface); }
 .session-body { display: flex; flex: 1; min-height: 0; }
-.session-route-desktop { width: 264px; flex: 0 0 264px; overflow: auto; padding: 24px 16px; background: var(--color-midnight); color: var(--color-ivory); }
-.session-workspace { flex: 1; min-width: 0; min-height: 0; display: flex; flex-direction: column; }
+.session-route-desktop { width: 272px; flex: 0 0 272px; overflow: auto; padding: 24px 18px; background: var(--color-midnight); color: var(--color-ivory); }
+.session-workspace { flex: 1; min-width: 0; min-height: 0; display: flex; flex-direction: column; background: var(--color-ivory); }
 .session-route-mobile { display: none; }
 .session-canvas { flex: 1; min-height: 0; overflow: auto; overscroll-behavior: contain; padding: 28px 32px; }
-.session-block { padding: 24px; border: 1px solid var(--color-line); border-radius: 24px; background: var(--color-surface); margin: 18px 0; }
+.session-block { padding: 26px; border: 1px solid var(--color-line); border-radius: 24px; background: var(--color-surface); margin: 20px 0; box-shadow: var(--shadow-observatory); transition: box-shadow 0.2s ease, border-color 0.2s ease; }
 .session-block-worked-example { border-left: 5px solid var(--color-starlight); background: var(--color-accent-soft); }
 .session-block-mini-lesson { border-top: 4px solid var(--color-focus); }
-.session-block-learner-prompt { border: 2px solid var(--color-orbit); }
+.session-block-learner-prompt { border: 2px solid var(--color-orbit); background: var(--color-surface); }
 .session-block-recap { border-top: 4px solid var(--color-starlight); }
-.session-dock { flex-shrink: 0; border-top: 1px solid var(--color-line); background: var(--color-surface); padding: 16px 32px calc(12px + env(safe-area-inset-bottom)); }
+.session-dock { flex-shrink: 0; border-top: 1px solid var(--color-line); background: var(--color-surface); padding: 16px 32px calc(12px + env(safe-area-inset-bottom)); box-shadow: 0 -4px 20px rgb(16 24 43 / 0.04); }
 .session-dock .ant-btn { min-height: 44px; }
 .session-dock textarea { max-height: 112px !important; }
 .session-route-desktop :focus-visible, .session-route-mobile :focus-visible { outline-color: var(--color-starlight); }

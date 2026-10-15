@@ -17,9 +17,10 @@ export type Session = {
   originalRoute: string[]; routeChanges: { id: string; triggerAttemptId: string; addedStepIds: string[]; skippedStepIds: string[]; reason: string }[]; route: Entry[]; currentStepId: string; drafts: Record<string, Draft>; answerDrafts: Record<string, Draft>;
   turns: Turn[]; attempts: Attempt[]; help: boolean; clarification: string | null; examplePath: string | null; usedSeeds: string[];
 }
-type Begin = { topic: string; confusion: string; diagnostic: string; correction: string; energy: boolean }
+export type AttachedResource = { name: string; size?: string; content?: string }
+type Begin = { topic: string; confusion: string; diagnostic: string; correction: string; energy: boolean; resource?: AttachedResource | null }
 type State = {
-  session: Session | null; storage: 'saved' | 'pending' | 'unavailable' | 'invalid' | 'old'; flush: () => void; review: (stepId: string) => void; begin: (input: Begin) => boolean; setDraft: (text: string) => void;
+  session: Session | null; storage: 'saved' | 'pending' | 'unavailable' | 'invalid' | 'old'; attachedResource: AttachedResource | null; setAttachedResource: (resource: AttachedResource | null) => void; flush: () => void; review: (stepId: string) => void; begin: (input: Begin) => boolean; setDraft: (text: string) => void;
   send: () => void; check: (unresolved?: boolean) => void; help: (enabled: boolean) => void;
   keepWorking: () => void; move: (direction: -1 | 1) => void; reset: () => boolean;
   selectPath: (pathId: string) => void; useExample: (pathId?: string, seedId?: string) => void;
@@ -44,9 +45,11 @@ let pending: ReturnType<typeof setTimeout> | undefined
 let debounce = false
 export const useSessionStore = create<State>((set, get) => ({
   ...restoreSession(),
+  attachedResource: null,
+  setAttachedResource: resource => set({ attachedResource: resource }),
   flush: () => { clearTimeout(pending); const state = get(); if (state.storage === 'invalid' || state.storage === 'old') return; set({ storage: saveSession(state.session) ? 'saved' : 'unavailable' }) },
   review: stepId => set(({ session }) => session?.completed && session.route.some(entry => entry.id === stepId && entry.status !== 'skipped') ? { session: { ...session, currentStepId: stepId, help: false, clarification: null } } : {}),
-  begin: input => { if (get().storage !== 'unavailable' && !clearSession()) { set({ storage: 'unavailable' }); return false }; set({ session: initial(input), storage: 'pending' }); return true },
+  begin: input => { if (get().storage !== 'unavailable' && !clearSession()) { set({ storage: 'unavailable' }); return false }; set({ session: initial(input), attachedResource: input.resource ?? null, storage: 'pending' }); return true },
   setDraft: text => { debounce = true; set(({ session }) => {
     if (!session) return {}
     const key = isCheck(session.currentStepId) && !session.help ? 'answerDrafts' : 'drafts'
@@ -107,7 +110,7 @@ export const useSessionStore = create<State>((set, get) => ({
     if (index < 0 || index >= active.length) return {}
     return { session: { ...session, route: direction === 1 ? session.route.map(entry => entry.id === session.currentStepId ? { ...entry, status: 'completed' } : entry) : session.route, currentStepId: active[index].id, completed: session.completed || active[index].id === 'recap', help: session.attempts.some(attempt => attempt.stepId === active[index].id), clarification: null } }
   }),
-  reset: () => { if (clearSession()) { set({ session: null, storage: 'saved' }); return true }; set({ storage: 'unavailable' }); return false },
+  reset: () => { if (clearSession()) { set({ session: null, attachedResource: null, storage: 'saved' }); return true }; set({ storage: 'unavailable' }); return false },
   selectPath: pathId => set(({ session }) => session && scenario.examplePaths.some(path => path.pathId === pathId) ? { session: { ...initial({ topic: session.originalTopic, confusion: session.confusion, diagnostic: session.diagnostic, correction: '', energy: false }), examplePath: pathId } } : {}),
   useExample: (pathId, seedId) => set(({ session }) => {
     if (!session) return {}
