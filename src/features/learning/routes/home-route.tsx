@@ -35,7 +35,7 @@ export function Component() {
             <span className="text-focus">hard.</span>
           </h1>
           <p className="max-w-xl text-base leading-7 text-muted sm:text-lg">
-            Get help with a confusing idea. Start with photosynthesis.
+            Get help with a confusing idea, one clear step at a time.
           </p>
           <div className="mt-7 flex flex-wrap items-center gap-3">
             <Button
@@ -53,12 +53,12 @@ export function Component() {
           {showNote && (
             <p className="mt-5 rounded-2xl border border-line bg-orbit-soft p-4 text-sm leading-6">
               Read a short lesson, see an example and keep your questions here.
-              Ask about light, energy and materials. Check your explanation and get a useful next step. Apply it in a new situation and see feedback on each part. Your progress is saved on this browser when saving is available.
+              Ask questions as you go. Send your explanation and get a useful next step. Apply it in a new situation and see feedback on each part. Your progress is saved on this browser when saving is available.
             </p>
           )}
           {session && <div className="mt-5 rounded-2xl border border-line bg-orbit-soft p-4"><p className="mt-0 font-medium">Photosynthesis · {stepTitle[session.currentStepId]}</p><p className="text-sm leading-6 text-muted">Next: {nextAction(session)}</p><Button onClick={() => { if (session.completed) review('recap'); navigate('/session') }}>{session.completed ? storage === 'saved' ? 'View saved summary' : 'View summary' : 'Continue session'}</Button></div>}
         </div>
-        <LessonPreview session={null} />
+        <LessonPreview />
       </section>
       <section className="grid gap-4 border-t border-line pt-8 sm:grid-cols-3">
         {[

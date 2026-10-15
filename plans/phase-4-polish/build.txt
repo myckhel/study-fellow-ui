@@ -1,0 +1,31 @@
+$ tsc -b && vite build
+/opt/local/bin/bash: warning: setlocale: LC_ALL: cannot change locale (C.UTF-8): No such file or directory
+vite v7.3.7 building client environment for production...
+transforming...
+✓ 2076 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/registerSW.js                              0.13 kB
+dist/manifest.webmanifest                       0.32 kB
+dist/index.html                                 0.75 kB │ gzip:   0.44 kB
+dist/assets/index-B1DJjE5J.css                 25.25 kB │ gzip:   6.04 kB
+dist/assets/SessionSaveNotice-Dj7cYoin.js       1.86 kB │ gzip:   0.82 kB
+dist/assets/LearningIllustration-CFp0JvXQ.js    3.56 kB │ gzip:   1.49 kB
+dist/assets/home-route-DVhl2Kgy.js              4.18 kB │ gzip:   1.73 kB
+dist/assets/start-route-BQsY_ZhN.js             6.61 kB │ gzip:   2.55 kB
+dist/assets/session-route-CjQBvU5b.js          19.37 kB │ gzip:   6.11 kB
+dist/assets/useSessionMotion-Cwx_TeBg.js       54.26 kB │ gzip:  17.28 kB
+dist/assets/index-Cbi7NiN4.js                 650.78 kB │ gzip: 212.42 kB
+
+(!) Some chunks are larger than 500 kB after minification. Consider:
+- Using dynamic import() to code-split the application
+- Use build.rollupOptions.output.manualChunks to improve chunking: https://rollupjs.org/configuration-options/#output-manualchunks
+- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.
+✓ built in 4.86s
+
+PWA v2.0.0
+mode      generateSW
+precache  12 entries (748.78 KiB)
+files generated
+  dist/sw.js
+  dist/workbox-9c191d2f.js

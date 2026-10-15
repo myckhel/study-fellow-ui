@@ -1,0 +1,35 @@
+$ playwright test "tests/e2e/owner-feedback.spec.ts" "--workers=3" "--output=/tmp/studyfellow-feedback-focused-results"
+/opt/local/bin/bash: warning: setlocale: LC_ALL: cannot change locale (C.UTF-8): No such file or directory
+
+Running 16 tests using 3 workers
+
+(node:83567) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:83568) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:83569) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓   2 [desktop] › tests/e2e/owner-feedback.spec.ts:50:1 › prefill cancellation preserves typed fields and confirmation preserves confusion (5.0s)
+  ✓   3 [desktop] › tests/e2e/owner-feedback.spec.ts:18:1 › home describes a neutral journey and prefill waits for explicit continuation (5.2s)
+  ✓   5 [desktop] › tests/e2e/owner-feedback.spec.ts:104:1 › repeat partial seed insertion stays valid and forged/cross-step seeds remain invalid (19ms)
+  ✓   1 [desktop] › tests/e2e/owner-feedback.spec.ts:62:1 › ordinary-session example words preserve mixed origins and both drafts through reload (10.8s)
+  ✓   4 [desktop] › tests/e2e/owner-feedback.spec.ts:89:1 › Send checks answer mode once and Help Send remains conversational (7.6s)
+  ✓   6 [desktop] › tests/e2e/owner-feedback.spec.ts:121:3 › expanded example words and multiline uncertain/help drafts preserve reading space 320 (8.3s)
+  ✓   8 [desktop] › tests/e2e/owner-feedback.spec.ts:146:1 › recap shows one example context note while preserving first and retry evidence (4.0s)
+  ✓   7 [desktop] › tests/e2e/owner-feedback.spec.ts:121:3 › expanded example words and multiline uncertain/help drafts preserve reading space 375 (5.9s)
+(node:84691) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:84695) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:84697) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓   9 [mobile] › tests/e2e/owner-feedback.spec.ts:18:1 › home describes a neutral journey and prefill waits for explicit continuation (5.3s)
+  ✓  10 [mobile] › tests/e2e/owner-feedback.spec.ts:50:1 › prefill cancellation preserves typed fields and confirmation preserves confusion (4.7s)
+  ✓  13 [mobile] › tests/e2e/owner-feedback.spec.ts:104:1 › repeat partial seed insertion stays valid and forged/cross-step seeds remain invalid (13ms)
+  ✓  12 [mobile] › tests/e2e/owner-feedback.spec.ts:89:1 › Send checks answer mode once and Help Send remains conversational (6.5s)
+  ✓  11 [mobile] › tests/e2e/owner-feedback.spec.ts:62:1 › ordinary-session example words preserve mixed origins and both drafts through reload (10.5s)
+  ✓  14 [mobile] › tests/e2e/owner-feedback.spec.ts:121:3 › expanded example words and multiline uncertain/help drafts preserve reading space 320 (7.9s)
+  ✓  16 [mobile] › tests/e2e/owner-feedback.spec.ts:146:1 › recap shows one example context note while preserving first and retry evidence (4.9s)
+  ✓  15 [mobile] › tests/e2e/owner-feedback.spec.ts:121:3 › expanded example words and multiline uncertain/help drafts preserve reading space 375 (5.0s)
+
+  16 passed (43.4s)

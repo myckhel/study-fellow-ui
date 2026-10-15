@@ -44,7 +44,7 @@ test('real keyboard traversal covers entry, disclosures, sources, composer and l
   await page.keyboard.type('How does light help sugar building?')
   await page.keyboard.press('Shift+Tab')
   await expect(page.getByRole('textbox', { name: 'Topic or question' })).toBeFocused()
-  await activate(page, page.getByRole('button', { name: 'Show my plan' }))
+  await activate(page, page.getByRole('button', { name: 'Continue', exact: true }))
   await expect(page.getByRole('heading', { name: 'One quick question' })).toBeFocused()
   await activate(page, page.getByRole('button', { name: 'Skip question' }))
   const focusDisclosure = page.locator('summary').filter({ hasText: 'Change the focus' })
@@ -84,19 +84,19 @@ test('real keyboard traversal covers entry, disclosures, sources, composer and l
 
 test('confirmed reset clears evidence, added route, example origin and drafts before a fresh reload', async ({ page }) => {
   await page.goto('/start')
-  await page.getByRole('button', { name: 'Try photosynthesis' }).click()
+  await page.getByRole('button', { name: 'Try photosynthesis' }).click(); await page.getByRole('button', { name: 'Continue', exact: true }).click()
   await page.getByRole('button', { name: 'Skip question' }).click()
   await page.getByRole('button', { name: 'Begin session' }).click()
   const examples = page.locator('.session-canvas details').first()
   await examples.locator('summary').click()
   page.once('dialog', dialog => dialog.accept())
-  await examples.getByRole('button', { name: 'Misconception', exact: true }).click()
+  await examples.getByRole('button', { name: 'Restart with misconception example', exact: true }).click()
   const input = page.getByRole('textbox', { name: 'Message StudyFellow' })
   await input.fill('Does light turn into sugar?')
   await page.getByRole('button', { name: 'Send', exact: true }).click()
   await page.getByRole('button', { name: 'Continue', exact: true }).click()
   await examples.getByRole('button', { name: 'Use example answer' }).click()
-  await page.getByRole('button', { name: 'Check answer' }).click()
+  await page.getByRole('button', { name: 'Send', exact: true }).click()
   await input.fill('Old conversation draft')
   await expect.poll(async () => (await snapshot(page))?.drafts.guided?.text).toBe('Old conversation draft')
   const old = (await snapshot(page))!
@@ -114,7 +114,7 @@ test('confirmed reset clears evidence, added route, example origin and drafts be
   await page.getByRole('button', { name: 'Reset', exact: true }).click()
   await expect(page).toHaveURL('/start')
   await expect.poll(() => snapshot(page)).toBeNull()
-  await page.getByRole('button', { name: 'Try photosynthesis' }).click()
+  await page.getByRole('button', { name: 'Try photosynthesis' }).click(); await page.getByRole('button', { name: 'Continue', exact: true }).click()
   await page.getByRole('button', { name: 'Skip question' }).click()
   await page.getByRole('button', { name: 'Begin session' }).click()
   await page.reload()
@@ -126,7 +126,7 @@ test('confirmed reset clears evidence, added route, example origin and drafts be
   expect(clean.route.every(entry => entry.status === 'pending' && !entry.reason)).toBe(true)
   await expect(input).toBeEmpty()
   await expect(page.getByRole('region', { name: 'Messages at this step' })).toHaveCount(0)
-  await expect(examples.locator('summary')).toHaveText('Example paths')
+  await expect(examples.locator('summary')).toHaveText('Start an example session')
 })
 
 test('enabled entry and session input boundaries and placeholders have readable contrast', async ({ page }) => {
@@ -171,7 +171,7 @@ test('enabled entry and session input boundaries and placeholders have readable 
   }
   await page.goto('/start')
   await checkContrast(page.getByRole('textbox', { name: 'Topic or question' }))
-  await page.getByRole('button', { name: 'Try photosynthesis' }).click()
+  await page.getByRole('button', { name: 'Try photosynthesis' }).click(); await page.getByRole('button', { name: 'Continue', exact: true }).click()
   await page.getByRole('button', { name: 'Skip question' }).click()
   await page.getByRole('button', { name: 'Begin session' }).click()
   await checkContrast(page.getByRole('textbox', { name: 'Message StudyFellow' }))

@@ -1,18 +1,22 @@
 import { useEffect, useRef, useState } from 'react'
-import { Button, Input } from 'antd'
+import { Button, Input, type InputRef } from 'antd'
 import { useNavigate } from 'react-router'
 import { Brand } from '@/shared/ui/Brand'
 import { focusedOutcome } from '../content/learner-copy'
 import { scenario, stepTitle } from '../content/session-scenario'
+import { usePlanMotion } from '../components/useSessionMotion'
 import { SessionSaveNotice } from '../components/SessionSaveNotice'
 import { useSessionStore } from '../model/session-store'
 
 export function Component() {
   const navigate = useNavigate()
   const heading = useRef<HTMLHeadingElement>(null)
+  const topicInput = useRef<InputRef>(null)
   const [topic, setTopic] = useState('')
   const [confusion, setConfusion] = useState('')
   const [phase, setPhase] = useState<'input' | 'diagnosis' | 'plan'>('input')
+  const planList = useRef<HTMLOListElement>(null)
+  usePlanMotion(phase === 'plan', planList)
   const [unsupported, setUnsupported] = useState(false)
   const [diagnostic, setDiagnostic] = useState('')
   const [correction, setCorrection] = useState('')
@@ -20,10 +24,13 @@ export function Component() {
   const [correctionNotice, setCorrectionNotice] = useState('')
   useEffect(() => { heading.current?.focus() }, [phase])
   const sample = () => {
-    if (!topic.trim()) setTopic(scenario.initialLearnerInput)
+    if (topic.trim() && topic.trim().toLowerCase() !== 'photosynthesis' && !window.confirm('Replace your topic with Photosynthesis? Your question about it will stay here.')) return
+    setTopic('Photosynthesis')
+    if (!confusion.trim()) setConfusion(scenario.initialLearnerInput)
     setUnsupported(false)
-    setPhase('diagnosis')
+    topicInput.current?.focus()
   }
+  const diagnosisLabels: Record<string, string> = { matter: 'Water and carbon dioxide supply materials.', light: 'Water, carbon dioxide and light all supply materials.', unsure: 'I’m not sure yet.' }
   const route = energy ? scenario.plan.supportedCorrection.route : scenario.plan.stepIds
   return <main id="main-content" className="mx-auto max-w-4xl px-5 pb-12 pt-6 sm:px-8">
     <header className="flex items-center justify-between gap-3"><Brand /><Button onClick={() => navigate('/')}>Home</Button></header>
@@ -32,28 +39,29 @@ export function Component() {
     <p className="mb-6 leading-7 text-muted">Photosynthesis is the only topic available right now. Your progress is saved on this browser when saving is available.</p>
     <SessionSaveNotice />
     {phase === 'input' && <section className="rounded-card border border-line bg-surface p-5 sm:p-7">
-      <form onSubmit={(event) => { event.preventDefault(); if (/^(photosynthesis|how does light help plants (make|build) sugar\??|i know plants need sunlight, but how does light help them make sugar\??)$/i.test(topic.trim())) sample(); else setUnsupported(true) }}>
+      <form onSubmit={(event) => { event.preventDefault(); if (/^(photosynthesis|how does light help plants (make|build) sugar\??|i know plants need sunlight, but how does light help them make sugar\??)$/i.test(topic.trim())) { setUnsupported(false); setPhase('diagnosis') } else setUnsupported(true) }}>
         <label className="mb-2 block font-medium" htmlFor="topic">Topic or question</label>
-        <Input id="topic" maxLength={500} value={topic} onChange={(e) => setTopic(e.target.value)} placeholder="What would you like to understand?" />
+        <Input ref={topicInput} id="topic" maxLength={500} value={topic} onChange={(e) => setTopic(e.target.value)} placeholder="What would you like to understand?" />
         <label className="mb-2 mt-5 block font-medium" htmlFor="confusion">What’s confusing? (optional)</label>
         <Input.TextArea id="confusion" maxLength={1000} autoSize={{ minRows: 2, maxRows: 4 }} value={confusion} onChange={(e) => setConfusion(e.target.value)} />
-        <Button className="mt-5" type="primary" htmlType="submit" disabled={!topic.trim()}>Show my plan</Button>
+        <Button className="mt-5" type="primary" htmlType="submit" disabled={!topic.trim()}>Continue</Button>
       </form>
       {unsupported && <p role="status" className="rounded-control bg-accent-soft p-4 leading-6">We don’t have a lesson for that topic yet. Your words are still here. Try photosynthesis below.</p>}
       <div className="mt-6 border-t border-line pt-5"><p className="leading-6">For example: {scenario.initialLearnerInput}</p><Button onClick={sample}>Try photosynthesis</Button></div>
     </section>}
     {phase === 'diagnosis' && <section className="rounded-card border border-line bg-surface p-5 sm:p-7">
       <p className="text-sm text-muted">Learning about photosynthesis. Your words: <span className="break-words text-ink">{topic}</span></p>
-      <h2 className="text-xl font-medium">{scenario.diagnosis.question}</h2>
+      <h2 className="text-xl font-medium">Which supplies materials for making sugar?</h2>
       <p className="text-sm leading-6 text-muted">This helps choose where to start. It’s okay to skip.</p>
-      <div className="flex flex-col items-start gap-3">{scenario.diagnosis.choices.map(choice => <Button key={choice.id} className="!h-auto !min-h-11 !max-w-full !whitespace-normal !text-left" onClick={() => { setDiagnostic(choice.id); setEnergy(choice.id === 'light'); setPhase('plan') }}>{choice.id === 'skipped' ? 'Skip question' : choice.text}</Button>)}</div>
+      <div className="flex flex-col items-stretch gap-3">{scenario.diagnosis.choices.filter(choice => choice.id !== 'skipped').map(choice => <Button key={choice.id} className="!h-auto !min-h-11 !w-full !justify-start !whitespace-normal !text-left" onClick={() => { setDiagnostic(choice.id); setEnergy(choice.id === 'light'); setPhase('plan') }}>{diagnosisLabels[choice.id]}</Button>)}</div>
+      <Button className="mt-5" onClick={() => { setDiagnostic('skipped'); setEnergy(false); setPhase('plan') }}>Skip question</Button>
     </section>}
     {phase === 'plan' && <section className="grid gap-6 md:grid-cols-[1fr_264px]">
       <div className="rounded-card border border-line bg-surface p-5 sm:p-7">
 
         <h2 className="font-display text-3xl font-normal">{energy ? focusedOutcome : scenario.inferredOutcome}</h2>
         <p className="leading-7">{energy ? 'We’ll separate light energy from water and carbon dioxide, then connect them to sugar building.' : 'We’ll start with what light supplies, then see how plants use it to build sugar.'}</p>
-        <p className="text-sm text-muted">Your choice: {diagnostic === 'skipped' ? 'Skip question' : scenario.diagnosis.choices.find(c => c.id === diagnostic)?.text}. We’ll use this to choose where to start.</p>
+        <p className="text-sm text-muted">Your choice: {diagnostic === 'skipped' ? 'Skip question' : diagnosisLabels[diagnostic]}. We’ll use this to choose where to start.</p>
         <details className="mt-5 border-t border-line pt-2"><summary className="cursor-pointer text-focus">Change the focus</summary>
           <label htmlFor="correction" className="my-2 block">What should we focus on?</label><Input.TextArea id="correction" maxLength={1000} autoSize={{ minRows: 2, maxRows: 4 }} value={correction} onChange={(e) => setCorrection(e.target.value)} />
           <div className="mt-3 flex flex-wrap gap-3"><Button onClick={() => { if (/^(energy (versus|vs\.?|and) (matter|materials)|focus on energy and materials|i[’']m confused about energy versus materials\.?)$/i.test(correction.trim())) { setEnergy(true); setCorrectionNotice('We’ll focus on energy and materials. Your words are still here.') } else setCorrectionNotice('We can focus on light or energy and materials. Your words are still here.') }}>Update plan</Button><Button onClick={() => { setEnergy(true); setCorrectionNotice('We’ll focus on energy and materials.') }}>Focus on energy and materials</Button><Button onClick={() => { setEnergy(false); setCorrectionNotice('We’ll focus on light. Your words are still here.') }}>Focus on light</Button></div>
@@ -65,7 +73,7 @@ export function Component() {
           if (useSessionStore.getState().begin({ topic, confusion, diagnostic, correction, energy })) navigate('/session')
         }}>Begin session</Button>
       </div>
-      <aside className="rounded-card bg-midnight p-6 text-ivory"><p className="text-xs tracking-widest text-starlight">YOUR STEPS</p><ol className="space-y-5 pl-5">{route.map(id => <li key={id}>{stepTitle[id]}</li>)}</ol><p className="text-sm leading-6 text-orbit">One step at a time. You can change the focus before starting.</p></aside>
+      <aside className="rounded-card bg-midnight p-6 text-ivory"><p className="text-xs tracking-widest text-starlight">YOUR STEPS</p><ol ref={planList} className="space-y-5 pl-5">{route.map(id => <li key={id}>{stepTitle[id]}</li>)}</ol><p className="text-sm leading-6 text-orbit">One step at a time. You can change the focus before starting.</p></aside>
     </section>}
   </main>
 }

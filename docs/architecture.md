@@ -294,3 +294,38 @@ pages still require a connection.
 Validation results and measurements are recorded in `plans/phase-3/evidence.md`
 after the checks finish; independent review is recorded separately. Earlier
 Phase 1/2 open-tab and unchecked-preview descriptions above are historical.
+
+## Owner walkthrough refinement (15 October 2026)
+
+The current entry example fills the topic form and waits for explicit Continue.
+Diagnosis retains its original stored IDs and route decisions with clearer
+question/answer wording. Home introduces the learning journey without teaching
+the configured lesson before it begins.
+
+The session now uses one visible Send action. In an unanswered check's answer
+mode, Send invokes the existing conservative checker; in teaching/help or after
+submission it sends conversation. Need help and Return to answer retain separate
+drafts, while Continue remains the only normal step advance. Earlier descriptions
+of separate Check answer and conversational Send are historical.
+
+Current-step example words are independent of whole-session replay. The internal
+`useExample(pathId?, seedId?)` action accepts only existing authored seeds for the
+current step, fills the appropriate draft, and retains origin on edits. The v2
+wire shape stays unchanged. Origin validation checks each path/seed/step rather
+than requiring every example to belong to the selected replay path, allowing
+mixed examples in one ordinary session. Route, assessment, chronology and linked
+turn/attempt checks remain mandatory. Whole-session replay stays an explicit,
+confirmed restart. Concise recap labels identify example versus typed answers;
+example origin is not a claim of learner understanding.
+
+See [owner-observation brief](../plans/phase-4-feedback/brief.md) and its evidence
+for verification of these changes. The earlier Phase 4 candidate is historical;
+use the refreshed fingerprint for the current technical build. Qualified biology
+review and actual learner observation remain separate outstanding gates.
+
+
+## Completion presentation and motion — 15 October 2026
+
+`feedback-presentation.ts` maps immutable attempt evidence to short learner-facing feedback, criterion labels and recap closure. It does not modify canonical feedback, assessment, store or storage validation. Uncertainty takes priority over positive styling; successful final transfer does not erase an unresolved earlier explanation. Example origin remains visible.
+
+`useSessionMotion.ts` uses the Web Animations API for brief new-content entrances. Route-instance refs baseline existing items on mount/replacement and remember revealed IDs, so Back, typing and persisted resume cannot replay success. Reduced-motion preference, missing API and elements without a rendered box use static rendering. Focus, input and reading-area geometry stay stable. No stored fields, dependencies or assets were added. See [polish evidence](../plans/phase-4-polish/evidence.md) for the current candidate.

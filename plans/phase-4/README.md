@@ -1,5 +1,7 @@
 # Phase 4 handoff
 
+> 15 October: this packet records the earlier technical candidate. Owner-observation changes are tracked in [the follow-up packet](../phase-4-feedback/README.md); use its final fingerprint and validation for the current app.
+
 14 October 2026 · Desktop Chrome presentation target
 
 Technical hardening and review preparation for the existing photosynthesis journey. **Full Phase 4 and final freeze remain open**: qualified biology review and relevant-learner observations are not arranged; human presenter rehearsal and physical-phone testing remain pending.

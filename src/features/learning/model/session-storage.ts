@@ -22,17 +22,17 @@ export function validateSession(value: unknown): Session | null {
   if (!object(value) || value.schemaVersion !== 2 || value.scenarioId !== scenario.id || value.scenarioVersion !== scenario.version || !text(value.id) || !value.id || !text(value.originalTopic) || !text(value.confusion) || !text(value.correction) || !scenario.diagnosis.choices.some(choice => choice.id === value.diagnostic) || !['original', 'energy'].includes(value.interpretation as string) || typeof value.completed !== 'boolean' || typeof value.help !== 'boolean' || !known(value.currentStepId)) return null
   const base = value.interpretation === 'energy' ? scenario.plan.supportedCorrection.route : scenario.plan.stepIds
   if (value.outcome !== (value.interpretation === 'energy' ? focusedOutcome : scenario.inferredOutcome) || !same(value.originalRoute, base) || !Array.isArray(value.route) || !Array.isArray(value.routeChanges) || !Array.isArray(value.attempts) || value.attempts.length > 4 || !Array.isArray(value.turns) || value.turns.length > 2000 || !Array.isArray(value.usedSeeds) || value.usedSeeds.length > 30 || new Set(value.usedSeeds).size !== value.usedSeeds.length || (value.examplePath !== null && !scenario.examplePaths.some(path => path.pathId === value.examplePath))) return null
-  const seedIds = scenario.examplePaths.find(path => path.pathId === value.examplePath)?.inputs.map(input => input.id) ?? []
+  const seedIds = scenario.examplePaths.flatMap(path => path.inputs.map(input => input.id))
   if (!value.usedSeeds.every(id => seedIds.includes(id as string))) return null
   for (const drafts of [value.drafts, value.answerDrafts]) {
-    if (!object(drafts) || !Object.entries(drafts).every(([id, draft]) => known(id) && origin(draft, id) && (draft.origin !== 'example' || draft.pathId === value.examplePath))) return null
+    if (!object(drafts) || !Object.entries(drafts).every(([id, draft]) => known(id) && origin(draft, id))) return null
   }
   const route: Session['route'] = base.map(id => ({ id, status: 'pending' }))
   const changes: Session['routeChanges'] = []
   const attempts: Attempt[] = []
   let lastPosition = -1
   for (const raw of value.attempts) {
-    if (!object(raw) || !known(raw.stepId) || !['guided', 'follow-up', 'transfer', 'retry'].includes(raw.stepId) || raw.id !== `${raw.stepId}-first` || !text(raw.at) || !Number.isFinite(Date.parse(raw.at)) || !origin(raw, raw.stepId) || !raw.text.trim() || (raw.origin === 'example' && raw.pathId !== value.examplePath)) return null
+    if (!object(raw) || !known(raw.stepId) || !['guided', 'follow-up', 'transfer', 'retry'].includes(raw.stepId) || raw.id !== `${raw.stepId}-first` || !text(raw.at) || !Number.isFinite(Date.parse(raw.at)) || !origin(raw, raw.stepId) || !raw.text.trim()) return null
     if (attempts.length && Date.parse(raw.at as string) < Date.parse(attempts[attempts.length - 1].at)) return null
     const position = route.findIndex(entry => entry.id === raw.stepId)
     if (position <= lastPosition || position < 0 || (raw.stepId !== 'guided' && !attempts.some(attempt => attempt.stepId === 'guided'))) return null
@@ -90,7 +90,7 @@ export function validateSession(value: unknown): Session | null {
   const attemptOrder: string[] = []
   const linked = new Map<string, number>()
   for (const [index, raw] of value.turns.entries()) {
-    if (!object(raw) || raw.id !== index + 1 || !known(raw.stepId) || !route.some(entry => entry.id === raw.stepId) || !['learner', 'tutor'].includes(raw.speaker as string) || !origin(raw, raw.stepId, raw.speaker === 'tutor') || (raw.speaker === 'tutor') !== (raw.origin === 'authored') || (raw.origin === 'example' && raw.pathId !== value.examplePath)) return null
+    if (!object(raw) || raw.id !== index + 1 || !known(raw.stepId) || !route.some(entry => entry.id === raw.stepId) || !['learner', 'tutor'].includes(raw.speaker as string) || !origin(raw, raw.stepId, raw.speaker === 'tutor') || (raw.speaker === 'tutor') !== (raw.origin === 'authored')) return null
     if (raw.attemptId !== undefined) {
       const attempt = attempts.find(attempt => attempt.id === raw.attemptId && attempt.stepId === raw.stepId)
       if (!attempt || (raw.speaker === 'learner' && (!same({ text: raw.text, origin: raw.origin, pathId: raw.pathId, seedTurnId: raw.seedTurnId, edited: raw.edited }, { text: attempt.text, origin: attempt.origin, pathId: attempt.pathId, seedTurnId: attempt.seedTurnId, edited: attempt.edited }))) || (raw.speaker === 'tutor' && raw.text !== attempt.feedback)) return null

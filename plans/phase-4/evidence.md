@@ -1,5 +1,7 @@
 # Phase 4 — hardening and presentation evidence
 
+> 15 October: this packet records the earlier technical candidate. Owner-observation changes are tracked in [the follow-up packet](../phase-4-feedback/README.md); use its final fingerprint and validation for the current app.
+
 14 October 2026 · Africa/Lagos · FE-16–21 · **Technical checks passed; independent verdict recorded in [review](review.md). External gates remain open.**
 
 ## Change and ownership

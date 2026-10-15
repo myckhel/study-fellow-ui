@@ -1,5 +1,7 @@
 # FE-21 — Technical candidate and freeze handoff
 
+> 15 October: this packet records the earlier technical candidate. Owner-observation changes and completion feedback/motion are tracked in [the latest polish packet](../phase-4-polish/README.md); use its final fingerprint and validation for the current app.
+
 **Final freeze: pending.** This handoff identifies a tested technical candidate; it is not submission approval, deployment, or evidence of completed external validation. FE-16 qualified biology review and FE-17 relevant-learner observation remain open; FE-20 is conditional on content review. Human presenter timing and physical-phone/software-keyboard checks remain outstanding.
 
 ## Candidate identity and run instructions

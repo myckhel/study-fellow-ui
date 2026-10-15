@@ -1,0 +1,35 @@
+$ playwright test "tests/e2e/polish.spec.ts" "--workers=3" "--output=/tmp/studyfellow-polish-focused-results"
+/opt/local/bin/bash: warning: setlocale: LC_ALL: cannot change locale (C.UTF-8): No such file or directory
+
+Running 16 tests using 3 workers
+
+(node:81233) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:81227) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:81228) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓   2 [desktop] › tests/e2e/polish.spec.ts:15:1 › home marketing stays general while available topic remains on setup (5.9s)
+  ✓   1 [desktop] › tests/e2e/polish.spec.ts:24:1 › positive guided and transfer feedback close a typed session without mastery claims (10.9s)
+  ✓   5 [desktop] › tests/e2e/polish.spec.ts:72:1 › display adapters preserve saved feedback bytes and respect example and uncertain origins (65ms)
+  ✓   4 [desktop] › tests/e2e/polish.spec.ts:61:1 › sound transfer retains neutral closure when an earlier explanation is unresolved (9.0s)
+  ✓   3 [desktop] › tests/e2e/polish.spec.ts:41:1 › partial and uncertain answers stay neutral; successful retry gives positive closure (15.9s)
+  ✓   6 [desktop] › tests/e2e/polish.spec.ts:91:3 › no-preference motion is observable once and does not replay on draft edits, Back or resume (8.7s)
+  ✓   8 [desktop] › tests/e2e/polish.spec.ts:140:1 › missing Web Animations API keeps static teaching and success usable (4.1s)
+  ✓   7 [desktop] › tests/e2e/polish.spec.ts:91:3 › reduce motion is observable once and does not replay on draft edits, Back or resume (6.7s)
+(node:82211) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:82308) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:82350) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓   9 [mobile] › tests/e2e/polish.spec.ts:24:1 › positive guided and transfer feedback close a typed session without mastery claims (6.0s)
+  ✓  10 [mobile] › tests/e2e/polish.spec.ts:15:1 › home marketing stays general while available topic remains on setup (4.5s)
+  ✓  13 [mobile] › tests/e2e/polish.spec.ts:72:1 › display adapters preserve saved feedback bytes and respect example and uncertain origins (32ms)
+  ✓  12 [mobile] › tests/e2e/polish.spec.ts:61:1 › sound transfer retains neutral closure when an earlier explanation is unresolved (9.3s)
+  ✓  11 [mobile] › tests/e2e/polish.spec.ts:41:1 › partial and uncertain answers stay neutral; successful retry gives positive closure (13.5s)
+  ✓  14 [mobile] › tests/e2e/polish.spec.ts:91:3 › no-preference motion is observable once and does not replay on draft edits, Back or resume (10.1s)
+  ✓  16 [mobile] › tests/e2e/polish.spec.ts:140:1 › missing Web Animations API keeps static teaching and success usable (2.8s)
+  ✓  15 [mobile] › tests/e2e/polish.spec.ts:91:3 › reduce motion is observable once and does not replay on draft edits, Back or resume (5.5s)
+
+  16 passed (51.0s)

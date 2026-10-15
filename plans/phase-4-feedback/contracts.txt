@@ -1,0 +1,1 @@
+PASS photosynthesis.v2.json: 9 stable steps, 70 ordered/provenanced turns, 8 assessments match production rules; references, route changes, contextual conversation, check drafts and copy isolation verified.

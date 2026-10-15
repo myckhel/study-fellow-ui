@@ -1,0 +1,19 @@
+$ playwright test "tests/e2e/session.spec.ts" "tests/e2e/learning.spec.ts" --grep "missing visual|unknown routes and failed" "--workers=3" "--output=/tmp/studyfellow-polish-fault-results"
+/opt/local/bin/bash: warning: setlocale: LC_ALL: cannot change locale (C.UTF-8): No such file or directory
+
+Running 4 tests using 3 workers
+
+(node:96401) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:96402) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:96400) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  3 [desktop] › tests/e2e/session.spec.ts:205:1 › missing visual keeps essential text caption and sources (7.2s)
+  ✓  2 [mobile] › tests/e2e/learning.spec.ts:86:1 › unknown routes and failed current lazy import recover (7.6s)
+  ✓  1 [desktop] › tests/e2e/learning.spec.ts:86:1 › unknown routes and failed current lazy import recover (7.8s)
+(node:96848) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  4 [mobile] › tests/e2e/session.spec.ts:205:1 › missing visual keeps essential text caption and sources (2.9s)
+
+  4 passed (15.7s)

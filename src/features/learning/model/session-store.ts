@@ -22,7 +22,7 @@ type State = {
   session: Session | null; storage: 'saved' | 'pending' | 'unavailable' | 'invalid' | 'old'; flush: () => void; review: (stepId: string) => void; begin: (input: Begin) => boolean; setDraft: (text: string) => void;
   send: () => void; check: (unresolved?: boolean) => void; help: (enabled: boolean) => void;
   keepWorking: () => void; move: (direction: -1 | 1) => void; reset: () => boolean;
-  selectPath: (pathId: string) => void; useExample: () => void;
+  selectPath: (pathId: string) => void; useExample: (pathId?: string, seedId?: string) => void;
 }
 export const isCheck = (id: string) => ['guided', 'follow-up', 'transfer', 'retry'].includes(id)
 export const activeDraft = (session: Session): Draft | undefined => (isCheck(session.currentStepId) && !session.help ? session.answerDrafts : session.drafts)[session.currentStepId]
@@ -109,12 +109,13 @@ export const useSessionStore = create<State>((set, get) => ({
   }),
   reset: () => { if (clearSession()) { set({ session: null, storage: 'saved' }); return true }; set({ storage: 'unavailable' }); return false },
   selectPath: pathId => set(({ session }) => session && scenario.examplePaths.some(path => path.pathId === pathId) ? { session: { ...initial({ topic: session.originalTopic, confusion: session.confusion, diagnostic: session.diagnostic, correction: '', energy: false }), examplePath: pathId } } : {}),
-  useExample: () => set(({ session }) => {
+  useExample: (pathId, seedId) => set(({ session }) => {
     if (!session) return {}
-    const seed = nextExample(session)
-    if (!seed || session.attempts.some(attempt => attempt.stepId === session.currentStepId)) return {}
+    const path = scenario.examplePaths.find(path => path.pathId === (pathId ?? session.examplePath))
+    const seed = seedId ? path?.inputs.find(input => input.id === seedId && input.stepId === session.currentStepId) : nextExample(session)
+    if (!path || !seed || (seed.kind === 'answer' && session.attempts.some(attempt => attempt.stepId === session.currentStepId))) return {}
     const key = isCheck(seed.stepId) && seed.kind === 'answer' ? 'answerDrafts' : 'drafts'
-    return { session: { ...session, [key]: { ...session[key], [seed.stepId]: { text: seed.text, origin: 'example', pathId: session.examplePath!, seedTurnId: seed.id, edited: false } }, help: isCheck(seed.stepId) && seed.kind === 'conversation', usedSeeds: seed.event === 'save-answer-draft' ? [...session.usedSeeds, seed.id] : session.usedSeeds, clarification: null } }
+    return { session: { ...session, [key]: { ...session[key], [seed.stepId]: { text: seed.text, origin: 'example', pathId: path.pathId, seedTurnId: seed.id, edited: false } }, help: isCheck(seed.stepId) && seed.kind === 'conversation', usedSeeds: seed.event === 'save-answer-draft' ? [...new Set([...session.usedSeeds, seed.id])] : session.usedSeeds, clarification: null } }
   }),
 }))
 
