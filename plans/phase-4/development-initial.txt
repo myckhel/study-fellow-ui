@@ -1,0 +1,140 @@
+$ playwright test "--workers=3"
+/opt/local/bin/bash: warning: setlocale: LC_ALL: cannot change locale (C.UTF-8): No such file or directory
+
+Running 86 tests using 3 workers
+
+(node:23823) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:23817) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:23820) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓   1 [desktop] › tests/e2e/assessment.spec.ts:28:1 › fresh transfer preserves individual criteria and uncertain evidence (56ms)
+  ✓   2 [desktop] › tests/e2e/assessment.spec.ts:8:1 › guided rules distinguish reasoning conservatively (41ms)
+  ✓   3 [desktop] › tests/e2e/assessment.spec.ts:66:1 › persisted boundary rejects malformed and impossible states (180ms)
+  ✓   4 [desktop] › tests/e2e/learning.spec.ts:21:1 › first and retry evidence stays distinct through recap, revisit, reload and home (24.9s)
+  ✓   5 [desktop] › tests/e2e/learning.spec.ts:33:1 › unknown and contradictory transfer drafts clarify; unresolved retry completes without success (32.5s)
+  ✓   6 [desktop] › tests/e2e/learning.spec.ts:46:1 › separate answer/help drafts and added route survive interruption and pending-draft Leave (35.6s)
+  ✓   7 [desktop] › tests/e2e/learning.spec.ts:55:3 › saved corrupt JSON needs confirmed recovery and preserves cancellation (10.8s)
+  ✓   8 [desktop] › tests/e2e/learning.spec.ts:55:3 › saved unknown schema needs confirmed recovery and preserves cancellation (8.7s)
+  ✓   9 [desktop] › tests/e2e/learning.spec.ts:55:3 › saved unknown scenario needs confirmed recovery and preserves cancellation (9.0s)
+  ✓  10 [desktop] › tests/e2e/learning.spec.ts:66:1 › clean read-success/write-denied storage still permits in-tab learning and retry (11.9s)
+  ✓  11 [desktop] › tests/e2e/learning.spec.ts:78:1 › denied storage reads allow learning; failed removal retains session and saved bytes (10.4s)
+  -  14 [desktop] › tests/e2e/learning.spec.ts:99:1 › production cached revisit works offline with new saved transfer drafts
+  ✓  12 [desktop] › tests/e2e/learning.spec.ts:86:1 › unknown routes and failed current lazy import recover (9.4s)
+  ✓  13 [desktop] › tests/e2e/learning.spec.ts:92:1 › keyboard handoff and short phone recap retain focus and reading space (8.1s)
+  ✓  15 [desktop] › tests/e2e/learning.spec.ts:105:1 › unsaved completion offers an in-tab summary without claiming it is saved (9.1s)
+  ✓  18 [desktop] › tests/e2e/phase2.spec.ts:15:1 › adaptive evidence, clarification, route history and immutability (25ms)
+  ✓  19 [desktop] › tests/e2e/phase2.spec.ts:36:1 › help preserves exact example answer and edited origin; Send never checks (58ms)
+  ✓  20 [desktop] › tests/e2e/phase2.spec.ts:48:1 › contradictory and insufficient follow-up never imply success (36ms)
+  ✓  17 [desktop] › tests/e2e/learning.spec.ts:113:3 › recap clears corrected matter explanation independently of correct transfer (11.6s)
+  ✓  16 [desktop] › tests/e2e/learning.spec.ts:113:3 › recap retains unresolved matter explanation independently of correct transfer (16.3s)
+  ✓  21 [desktop] › tests/e2e/phase2.spec.ts:62:3 › example path ready reaches checked transfer and evidence recap (11.6s)
+  ✓  22 [desktop] › tests/e2e/phase2.spec.ts:62:3 › example path misconception reaches checked transfer and evidence recap (20.2s)
+  ✓  24 [desktop] › tests/e2e/phase2.spec.ts:117:1 › unknown with topic keyword gets bounded reply; help and replacement cancellation preserve work (20.1s)
+  ✓  23 [desktop] › tests/e2e/phase2.spec.ts:62:3 › example path clarification reaches checked transfer and evidence recap (24.4s)
+  ✓  27 [desktop] › tests/e2e/phase3.spec.ts:16:1 › v2 rebuilds criteria and rejects forged feedback, unreachable frontier and chronological evidence (133ms)
+  ✓  28 [desktop] › tests/e2e/phase3.spec.ts:28:1 › v2 permits real added support, uncertain help context, retry and completed back navigation (153ms)
+  ✓  25 [desktop] › tests/e2e/phase2.spec.ts:140:3 › compound unclear edited example dock 320 (10.4s)
+  ✓  26 [desktop] › tests/e2e/phase2.spec.ts:140:3 › compound unclear edited example dock 375 (7.3s)
+  ✓  30 [desktop] › tests/e2e/phase3.spec.ts:44:1 › home describes working checks in simple language (3.4s)
+  ✓  32 [desktop] › tests/e2e/phase3.spec.ts:62:1 › recap names the remaining energy connection when matter inputs were stated (235ms)
+
+  ✓  33 [desktop] › tests/e2e/session.spec.ts:19:1 › canonical scenario projection is fresh and immutable (556ms)
+  ✓  31 [desktop] › tests/e2e/phase3.spec.ts:50:1 › save failure and unclear answer retain short-phone reading space and recovery action (7.5s)
+  ✓  29 [desktop] › tests/e2e/phase3.spec.ts:36:1 › edited example origin, answer draft and clarification remain exact after reload (17.3s)
+  ✓  34 [desktop] › tests/e2e/session.spec.ts:32:1 › unsupported topic and correction retain input; prepared alternative explicit (9.7s)
+  ✓  37 [desktop] › tests/e2e/session.spec.ts:119:1 › old saved bytes survive cancelled replacement and retire only on confirmation (10.6s)
+  ✓  36 [desktop] › tests/e2e/session.spec.ts:104:1 › saved resume and reset cancellation preserve drafts through reload (13.7s)
+  ✓  35 [desktop] › tests/e2e/session.spec.ts:57:1 › conversation unscored, explicit checks adapt, drafts return, evidence summary (19.1s)
+  ✓  38 [desktop] › tests/e2e/session.spec.ts:137:3 › layout and reduced motion 320x500 (8.6s)
+  ✓  40 [desktop] › tests/e2e/session.spec.ts:137:3 › layout and reduced motion 1280x900 (5.6s)
+  ✓  39 [desktop] › tests/e2e/session.spec.ts:137:3 › layout and reduced motion 375x480 (8.6s)
+  ✓  41 [desktop] › tests/e2e/session.spec.ts:187:1 › scroll follow respects earlier reading and exposes new reply cue (7.7s)
+  ✓  42 [desktop] › tests/e2e/session.spec.ts:204:1 › missing visual keeps essential text caption and sources (8.6s)
+  ✓  43 [desktop] › tests/e2e/session.spec.ts:224:1 › retired lesson URLs preserve old bytes and lead to recovery (8.4s)
+(node:31465) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  44 [mobile] › tests/e2e/assessment.spec.ts:66:1 › persisted boundary rejects malformed and impossible states (135ms)
+(node:31482) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  46 [mobile] › tests/e2e/assessment.spec.ts:8:1 › guided rules distinguish reasoning conservatively (20ms)
+(node:31605) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  48 [mobile] › tests/e2e/assessment.spec.ts:28:1 › fresh transfer preserves individual criteria and uncertain evidence (310ms)
+  ✓  45 [mobile] › tests/e2e/learning.spec.ts:21:1 › first and retry evidence stays distinct through recap, revisit, reload and home (14.2s)
+  ✓  50 [mobile] › tests/e2e/learning.spec.ts:55:3 › saved corrupt JSON needs confirmed recovery and preserves cancellation (3.9s)
+  ✓  47 [mobile] › tests/e2e/learning.spec.ts:33:1 › unknown and contradictory transfer drafts clarify; unresolved retry completes without success (17.0s)
+  ✓  51 [mobile] › tests/e2e/learning.spec.ts:55:3 › saved unknown schema needs confirmed recovery and preserves cancellation (3.3s)
+  ✓  52 [mobile] › tests/e2e/learning.spec.ts:55:3 › saved unknown scenario needs confirmed recovery and preserves cancellation (3.6s)
+  ✓  49 [mobile] › tests/e2e/learning.spec.ts:46:1 › separate answer/help drafts and added route survive interruption and pending-draft Leave (19.1s)
+  ✓  53 [mobile] › tests/e2e/learning.spec.ts:66:1 › clean read-success/write-denied storage still permits in-tab learning and retry (6.5s)
+  ✓  54 [mobile] › tests/e2e/learning.spec.ts:78:1 › denied storage reads allow learning; failed removal retains session and saved bytes (7.5s)
+  ✓  55 [mobile] › tests/e2e/learning.spec.ts:86:1 › unknown routes and failed current lazy import recover (7.1s)
+  -  57 [mobile] › tests/e2e/learning.spec.ts:99:1 › production cached revisit works offline with new saved transfer drafts
+  ✓  56 [mobile] › tests/e2e/learning.spec.ts:92:1 › keyboard handoff and short phone recap retain focus and reading space (5.9s)
+  ✓  58 [mobile] › tests/e2e/learning.spec.ts:105:1 › unsaved completion offers an in-tab summary without claiming it is saved (7.1s)
+  ✓  61 [mobile] › tests/e2e/phase2.spec.ts:15:1 › adaptive evidence, clarification, route history and immutability (37ms)
+  ✓  62 [mobile] › tests/e2e/phase2.spec.ts:36:1 › help preserves exact example answer and edited origin; Send never checks (22ms)
+  ✓  63 [mobile] › tests/e2e/phase2.spec.ts:48:1 › contradictory and insufficient follow-up never imply success (94ms)
+  ✓  59 [mobile] › tests/e2e/learning.spec.ts:113:3 › recap retains unresolved matter explanation independently of correct transfer (12.7s)
+  ✓  60 [mobile] › tests/e2e/learning.spec.ts:113:3 › recap clears corrected matter explanation independently of correct transfer (9.8s)
+  ✓  64 [mobile] › tests/e2e/phase2.spec.ts:62:3 › example path ready reaches checked transfer and evidence recap (8.3s)
+  ✓  65 [mobile] › tests/e2e/phase2.spec.ts:62:3 › example path misconception reaches checked transfer and evidence recap (14.1s)
+  ✓  66 [mobile] › tests/e2e/phase2.spec.ts:62:3 › example path clarification reaches checked transfer and evidence recap (14.8s)
+  ✓  67 [mobile] › tests/e2e/phase2.spec.ts:117:1 › unknown with topic keyword gets bounded reply; help and replacement cancellation preserve work (12.6s)
+  ✓  70 [mobile] › tests/e2e/phase3.spec.ts:16:1 › v2 rebuilds criteria and rejects forged feedback, unreachable frontier and chronological evidence (73ms)
+  ✓  71 [mobile] › tests/e2e/phase3.spec.ts:28:1 › v2 permits real added support, uncertain help context, retry and completed back navigation (332ms)
+  ✓  69 [mobile] › tests/e2e/phase2.spec.ts:140:3 › compound unclear edited example dock 375 (7.6s)
+  ✓  68 [mobile] › tests/e2e/phase2.spec.ts:140:3 › compound unclear edited example dock 320 (8.4s)
+  ✓  73 [mobile] › tests/e2e/phase3.spec.ts:44:1 › home describes working checks in simple language (5.8s)
+  ✓  75 [mobile] › tests/e2e/phase3.spec.ts:62:1 › recap names the remaining energy connection when matter inputs were stated (76ms)
+
+  ✓  76 [mobile] › tests/e2e/session.spec.ts:19:1 › canonical scenario projection is fresh and immutable (248ms)
+  ✓  74 [mobile] › tests/e2e/phase3.spec.ts:50:1 › save failure and unclear answer retain short-phone reading space and recovery action (7.7s)
+  ✓  77 [mobile] › tests/e2e/session.spec.ts:32:1 › unsupported topic and correction retain input; prepared alternative explicit (4.5s)
+  ✓  79 [mobile] › tests/e2e/session.spec.ts:104:1 › saved resume and reset cancellation preserve drafts through reload (5.3s)
+  ✓  78 [mobile] › tests/e2e/session.spec.ts:57:1 › conversation unscored, explicit checks adapt, drafts return, evidence summary (8.7s)
+  ✓  80 [mobile] › tests/e2e/session.spec.ts:119:1 › old saved bytes survive cancelled replacement and retire only on confirmation (5.3s)
+  ✓  81 [mobile] › tests/e2e/session.spec.ts:137:3 › layout and reduced motion 320x500 (6.8s)
+  ✓  82 [mobile] › tests/e2e/session.spec.ts:137:3 › layout and reduced motion 375x480 (6.8s)
+  ✓  83 [mobile] › tests/e2e/session.spec.ts:137:3 › layout and reduced motion 1280x900 (5.4s)
+  ✓  85 [mobile] › tests/e2e/session.spec.ts:204:1 › missing visual keeps essential text caption and sources (4.5s)
+  ✓  84 [mobile] › tests/e2e/session.spec.ts:187:1 › scroll follow respects earlier reading and exposes new reply cue (6.0s)
+  ✓  86 [mobile] › tests/e2e/session.spec.ts:224:1 › retired lesson URLs preserve old bytes and lead to recovery (3.4s)
+  ✘  72 [mobile] › tests/e2e/phase3.spec.ts:36:1 › edited example origin, answer draft and clarification remain exact after reload (1.0m)
+
+
+  1) [mobile] › tests/e2e/phase3.spec.ts:36:1 › edited example origin, answer draft and clarification remain exact after reload 
+
+    Test timeout of 60000ms exceeded.
+
+    Error: locator.click: Test timeout of 60000ms exceeded.
+    Call log:
+      - waiting for locator('.session-canvas details').first().getByRole('button', { name: 'Use example answer' })
+
+
+      38 |   const examples = page.locator('.session-canvas details').first(); await examples.locator('summary').click(); page.once('dialog', dialog => dialog.accept()); await examples.getByRole('button', { name: 'Ready', exact: true }).click()
+      39 |   await page.getByRole('button', { name: 'Continue', exact: true }).click(); await examples.getByRole('button', { name: 'Use example answer' }).click(); const input = page.getByRole('textbox', { name: 'Message StudyFellow' }); await input.fill('Light provides energy to build sugar.'); await page.getByRole('button', { name: 'Check answer' }).click(); await page.getByRole('button', { name: 'Continue', exact: true }).click()
+    > 40 |   await examples.getByRole('button', { name: 'Use example answer' }).click(); await input.fill('Plant A makes sugar faster because it has less light energy to build sugar.'); await page.getByRole('button', { name: 'Check answer' }).click(); await page.getByRole('button', { name: 'Need help?' }).click(); await page.reload(); await expect(page.getByRole('button', { name: 'Return to answer' })).toBeVisible(); await page.getByRole('button', { name: 'Return to answer' }).click(); await expect(input).toHaveValue('Plant A makes sugar faster because it has less light energy to build sugar.')
+         |                                                                      ^
+      41 |   await input.fill(good); await page.getByRole('button', { name: 'Check answer' }).click(); await page.getByRole('button', { name: 'View summary' }).click(); await expect(examples).not.toHaveAttribute('open'); await page.reload(); await expect(page.getByRole('region', { name: 'Session results' })).toContainText('Example answer · edited · shows the check, not your understanding'); await expect(input).not.toBeVisible(); await page.screenshot({ path: info.outputPath('phase3-edited-recap.png') })
+      42 | })
+      43 |
+        at /Users/user/Desktop/apps/learn/codex-hackathon/system/study-fellow-ui/tests/e2e/phase3.spec.ts:40:70
+
+    Error Context: test-results/phase3-edited-example-orig-61f79-n-remain-exact-after-reload-mobile/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/phase3-edited-example-orig-61f79-n-remain-exact-after-reload-mobile/trace.zip
+    Usage:
+
+        npx playwright show-trace test-results/phase3-edited-example-orig-61f79-n-remain-exact-after-reload-mobile/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  1 failed
+    [mobile] › tests/e2e/phase3.spec.ts:36:1 › edited example origin, answer draft and clarification remain exact after reload 
+  2 skipped
+  83 passed (4.9m)
+error: script "test:e2e" exited with code 1

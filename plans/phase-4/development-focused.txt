@@ -1,0 +1,65 @@
+$ playwright test "tests/e2e/phase4.spec.ts" "tests/e2e/phase3.spec.ts" "--workers=2" "--output=/tmp/studyfellow-phase4-focused-results"
+/opt/local/bin/bash: warning: setlocale: LC_ALL: cannot change locale (C.UTF-8): No such file or directory
+
+Running 18 tests using 2 workers
+
+(node:39652) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:39653) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓   1 [desktop] › tests/e2e/phase3.spec.ts:16:1 › v2 rebuilds criteria and rejects forged feedback, unreachable frontier and chronological evidence (32ms)
+  ✓   2 [desktop] › tests/e2e/phase3.spec.ts:28:1 › v2 permits real added support, uncertain help context, retry and completed back navigation (53ms)
+  ✓   4 [desktop] › tests/e2e/phase3.spec.ts:44:1 › home describes working checks in simple language (3.0s)
+  ✓   5 [desktop] › tests/e2e/phase3.spec.ts:50:1 › save failure and unclear answer retain short-phone reading space and recovery action (3.7s)
+  ✓   6 [desktop] › tests/e2e/phase3.spec.ts:62:1 › recap names the remaining energy connection when matter inputs were stated (8ms)
+  ✓   3 [desktop] › tests/e2e/phase3.spec.ts:36:1 › edited example origin, answer draft and clarification remain exact after reload (10.0s)
+  ✓   7 [desktop] › tests/e2e/phase4.spec.ts:37:1 › real keyboard traversal covers entry, disclosures, sources, composer and leave/resume (9.8s)
+  ✓   8 [desktop] › tests/e2e/phase4.spec.ts:85:1 › confirmed reset clears evidence, added route, example origin and drafts before a fresh reload (6.6s)
+  ✓   9 [desktop] › tests/e2e/phase4.spec.ts:132:1 › enabled entry and session input boundaries and placeholders have readable contrast (2.0s)
+(node:40647) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:40686) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  11 [mobile] › tests/e2e/phase3.spec.ts:16:1 › v2 rebuilds criteria and rejects forged feedback, unreachable frontier and chronological evidence (29ms)
+  ✓  10 [mobile] › tests/e2e/phase3.spec.ts:28:1 › v2 permits real added support, uncertain help context, retry and completed back navigation (38ms)
+  ✓  13 [mobile] › tests/e2e/phase3.spec.ts:44:1 › home describes working checks in simple language (2.4s)
+  ✓  14 [mobile] › tests/e2e/phase3.spec.ts:50:1 › save failure and unclear answer retain short-phone reading space and recovery action (7.1s)
+  ✓  15 [mobile] › tests/e2e/phase3.spec.ts:62:1 › recap names the remaining energy connection when matter inputs were stated (5ms)
+  ✓  16 [mobile] › tests/e2e/phase4.spec.ts:37:1 › real keyboard traversal covers entry, disclosures, sources, composer and leave/resume (6.2s)
+  ✓  17 [mobile] › tests/e2e/phase4.spec.ts:85:1 › confirmed reset clears evidence, added route, example origin and drafts before a fresh reload (4.1s)
+  ✓  18 [mobile] › tests/e2e/phase4.spec.ts:132:1 › enabled entry and session input boundaries and placeholders have readable contrast (2.0s)
+  ✘  12 [mobile] › tests/e2e/phase3.spec.ts:36:1 › edited example origin, answer draft and clarification remain exact after reload (1.0m)
+
+
+  1) [mobile] › tests/e2e/phase3.spec.ts:36:1 › edited example origin, answer draft and clarification remain exact after reload 
+
+    Test timeout of 60000ms exceeded.
+
+    Error: locator.click: Test timeout of 60000ms exceeded.
+    Call log:
+      - waiting for locator('.session-canvas details').first().getByRole('button', { name: 'Use example answer' })
+
+
+      38 |   const examples = page.locator('.session-canvas details').first(); await examples.locator('summary').click(); page.once('dialog', dialog => dialog.accept()); await examples.getByRole('button', { name: 'Ready', exact: true }).click()
+      39 |   await page.getByRole('button', { name: 'Continue', exact: true }).click(); await examples.getByRole('button', { name: 'Use example answer' }).click(); const input = page.getByRole('textbox', { name: 'Message StudyFellow' }); await input.fill('Light provides energy to build sugar.'); await page.getByRole('button', { name: 'Check answer' }).click(); await page.getByRole('button', { name: 'Continue', exact: true }).click()
+    > 40 |   await examples.getByRole('button', { name: 'Use example answer' }).click(); await input.fill('Plant A makes sugar faster because it has less light energy to build sugar.'); await page.getByRole('button', { name: 'Check answer' }).click(); await page.getByRole('button', { name: 'Need help?' }).click(); await page.reload(); await expect(page.getByRole('button', { name: 'Return to answer' })).toBeVisible(); await page.getByRole('button', { name: 'Return to answer' }).click(); await expect(input).toHaveValue('Plant A makes sugar faster because it has less light energy to build sugar.')
+         |                                                                      ^
+      41 |   await input.fill(good); await page.getByRole('button', { name: 'Check answer' }).click(); await page.getByRole('button', { name: 'View summary' }).click(); await expect(examples).not.toHaveAttribute('open'); await page.reload(); await expect(page.getByRole('region', { name: 'Session results' })).toContainText('Example answer · edited · shows the check, not your understanding'); await expect(input).not.toBeVisible(); await page.screenshot({ path: info.outputPath('phase3-edited-recap.png') })
+      42 | })
+      43 |
+        at /Users/user/Desktop/apps/learn/codex-hackathon/system/study-fellow-ui/tests/e2e/phase3.spec.ts:40:70
+
+    Error Context: ../../../../../../../../tmp/studyfellow-phase4-focused-results/phase3-edited-example-orig-61f79-n-remain-exact-after-reload-mobile/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    ../../../../../../../../tmp/studyfellow-phase4-focused-results/phase3-edited-example-orig-61f79-n-remain-exact-after-reload-mobile/trace.zip
+    Usage:
+
+        npx playwright show-trace ../../../../../../../../tmp/studyfellow-phase4-focused-results/phase3-edited-example-orig-61f79-n-remain-exact-after-reload-mobile/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  1 failed
+    [mobile] › tests/e2e/phase3.spec.ts:36:1 › edited example origin, answer draft and clarification remain exact after reload 
+  17 passed (1.4m)
+error: script "test:e2e" exited with code 1

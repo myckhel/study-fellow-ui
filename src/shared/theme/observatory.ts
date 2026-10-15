@@ -67,6 +67,8 @@ export function createObservatoryTheme(reducedMotion: boolean): ThemeConfig {
         boxShadowTertiary: token('shadow-observatory'),
       },
       Input: {
+        colorBorder: token('color-muted'),
+        colorTextPlaceholder: token('color-muted'),
         activeBorderColor: token('color-focus'),
         hoverBorderColor: token('color-focus'),
         activeShadow: `0 0 0 2px ${token('color-orbit-soft')}`,

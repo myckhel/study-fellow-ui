@@ -1,0 +1,10 @@
+$ playwright test "tests/e2e/phase3.spec.ts" "--project=mobile" --grep "edited example origin" "--workers=1" "--output=/tmp/studyfellow-phase4-stable-results"
+/opt/local/bin/bash: warning: setlocale: LC_ALL: cannot change locale (C.UTF-8): No such file or directory
+
+Running 1 test using 1 worker
+
+(node:44053) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  1 [mobile] › tests/e2e/phase3.spec.ts:36:1 › edited example origin, answer draft and clarification remain exact after reload (6.0s)
+
+  1 passed (8.4s)
